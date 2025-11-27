@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 public class ImageDaoDataSource implements IImageDao
 {
-	private static final String TABLE_NAME="immagine";
+	private static final String TABLE_NAME="images";
 	private final DataSource ds;
 	
 	public ImageDaoDataSource(DataSource ds)
@@ -29,7 +29,7 @@ public class ImageDaoDataSource implements IImageDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + ImageDaoDataSource.TABLE_NAME 
-				+ " (img, Codice_prodotto) VALUES (?,?)";
+				+ " (img, Product_code) VALUES (?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -61,7 +61,7 @@ public class ImageDaoDataSource implements IImageDao
 		
 		int result;
 		
-		String deleteSQL = "DELETE FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND  Num_Immagine = ?";
+		String deleteSQL = "DELETE FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Product_Code = ? AND  Images_Num = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -90,7 +90,7 @@ public class ImageDaoDataSource implements IImageDao
 		PreparedStatement preparedStatement = null;
 		
 		ImageBean bean= new ImageBean();
-		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto = ? AND NUm_Imagin = ? ";
+		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Product_Code = ? AND Images_Num = ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -101,8 +101,8 @@ public class ImageDaoDataSource implements IImageDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setNumImage(rs.getInt("Num_Immagine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setNumImage(rs.getInt("Images_Num"));
+				bean.setCodiceProdotto(rs.getInt("Product_Code"));
 				bean.setImg(rs.getString("img"));  
 			}
 			
@@ -141,8 +141,8 @@ public class ImageDaoDataSource implements IImageDao
 			while(rs.next()) {
 				ImageBean  bean = new ImageBean();
 				
-				bean.setNumImage(rs.getInt("Num_Immagine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setNumImage(rs.getInt("Images_Num"));
+				bean.setCodiceProdotto(rs.getInt("Product_Code"));
 				bean.setImg(rs.getString("img"));  
 				images.add(bean);
 			}
@@ -166,7 +166,7 @@ public class ImageDaoDataSource implements IImageDao
 		PreparedStatement preparedStatement = null;
 		
 		Collection<ImageBean> images= new LinkedList<ImageBean>();
-		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Codice_Prodotto= ? ";
+		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME + " WHERE Product_Code= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -178,8 +178,8 @@ public class ImageDaoDataSource implements IImageDao
 			while(rs.next()) {
 				ImageBean  bean = new ImageBean();
 				
-				bean.setNumImage(rs.getInt("Num_Immagine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Prodotto"));
+				bean.setNumImage(rs.getInt("Images_Num"));
+				bean.setCodiceProdotto(rs.getInt("Product_Code"));
 				bean.setImg(rs.getString("img"));  
 				images.add(bean);
 			}

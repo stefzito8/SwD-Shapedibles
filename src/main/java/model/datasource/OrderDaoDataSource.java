@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class OrderDaoDataSource implements IOrderDao
 {
-	private static final String TABLE_NAME="ordini";
+	private static final String TABLE_NAME="orders";
 	private DataSource ds=null;
 	
 	public OrderDaoDataSource(DataSource ds)
@@ -30,7 +30,7 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + OrderDaoDataSource.TABLE_NAME 
-				+ " (utente, codice, indirizzo, stato, data_ordine, saldo_totale) VALUES (?,?,?,?,?,?)";
+				+ " (user, code, address, state, order_date, total_cost) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -63,7 +63,7 @@ public class OrderDaoDataSource implements IOrderDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND USER = ?";
+		String deleteSQL = "DELETE FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODE = ? AND USER = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -91,7 +91,7 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		OrderBean bean= new OrderBean();
-		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODICE = ? AND USER = ?";
+		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODE = ? AND USER = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -102,12 +102,12 @@ public class OrderDaoDataSource implements IOrderDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setUtente(rs.getString("Utente"));
-				bean.setCodice(rs.getInt("codice"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setStato(rs.getString("stato"));
-				bean.setDataOrdine(rs.getString("data_ordine"));
-				bean.setSaldoTotale(rs.getDouble("saldo_totale"));
+				bean.setUtente(rs.getString("User"));
+				bean.setCodice(rs.getInt("code"));
+				bean.setIndirizzo(rs.getString("address"));
+				bean.setStato(rs.getString("state"));
+				bean.setDataOrdine(rs.getString("order_date"));
+				bean.setSaldoTotale(rs.getDouble("total_cost"));
 			}
 			
 		} finally {
@@ -144,12 +144,12 @@ public class OrderDaoDataSource implements IOrderDao
 			while(rs.next()) {
 				OrderBean  bean = new OrderBean();
 				
-				bean.setUtente(rs.getString("Utente"));
-				bean.setCodice(rs.getInt("codice"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setStato(rs.getString("stato"));
-				bean.setDataOrdine(rs.getString("data_ordine"));
-				bean.setSaldoTotale(rs.getDouble("saldo_totale"));
+				bean.setUtente(rs.getString("User"));
+				bean.setCodice(rs.getInt("code"));
+				bean.setIndirizzo(rs.getString("address"));
+				bean.setStato(rs.getString("state"));
+				bean.setDataOrdine(rs.getString("order_date"));
+				bean.setSaldoTotale(rs.getDouble("total_cost"));
 				orders.add(bean);
 			}
 			
@@ -172,7 +172,7 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		Collection<OrderBean> orders= new LinkedList<OrderBean>();
-		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE UTENTE= ? ";
+		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE USER= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -184,12 +184,12 @@ public class OrderDaoDataSource implements IOrderDao
 			while(rs.next()) {
 				OrderBean  bean = new OrderBean();
 				
-				bean.setUtente(rs.getString("Utente"));
-				bean.setCodice(rs.getInt("codice"));
-				bean.setIndirizzo(rs.getString("indirizzo"));
-				bean.setStato(rs.getString("stato"));
-				bean.setDataOrdine(rs.getString("data_ordine"));
-				bean.setSaldoTotale(rs.getDouble("saldo_totale"));
+				bean.setUtente(rs.getString("User"));
+				bean.setCodice(rs.getInt("code"));
+				bean.setIndirizzo(rs.getString("address"));
+				bean.setStato(rs.getString("state"));
+				bean.setDataOrdine(rs.getString("order_date"));
+				bean.setSaldoTotale(rs.getDouble("total_cost"));
 				orders.add(bean);
 			}
 			

@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class ContainDaoDataSource implements IContainDao {
 	
-	static private final String TABLE_NAME="contiene";
+	static private final String TABLE_NAME="Contains";
 	private DataSource ds=null;
 	
 	public ContainDaoDataSource(DataSource ds) 
@@ -30,7 +30,7 @@ public class ContainDaoDataSource implements IContainDao {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + ContainDaoDataSource.TABLE_NAME 
-				+ " (codice_ordine, codice_info, quantità) VALUES (?,?,?)";
+				+ " (order_code, info_code, quantity) VALUES (?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -60,7 +60,7 @@ public class ContainDaoDataSource implements IContainDao {
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
+		String deleteSQL = "DELETE FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE order_code = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -88,7 +88,7 @@ public class ContainDaoDataSource implements IContainDao {
 		PreparedStatement preparedStatement = null;
 		
 		ContainBean bean= new ContainBean();
-		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE order_code = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -98,9 +98,9 @@ public class ContainDaoDataSource implements IContainDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
-				bean.setQuantità(rs.getInt("Quantità"));
+				bean.setCodiceOrdine(rs.getInt("order_code"));
+				bean.setCodiceProdotto(rs.getInt("info_code"));
+				bean.setQuantità(rs.getInt("Quantity"));
 			}
 			
 		} finally {
@@ -137,9 +137,9 @@ public class ContainDaoDataSource implements IContainDao {
 			while(rs.next()) {
 				ContainBean  bean = new ContainBean();
 				
-				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
-				bean.setQuantità(rs.getInt("Quantità"));
+				bean.setCodiceOrdine(rs.getInt("order_code"));
+				bean.setCodiceProdotto(rs.getInt("info_code"));
+				bean.setQuantità(rs.getInt("Quantity"));
 				items.add(bean);
 			}
 			
@@ -162,7 +162,7 @@ public class ContainDaoDataSource implements IContainDao {
 		PreparedStatement preparedStatement = null;
 		
 		Collection<ContainBean> items= new LinkedList<ContainBean>();
-		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE CODICE_ORDINE = ?";
+		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME + " WHERE order_code = ?";
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
@@ -173,9 +173,9 @@ public class ContainDaoDataSource implements IContainDao {
 			while(rs.next()) {
 				ContainBean  bean = new ContainBean();
 				
-				bean.setCodiceOrdine(rs.getInt("Codice_Ordine"));
-				bean.setCodiceProdotto(rs.getInt("Codice_Info"));
-				bean.setQuantità(rs.getInt("Quantità"));
+				bean.setCodiceOrdine(rs.getInt("order_code"));
+				bean.setCodiceProdotto(rs.getInt("info_code"));
+				bean.setQuantità(rs.getInt("Quantity"));
 				items.add(bean);
 			}
 			

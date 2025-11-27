@@ -1,0 +1,200 @@
+.base{
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 20%;
+    position: relative;
+    padding: 1.5em;
+    border-radius: 3em;
+    transition: all 0.4s ease;
+    animation: slideIn 1.4s cubic-bezier(.28, 1.63, .62, .88);
+}
+
+.base.register {
+    width: clamp(300px, 70vw, 1200px);
+}
+
+.base.login {
+    width: clamp(300px, 70vw, 400px);
+
+}
+
+.content {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(1px);
+}
+
+.content.login {
+    padding-top: 10%;
+    padding-bottom: 20%;
+}
+
+.content.register {
+    padding-top: 5%;
+    padding-bottom: 20%;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        left: -30%;
+        top: 30%;
+        rotate: -15deg;
+    }
+    to {
+        opacity: 100%;
+        left: 0;
+        top: 5%;
+        rotate: 0deg;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 100%;
+        left: 0;
+        top: 5%;
+        rotate: 0deg;
+    }
+    to {
+        opacity: 0;
+        left: 30%;
+        top: 30%;
+        rotate: +15deg;
+    }
+
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translateX(-1em);
+    }
+    20%, 80% {
+        transform: translateX(1em);
+    }
+    30%, 50%, 70% {
+        transform: translateX(-0.5em);
+    }
+    40%, 60% {
+        transform: translateX(0.5em);
+    }
+}
+
+.base h1{
+    font-size: 45px;
+    background: radial-gradient(rgba(var(--accent),0.5), rgba(var(--secondary),0.8));
+    background-clip: text;
+    text-shadow: 0 0 2em rgba(var(--secondary),1);
+    color: transparent;
+    animation: pulse 10s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#loginForm {
+    width: 80%;
+}
+
+#registerForm {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+label {
+    background: transparent;
+    font-size: 19px;
+    color: rgba(var(--accent),0.7);
+    text-shadow: 0 0 10px rgba(var(--accent),0.3);
+}
+
+.form-group {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0.5em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 3em;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+input[type="submit"]{
+    width: clamp(40%, 50vw, 60%);
+    height: 100%;
+    padding: 10px;
+    font-size: 18px;
+    color: rgba(var(--primary),0.3);
+    cursor: pointer;
+}
+
+input[type="submit"]:hover{
+    color: rgba(var(--primary),0.8);
+}
+
+#loginError, #registerError {
+    width: 100%;
+    color: rgba(var(--redish), 1);
+    text-align: center;
+}
+
+#resetButton {
+    height: calc(100% - 10px);
+    padding: 5px;
+    cursor: pointer;
+}
+
+#resetButton > span {
+    color: rgba(var(--secondary),0.3);
+    transition: color 0.2s;
+}
+
+#resetButton:hover > span {
+    color: rgba(var(--secondary),0.8);
+}
+
+input[type="reset"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .form-group {
+        width: calc(50% - 1em);
+    }
+}
+
+@media (min-width: 1024px) {
+    .form-group {
+        width: calc(33.33% - 1em);
+    }
+}
+
+

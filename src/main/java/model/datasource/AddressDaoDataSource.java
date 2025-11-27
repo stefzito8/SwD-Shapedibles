@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 public class AddressDaoDataSource implements IAddressDao
 {
-	private static final String TABLE_NAME="indirizzi";
+	private static final String TABLE_NAME="adresses";
 	private DataSource ds=null;
 	
 	public AddressDaoDataSource(DataSource ds)
@@ -29,7 +29,7 @@ public class AddressDaoDataSource implements IAddressDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + AddressDaoDataSource.TABLE_NAME 
-				+ " (id, utente, paese, strada, città, numero, codice_postale) VALUES (?,?,?,?,?,?,?)";
+				+ " (id, user, country, street, city, number, Postal_Code) VALUES (?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -62,7 +62,7 @@ public class AddressDaoDataSource implements IAddressDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ? AND UTENTE= ? ";
+		String deleteSQL = "DELETE FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ? AND user= ? ";
 		
 		try {
 			connection= ds.getConnection();
@@ -91,7 +91,7 @@ public class AddressDaoDataSource implements IAddressDao
 		PreparedStatement preparedStatement = null;
 		
 		AddressBean bean= new AddressBean();
-		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ?  AND UTENTE= ? ";
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE ID = ?  AND user= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -103,12 +103,12 @@ public class AddressDaoDataSource implements IAddressDao
 			
 			while(rs.next()) {
 				bean.setId(rs.getString("ID"));
-				bean.setUtente(rs.getString("UTENTE"));
-				bean.setPaese(rs.getString("PAESE"));
-				bean.setStrada(rs.getString("STRADA"));
-				bean.setCittà(rs.getString("città"));
-				bean.setNumero(rs.getInt("NUMERO"));
-				bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+				bean.setUtente(rs.getString("user"));
+				bean.setPaese(rs.getString("country"));
+				bean.setStrada(rs.getString("street"));
+				bean.setCittà(rs.getString("city"));
+				bean.setNumero(rs.getInt("number"));
+				bean.setCodicePostale(rs.getString("Postal_Code"));
 			}
 			
 		} finally {
@@ -146,12 +146,12 @@ public class AddressDaoDataSource implements IAddressDao
 						AddressBean  bean = new AddressBean();
 						
 						bean.setId(rs.getString("ID"));
-						bean.setUtente(rs.getString("UTENTE"));
-						bean.setPaese(rs.getString("PAESE"));
-						bean.setStrada(rs.getString("STRADA"));
-						bean.setCittà(rs.getString("città"));
-						bean.setNumero(rs.getInt("NUMERO"));
-						bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+						bean.setUtente(rs.getString("user"));
+						bean.setPaese(rs.getString("country"));
+						bean.setStrada(rs.getString("street"));
+						bean.setCittà(rs.getString("city"));
+						bean.setNumero(rs.getInt("number"));
+						bean.setCodicePostale(rs.getString("Postal_Code"));
 						Addresses.add(bean);
 					}
 					
@@ -174,7 +174,7 @@ public class AddressDaoDataSource implements IAddressDao
 		PreparedStatement preparedStatement = null;
 		
 		Collection<AddressBean> Addresses= new LinkedList<AddressBean>();
-		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE UTENTE= ? ";
+		String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME + " WHERE user= ? ";
 		
 		try {
 			connection = ds.getConnection();
@@ -187,12 +187,12 @@ public class AddressDaoDataSource implements IAddressDao
 				AddressBean  bean = new AddressBean();
 				
 				bean.setId(rs.getString("ID"));
-				bean.setUtente(rs.getString("UTENTE"));
-				bean.setPaese(rs.getString("PAESE"));
-				bean.setStrada(rs.getString("STRADA"));
-				bean.setCittà(rs.getString("città"));
-				bean.setNumero(rs.getInt("NUMERO"));
-				bean.setCodicePostale(rs.getString("CODICE_POSTALE"));
+				bean.setUtente(rs.getString("user"));
+				bean.setPaese(rs.getString("country"));
+				bean.setStrada(rs.getString("street"));
+				bean.setCittà(rs.getString("city"));
+				bean.setNumero(rs.getInt("number"));
+				bean.setCodicePostale(rs.getString("Postal_Code"));
 				Addresses.add(bean);
 			}
 			

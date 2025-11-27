@@ -1,0 +1,15 @@
+p {
+    font-size: 1.5em;
+    color: rgba(var(--secondary), 0.7);
+    text-shadow: 0 0 1em rgba(var(--secondary), 0.7);
+    margin: 0;
+    padding: 0;
+}
+
+span {
+    font-size: 1em;
+    color: rgba(var(--text), 0.7);
+    text-shadow: 0 0 1em rgba(var(--text-dark), 0.7);
+    margin: 0;
+    padding: 0;
+}

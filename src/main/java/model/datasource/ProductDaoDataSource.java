@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProductDaoDataSource implements IProductDao
 {
-	private static final String TABLE_NAME = "prodotti";
+	private static final String TABLE_NAME = "product";
 	private final DataSource ds;
 	
 	public ProductDaoDataSource(DataSource ds)
@@ -31,7 +31,7 @@ public class ProductDaoDataSource implements IProductDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + ProductDaoDataSource.TABLE_NAME 
-				+ " (info_correnti, nome) VALUES (?,?)";
+				+ " (current_infos, name) VALUES (?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -42,14 +42,22 @@ public class ProductDaoDataSource implements IProductDao
 			
 			preparedStatement.executeUpdate();
 		} finally {
-			try {
-				if (preparedStatement != null)
-					 preparedStatement.close();
-			} finally {
-                assert connection != null;
-                connection.close();
-			}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 		
 	}
@@ -62,7 +70,7 @@ public class ProductDaoDataSource implements IProductDao
 		
 		int result;
 		
-		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE = ?";
+		String deleteSQL = "DELETE FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -72,14 +80,22 @@ public class ProductDaoDataSource implements IProductDao
 			result = preparedStatement.executeUpdate();
 			
 		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-                assert connection != null;
-                connection.close();
-			}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		return (result!=0);
 	}
 
@@ -91,7 +107,7 @@ public class ProductDaoDataSource implements IProductDao
 		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		ProductBean bean= new ProductBean();
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODICE= ? ";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE CODE= ? ";
 		
 		try {
 			//if(ds==null) System.out.println("ds nulla.");
@@ -103,21 +119,29 @@ public class ProductDaoDataSource implements IProductDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setInfoCorrenti(rs.getInt("CURRENT_INFOS"));
 				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 			}
 			
 		} finally {
-			try{
-				if(preparedStatement != null)
-					preparedStatement.close();
-		} finally{
-                assert connection != null;
-                connection.close();
-		}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 		return bean;
 	}
@@ -129,7 +153,7 @@ public class ProductDaoDataSource implements IProductDao
 		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		ProductBean bean= new ProductBean();
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME= ? ";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NAME= ? ";
 		
 		try {
 			//if(ds==null) System.out.println("ds nulla.");
@@ -141,21 +165,29 @@ public class ProductDaoDataSource implements IProductDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setInfoCorrenti(rs.getInt("CURRENT_INFOS"));
 				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 			}
 			
 		} finally {
-			try{
-				if(preparedStatement != null)
-					preparedStatement.close();
-		} finally{
-                assert connection != null;
-                connection.close();
-		}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 		return bean;
 	}
@@ -182,22 +214,30 @@ public class ProductDaoDataSource implements IProductDao
 			while(rs.next()) {
 				ProductBean bean = new ProductBean();
 				
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));	
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setInfoCorrenti(rs.getInt("CURRENT_INFOS"));	
 				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 				products.add(bean);
 			}
 			
 		} finally {
-			try{
-				if(preparedStatement != null)
-					preparedStatement.close();
-		} finally{
-                assert connection != null;
-                connection.close();
-		}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 		return products;
 	}
@@ -210,7 +250,7 @@ public class ProductDaoDataSource implements IProductDao
 		ImageDaoDataSource imageDaoDataSource = new ImageDaoDataSource(ds);
 		
 		List<ProductBean> products = new LinkedList<>();
-		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NOME LIKE ?";
+		String selectSQL = "SELECT * FROM " + ProductDaoDataSource.TABLE_NAME + " WHERE NAME LIKE ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -222,50 +262,67 @@ public class ProductDaoDataSource implements IProductDao
 			while(rs.next()) {
 				ProductBean bean = new ProductBean();
 				
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setInfoCorrenti(rs.getInt("INFO_CORRENTI"));
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setInfoCorrenti(rs.getInt("CURRENT_INFOS"));
 				bean.setImages(imageDaoDataSource.doRetrieveByProduct(bean.getCodice()));
 				products.add(bean);
 			}
 			
 		} finally {
-			try{
-				if(preparedStatement != null)
-					preparedStatement.close();
-		} finally{
-                assert connection != null;
-                connection.close();
-		}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 		return products;
 	}
 
 	@Override
-	public void doUpdateInfo(int codice, int codiceInfo) throws SQLException {
+	public void doUpdateInfo(int code, int codiceInfo) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="UPDATE " + ProductDaoDataSource.TABLE_NAME 
-				+ " SET INFO_CORRENTI = ? WHERE CODICE= ? ";
+				+ " SET CURRENT_INFOS = ? WHERE CODE= ? ";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, codiceInfo);
-			preparedStatement.setInt(2, codice);
+			preparedStatement.setInt(2, code);
 			
 			preparedStatement.executeUpdate();
 		} finally {
-			try {
-				if (preparedStatement != null)
-					 preparedStatement.close();
-			} finally {
-				connection.close();
-			}
-		}
+    try {
+        if (preparedStatement != null)
+            preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    // CORREZIONE QUI:
+    try {
+        if (connection != null) {
+            connection.close();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 		
 	}
 

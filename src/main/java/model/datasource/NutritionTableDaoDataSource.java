@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class NutritionTableDaoDataSource implements INutritionTableDao
 {
-	private static final String TABLE_NAME="tabelleNutrizionali";
+	private static final String TABLE_NAME="nutritionalValues";
 	private DataSource ds=null;
 	
 	public NutritionTableDaoDataSource(DataSource ds)
@@ -30,7 +30,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + NutritionTableDaoDataSource.TABLE_NAME 
-				+ " (Codice_Prodotto, energia, grassi, grassi_saturi, carboedrati, zucherri, fibre, proteine, sale) VALUES (?,?,?,?,?,?,?,?,?)";
+				+ " (Product_Code, energy, fats, saturated_fats, carbs, sugars, fibers, proteins, salt) VALUES (?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -65,7 +65,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
+		String deleteSQL = "DELETE FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE PRODUCT_CODE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -92,7 +92,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		PreparedStatement preparedStatement = null;
 		
 		NutritionTableBean bean= new NutritionTableBean();
-		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE CODICE_PRODOTTO = ?";
+		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE PRODUCT_CODE = ?";
 		
 		try {
 			connection = ds.getConnection();
@@ -102,15 +102,15 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodiceProdotto(rs.getInt("CODICE_PRODOTTO"));
-				bean.setEnergia(rs.getInt("ENERGIA"));
-				bean.setGrassi(rs.getInt("GRASSI"));
-				bean.setGrassiSaturi(rs.getInt("GRASSI_SATURI"));
-				bean.setCarboedrati(rs.getInt("CARBOEDRATI"));
-				bean.setZucherri(rs.getInt("ZUCHERRI"));
-				bean.setFibre(rs.getInt("FIBRE"));
-				bean.setProteine(rs.getInt("PROTEINE"));
-				bean.setSale(rs.getInt("SALE"));
+				bean.setCodiceProdotto(rs.getInt("PRODUCT_CODE"));
+				bean.setEnergia(rs.getInt("ENERGY"));
+				bean.setGrassi(rs.getInt("FATS"));
+				bean.setGrassiSaturi(rs.getInt("SATURATED_FATS"));
+				bean.setCarboedrati(rs.getInt("CARBS"));
+				bean.setZucherri(rs.getInt("SUGARS"));
+				bean.setFibre(rs.getInt("FIBERS"));
+				bean.setProteine(rs.getInt("PROTEINS"));
+				bean.setSale(rs.getInt("SALT"));
 			}
 			
 		} finally {
@@ -147,15 +147,15 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 			while(rs.next()) {
 				NutritionTableBean  bean = new NutritionTableBean();
 				
-				bean.setCodiceProdotto(rs.getInt("CODICE_PRODOTTO"));
-				bean.setEnergia(rs.getInt("ENERGIA"));
-				bean.setGrassi(rs.getInt("GRASSI"));
-				bean.setGrassiSaturi(rs.getInt("GRASSI_SATURI"));
-				bean.setCarboedrati(rs.getInt("CARBOEDRATI"));
-				bean.setZucherri(rs.getInt("ZUCHERRI"));
-				bean.setFibre(rs.getInt("FIBRE"));
-				bean.setProteine(rs.getInt("PROTEINE"));
-				bean.setSale(rs.getInt("SALE"));
+				bean.setCodiceProdotto(rs.getInt("PRODUCT_CODE"));
+				bean.setEnergia(rs.getInt("ENERGY"));
+				bean.setGrassi(rs.getInt("FATS"));
+				bean.setGrassiSaturi(rs.getInt("SATURATED_FATS"));
+				bean.setCarboedrati(rs.getInt("CARBS"));
+				bean.setZucherri(rs.getInt("SUGARS"));
+				bean.setFibre(rs.getInt("FIBERS"));
+				bean.setProteine(rs.getInt("PROTEINS"));
+				bean.setSale(rs.getInt("SALT"));
 				tables.add(bean);
 			}
 			

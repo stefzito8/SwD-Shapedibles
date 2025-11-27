@@ -64,11 +64,11 @@ public class Addresses extends HttpServlet {
 					AddressBean address = new AddressBean();
 					address.setId("ad" + user.getUsername() +"-" + number);
 					address.setUtente(user.getUsername());
-					address.setPaese(request.getParameter("paese"));
-					address.setCittà(request.getParameter("citta"));
-					address.setStrada(request.getParameter("strada"));
-					address.setNumero(Integer.parseInt(request.getParameter("numero")));
-					address.setCodicePostale(request.getParameter("cap"));
+					address.setPaese(request.getParameter("country"));
+					address.setCittà(request.getParameter("city"));
+					address.setStrada(request.getParameter("street"));
+					address.setNumero(Integer.parseInt(request.getParameter("number")));
+					address.setCodicePostale(request.getParameter("Postal_code"));
 					
 					addressDao.doSave(address);
 				} else if(action.equalsIgnoreCase("delete")) {

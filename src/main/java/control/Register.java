@@ -64,10 +64,10 @@ public class Register extends HttpServlet {
 		String email= request.getParameter("email");
 		String password= request.getParameter("password");
 		String passwordConf= request.getParameter("passwordConf");
-		String nomeCognome= request.getParameter("nome_cognome");
-		String sesso= request.getParameter("sesso");
-		String paese= request.getParameter("paese");
-		String dataNascista= request.getParameter("data_nascita");
+		String nomeCognome= request.getParameter("name_surname");
+		String sesso= request.getParameter("gender");
+		String paese= request.getParameter("country");
+		String dataNascista= request.getParameter("birthday");
 		int isAdmin= 0;
 
 		String redirectURL = request.getContextPath() + "/Login";

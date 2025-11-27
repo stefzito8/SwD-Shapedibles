@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+	<Resource name="db/dbshape"
+        auth="Container"
+        driverClassName="org.sqlite.JDBC"
+        type="javax.sql.DataSource"
+        maxTotal="20"
+        maxIdle="10"
+        maxWaitMillis="-1"/>
+</Context>

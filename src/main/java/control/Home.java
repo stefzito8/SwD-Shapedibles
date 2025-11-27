@@ -39,7 +39,7 @@ public class Home extends HttpServlet {
         nutDao = new NutritionTableDaoDataSource(ds);
 
         try {
-            request.setAttribute("products", prodDao.doRetrieveAll("codice"));
+            request.setAttribute("products", prodDao.doRetrieveAll("code"));
         } catch (SQLException e) {
             request.setAttribute("error",  "Error: c'è stato un problema con il recupero dati dei prodotti.");
             response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());

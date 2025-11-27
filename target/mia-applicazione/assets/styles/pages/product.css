@@ -1,0 +1,40 @@
+@media only screen and (max-width: 992px) {
+    .listProduct{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/*cellulare*/
+@media only screen and (max-width: 768px) {
+    .listProduct{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.productContainer {
+    background-color: rgba(var(--primary), 0.5);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-radius: 0.5% 0.5% 0.5% 0.5%;
+    text-align: left;
+    padding: 5px;
+    tr:hover {
+        background-color: #e6e6ff;
+        transition: background-color 0.3s ease-in-out;
+    }
+}
+
+div #listProduct {
+
+}
+

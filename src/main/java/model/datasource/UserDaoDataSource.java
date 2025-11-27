@@ -15,7 +15,7 @@ import java.util.LinkedList;
 
 public class UserDaoDataSource implements IUserDao {
 	
-	private static final String TABLE_NAME="utenti";
+	private static final String TABLE_NAME="users";
 	private DataSource ds=null;
 	
 	public UserDaoDataSource(DataSource ds)
@@ -32,7 +32,7 @@ public class UserDaoDataSource implements IUserDao {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + UserDaoDataSource.TABLE_NAME 
-				+ "(Username, email, pass, nome_cognome, sesso, paese, data_nascita, user_admin) VALUES (?,?,?,?,?,?,?,?)";
+				+ "(Username, email, pass, name_surname, gender, country, birthday, user_admin) VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -108,10 +108,10 @@ public class UserDaoDataSource implements IUserDao {
 						bean.setUsername(rs.getString("USERNAME"));
 						bean.setEmail(rs.getString("EMAIL"));
 						bean.setPass(rs.getString("PASS"));
-						bean.setNomeCognome(rs.getString("NOME_COGNOME"));
-						bean.setSesso(rs.getString("SESSO"));
-						bean.setPaese(rs.getString("PAESE"));
-						bean.setDataNascita(rs.getString("DATA_NASCITA"));
+						bean.setNomeCognome(rs.getString("NAME_SURNAME"));
+						bean.setSesso(rs.getString("GENDER"));
+						bean.setPaese(rs.getString("COUNTRY"));
+						bean.setDataNascita(rs.getString("BIRTHDAY"));
 						bean.setUserAdmin(rs.getInt("USER_ADMIN"));
 					}
 					
@@ -153,10 +153,10 @@ public class UserDaoDataSource implements IUserDao {
 				bean.setUsername(rs.getString("USERNAME"));
 				bean.setEmail(rs.getString("EMAIL"));
 				bean.setPass(rs.getString("PASS"));
-				bean.setNomeCognome(rs.getString("NOME_COGNOME"));
-				bean.setSesso(rs.getString("SESSO"));
-				bean.setPaese(rs.getString("PAESE"));
-				bean.setDataNascita(rs.getString("DATA_NASCITA"));
+				bean.setNomeCognome(rs.getString("NAME_SURNAME"));
+				bean.setSesso(rs.getString("GENDER"));
+				bean.setPaese(rs.getString("COUNTRY"));
+				bean.setDataNascita(rs.getString("BIRTHDAY"));
 				bean.setUserAdmin(rs.getInt("USER_ADMIN"));
 				users.add(bean);
 			}

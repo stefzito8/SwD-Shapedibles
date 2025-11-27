@@ -13,7 +13,7 @@ import model.bean.InfoBean;
 import model.dao.IInfoDao;
 
 public class InfoDaoDataSource implements IInfoDao {
-	private static final String TABLE_NAME = "info_prodotto";
+	private static final String TABLE_NAME = "product_info";
 	private DataSource ds= null;
 	
 	public InfoDaoDataSource(DataSource ds)
@@ -29,7 +29,7 @@ public class InfoDaoDataSource implements IInfoDao {
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + InfoDaoDataSource.TABLE_NAME 
-				+ " (nome, costo, descrizione, disponibilità , tipologia) VALUES (?,?,?,?,?)";
+				+ " (name, price, description, availability , type) VALUES (?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -61,7 +61,7 @@ public class InfoDaoDataSource implements IInfoDao {
 		
 		int result = 0;
 		
-		String deleteSQL = "DELETE FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE CODICE = ?";
+		String deleteSQL = "DELETE FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE CODE = ?";
 		
 		try {
 			connection= ds.getConnection();
@@ -88,7 +88,7 @@ public class InfoDaoDataSource implements IInfoDao {
 		PreparedStatement preparedStatement = null;
 		
 		InfoBean bean= new InfoBean();
-		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE CODICE= ? ";
+		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE CODE= ? ";
 		
 		try {
 			//if(ds==null) System.out.println("ds nulla.");
@@ -100,12 +100,12 @@ public class InfoDaoDataSource implements IInfoDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));	
-				bean.setTipologia(rs.getString("TIPOLOGIA"));	
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setCosto(rs.getDouble("PRICE"));
+				bean.setDescrizione(rs.getString("DESCRIPTION"));
+				bean.setDisponibilità(rs.getInt("AVAILABILITY"));	
+				bean.setTipologia(rs.getString("TYPE"));	
 			}
 			
 		} finally {
@@ -126,7 +126,7 @@ public class InfoDaoDataSource implements IInfoDao {
 		PreparedStatement preparedStatement = null;
 		
 		InfoBean bean= new InfoBean();
-		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE NOME= ? ";
+		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE NAME= ? ";
 		
 		try {
 			//if(ds==null) System.out.println("ds nulla.");
@@ -138,12 +138,12 @@ public class InfoDaoDataSource implements IInfoDao {
 			ResultSet rs = preparedStatement.executeQuery();
 			
 			while(rs.next()) {
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
-				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setCosto(rs.getDouble("PRICE"));
+				bean.setDescrizione(rs.getString("DESCRIPTION"));
+				bean.setDisponibilità(rs.getInt("AVAILABILITY"));
+				bean.setTipologia(rs.getString("TYPE"));
 			}
 			
 		} finally {
@@ -179,12 +179,12 @@ public class InfoDaoDataSource implements IInfoDao {
 			while(rs.next()) {
 				InfoBean bean = new InfoBean();
 				
-				bean.setCodice(rs.getInt("CODICE"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setCosto(rs.getDouble("COSTO"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setDisponibilità(rs.getInt("DISPONIBILITÀ"));
-				bean.setTipologia(rs.getString("TIPOLOGIA"));
+				bean.setCodice(rs.getInt("CODE"));
+				bean.setNome(rs.getString("NAME"));
+				bean.setCosto(rs.getDouble("PRICE"));
+				bean.setDescrizione(rs.getString("DESCRIPTION"));
+				bean.setDisponibilità(rs.getInt("AVAILABILITY"));
+				bean.setTipologia(rs.getString("TYPE"));
 				infos.add(bean);
 			}
 			
@@ -201,19 +201,19 @@ public class InfoDaoDataSource implements IInfoDao {
 	}
 
 	@Override
-	public void doUpdateQuantity(int codice, int quantity) throws SQLException {
+	public void doUpdateQuantity(int code, int quantity) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
 		String insertSQL="UPDATE " + InfoDaoDataSource.TABLE_NAME 
-				+ " SET DISPONIBILITÀ = ? WHERE CODICE= ? ";
+				+ " SET AVAILABILITY = ? WHERE CODE= ? ";
 		
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, quantity);
-			preparedStatement.setInt(2, codice);
+			preparedStatement.setInt(2, code);
 			
 			preparedStatement.executeUpdate();
 		} finally {

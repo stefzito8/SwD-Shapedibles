@@ -1,0 +1,47 @@
+h2 {
+    font-size: clamp(2em,5vw,10em);
+}
+
+.checkout {
+    margin-top: 2em;
+    height: 3em;
+    width: 100%;
+    border-radius: 100%;
+}
+
+.checkout > span {
+    font-size: clamp(1.5em,3vw,2em);
+    font-weight: 600;
+    text-align: center;
+    padding: 0.5em;
+    border-radius: 1.5em;
+    cursor: pointer;
+}
+
+#empty {
+    height: 2em;
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+    font-size: clamp(2em,5vw,2.5em);
+    color: rgba(var(--primary),0.7);
+    animation: jiggle 5s cubic-bezier(.28, 1.63, .62, .88) infinite;
+}
+
+@keyframes jiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
