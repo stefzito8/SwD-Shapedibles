@@ -30,11 +30,11 @@ jobs:
     - name: Generate Classpath
       run: mvn dependency:build-classpath -Dmdep.outputFile=cp.txt
 
-    - name: Setup OpenJML (Auto-Download)
+    - name: Setup OpenJML 21-0.16
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release download --repo OpenJML/OpenJML --pattern "openjml-ubuntu-*.zip" --output openjml.zip
+        gh release download 21-0.16 --repo OpenJML/OpenJML --pattern "*ubuntu*.zip" --output openjml.zip
         unzip openjml.zip -d openjml-dist
         chmod +x openjml-dist/openjml
 
