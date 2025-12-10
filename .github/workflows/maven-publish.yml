@@ -32,7 +32,7 @@ jobs:
 
     - name: Setup OpenJML
       run: |
-        wget https://github.com/OpenJML/OpenJML/releases/download/21.0.2/openjml-ubuntu-22.04-21.0.2.zip -O openjml.zip
+        wget https://github.com/OpenJML/OpenJML/releases/download/0.22.1/openjml-ubuntu-22.04-0.22.1.zip -O openjml.zip
         unzip openjml.zip -d openjml-dist
         chmod +x openjml-dist/openjml
 
