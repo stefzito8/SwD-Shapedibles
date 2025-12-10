@@ -6,9 +6,9 @@ public class CouponBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	String codice;
-	int percentuale_sconto;
-	double saldo_minimo;
+	private	/*@ spec_public @*/ String codice;
+	private /*@ spec_public @*/ int percentuale_sconto;
+	private /*@ spec_public @*/ double saldo_minimo;
 	
 	public CouponBean()
 	{
@@ -17,36 +17,43 @@ public class CouponBean implements Serializable{
 		saldo_minimo= 0.0;
 	}
 	
+	//@ pure
 	public String getCodice()
 	{
 		return codice;
 	}
 	
+	//@ pure
 	public int getPercentualeSconto() 
 	{
 		return percentuale_sconto;
 	}
 	
+	//@ pure
 	public double getSaldoMinimo()
 	{
 		return saldo_minimo;
 	}
 	
+	//@ assignable this.codice; 
 	public void setCodice(String codice)
 	{
 		this.codice=codice;
 	}
 	
+	//@ assignable this.percentuale_sconto; 
 	public void setPercentualeSconto(int percentuale_sconto)
 	{
 		this.percentuale_sconto=percentuale_sconto;
 	}
 	
+	//@ assignable this.saldo_minimo; 
 	public void setSaldoMinimo(double saldo_minimo)
 	{
 		this.saldo_minimo=saldo_minimo;
 	}
 	
+	//@  pure
 	@Override
 	public String toString() {
 		return codice + " " +percentuale_sconto + " " + saldo_minimo;

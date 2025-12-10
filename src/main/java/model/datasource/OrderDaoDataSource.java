@@ -15,8 +15,13 @@ import java.util.LinkedList;
 public class OrderDaoDataSource implements IOrderDao
 {
 	private static final String TABLE_NAME="orders";
-	private DataSource ds=null;
+	//@ spec_public non_null
+	private DataSource ds;
 	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public OrderDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -26,14 +31,15 @@ public class OrderDaoDataSource implements IOrderDao
 	@Override
 	public void doSave(OrderBean order) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + OrderDaoDataSource.TABLE_NAME 
 				+ " (user, code, address, state, order_date, total_cost) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, order.getUtente());
 			preparedStatement.setInt(2, order.getCodice());
@@ -58,8 +64,8 @@ public class OrderDaoDataSource implements IOrderDao
 	@Override
 	public boolean doDelete(String user, int id) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
@@ -67,12 +73,13 @@ public class OrderDaoDataSource implements IOrderDao
 		
 		try {
 			connection= ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, user);
 			
 			result = preparedStatement.executeUpdate();
-			
+			//@ assert result >= 0;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -87,19 +94,22 @@ public class OrderDaoDataSource implements IOrderDao
 	@Override
 	public OrderBean doRetrieveByKey(String user, int id) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		OrderBean bean= new OrderBean();
+		//@ assert bean != null;
 		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE CODE = ? AND USER = ?";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, id);
 			preparedStatement.setString(2, user);
 			
 			ResultSet rs = preparedStatement.executeQuery();
+			//@ assert rs != null;
 			
 			while(rs.next()) {
 				bean.setUtente(rs.getString("User"));
@@ -118,17 +128,18 @@ public class OrderDaoDataSource implements IOrderDao
 			connection.close();
 		}
 		}
-		
+		//@ assert bean != null;
 		return bean;
 	}
 
 	@Override
 	public Collection<OrderBean> doRetrieveAll(String order) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		Collection<OrderBean> orders= new LinkedList<OrderBean>();
+		//@ assert orders != null && orders.isEmpty();
 		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -137,10 +148,14 @@ public class OrderDaoDataSource implements IOrderDao
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assert rs != null;
+			/*@ 
+              @ loop_invariant orders != null;
+              @*/
 			while(rs.next()) {
 				OrderBean  bean = new OrderBean();
 				
@@ -150,7 +165,9 @@ public class OrderDaoDataSource implements IOrderDao
 				bean.setStato(rs.getString("state"));
 				bean.setDataOrdine(rs.getString("order_date"));
 				bean.setSaldoTotale(rs.getDouble("total_cost"));
+				//@ assert bean != null;
 				orders.add(bean);
+				//@ assert !orders.isEmpty();
 			}
 			
 		} finally {
@@ -172,15 +189,21 @@ public class OrderDaoDataSource implements IOrderDao
 		PreparedStatement preparedStatement = null;
 		
 		Collection<OrderBean> orders= new LinkedList<OrderBean>();
+		//@ assert orders != null && orders.isEmpty();
 		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME + " WHERE USER= ? ";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, user);
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assert rs != null;
+
+			/*@ 
+              @ loop_invariant orders != null;
+              @*/
 			while(rs.next()) {
 				OrderBean  bean = new OrderBean();
 				
@@ -190,7 +213,9 @@ public class OrderDaoDataSource implements IOrderDao
 				bean.setStato(rs.getString("state"));
 				bean.setDataOrdine(rs.getString("order_date"));
 				bean.setSaldoTotale(rs.getDouble("total_cost"));
+				//@ assert bean != null;
 				orders.add(bean);
+				//@ assert !orders.isEmpty();
 			}
 			
 		} finally {

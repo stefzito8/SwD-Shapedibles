@@ -15,8 +15,13 @@ import java.util.LinkedList;
 public class NutritionTableDaoDataSource implements INutritionTableDao
 {
 	private static final String TABLE_NAME="nutritionalValues";
-	private DataSource ds=null;
+	//@ spec_public non_null
+	private DataSource ds;
 	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public NutritionTableDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -26,14 +31,15 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public void doSave(NutritionTableBean nutritionTable) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		 /*@ nullable @*/ Connection connection = null;
+		 /*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + NutritionTableDaoDataSource.TABLE_NAME 
 				+ " (Product_Code, energy, fats, saturated_fats, carbs, sugars, fibers, proteins, salt) VALUES (?,?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assume connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, nutritionTable.getCodiceProdotto());
 			preparedStatement.setInt(2, nutritionTable.getEnergia());
@@ -60,8 +66,8 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public boolean doDelete(int productID) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		 /*@ nullable @*/ Connection connection = null;
+		 /*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
@@ -69,10 +75,12 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		
 		try {
 			connection= ds.getConnection();
+			//@ assume connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, productID);
 			
 			result = preparedStatement.executeUpdate();
+			//@ assert result >= 0;
 			
 		} finally {
 			try {
@@ -88,19 +96,21 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public NutritionTableBean doRetrieveByKey(int productID) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		NutritionTableBean bean= new NutritionTableBean();
+		//@ assert bean != null;
 		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME + " WHERE PRODUCT_CODE = ?";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assume connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, productID);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assume rs != null;
 			while(rs.next()) {
 				bean.setCodiceProdotto(rs.getInt("PRODUCT_CODE"));
 				bean.setEnergia(rs.getInt("ENERGY"));
@@ -128,10 +138,11 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 	@Override
 	public Collection<NutritionTableBean> doRetrieveAll(String order) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/ Connection connection = null;
+		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		Collection<NutritionTableBean> tables= new LinkedList<NutritionTableBean>();
+		//@ assert tables != null && tables.isEmpty();
 		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -140,10 +151,16 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		
 		try {
 			connection = ds.getConnection();
+			//@ assume connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assume rs != null;
+
+			/*@ 
+              @ loop_invariant tables != null;
+              @ loop_invariant tables.size() >= 0;
+              @*/
 			while(rs.next()) {
 				NutritionTableBean  bean = new NutritionTableBean();
 				
@@ -156,7 +173,9 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 				bean.setFibre(rs.getInt("FIBERS"));
 				bean.setProteine(rs.getInt("PROTEINS"));
 				bean.setSale(rs.getInt("SALT"));
+				//@ assert bean != null;
 				tables.add(bean);
+				//@ assert !tables.isEmpty();
 			}
 			
 		} finally {
