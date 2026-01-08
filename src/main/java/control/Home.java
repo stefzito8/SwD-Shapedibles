@@ -20,31 +20,46 @@ public class Home extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public Home() {
-        super();
-    }
-    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        IProductDao prodDao;
-        IInfoDao infoDao = null;
-        INutritionTableDao nutDao= null;
         DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
 
-        prodDao= new ProductDaoDataSource(ds);
-        infoDao= new InfoDaoDataSource(ds);
-        nutDao = new NutritionTableDaoDataSource(ds);
+        IProductDao prodDao = createProductDao(ds);
+        IInfoDao infoDao = createInfoDao(ds);
+        INutritionTableDao nutDao = createNutritionTableDao(ds);
 
         try {
             request.setAttribute("products", prodDao.doRetrieveAll("code"));
         } catch (SQLException e) {
             request.setAttribute("error",  "Error: c'è stato un problema con il recupero dati dei prodotti.");
-            response.sendError(500, "Error: " + e.getMessage());System.out.println("Error..." + e.getMessage());
+            response.sendError(500, "Error: " + e.getMessage());
+            System.out.println("Error..." + e.getMessage());
         }
 
         request.getRequestDispatcher("/WEB-INF/jsp/pages/home.jsp").forward(request, response);
+    }
+
+    /**
+     * Factory method for ProductDao - can be overridden in tests.
+     */
+    protected IProductDao createProductDao(DataSource ds) {
+        return new ProductDaoDataSource(ds);
+    }
+
+    /**
+     * Factory method for InfoDao - can be overridden in tests.
+     */
+    protected IInfoDao createInfoDao(DataSource ds) {
+        return new InfoDaoDataSource(ds);
+    }
+
+    /**
+     * Factory method for NutritionTableDao - can be overridden in tests.
+     */
+    protected INutritionTableDao createNutritionTableDao(DataSource ds) {
+        return new NutritionTableDaoDataSource(ds);
     }
 }
