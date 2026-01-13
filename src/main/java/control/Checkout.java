@@ -55,12 +55,18 @@ public class Checkout extends HttpServlet {
         UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
 	 	String action = request.getParameter("action");
 	 	
+	 	// Redirect to login if user is not authenticated
+	 	if (user == null) {
+	 		response.sendRedirect("Login");
+	 		return;
+	 	}
+	 	
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-        IProductDao productDao = new ProductDaoDataSource(ds);
-        IOrderDao orderDao = new OrderDaoDataSource(ds);
-        IAddressDao addressDao = new AddressDaoDataSource(ds);
-        IInfoDao infoDao = new InfoDaoDataSource(ds);
-        IContainDao containDao = new ContainDaoDataSource(ds); 
+        IProductDao productDao = createProductDao(ds);
+        IOrderDao orderDao = createOrderDao(ds);
+        IAddressDao addressDao = createAddressDao(ds);
+        IInfoDao infoDao = createInfoDao(ds);
+        IContainDao containDao = createContainDao(ds); 
 		
         int max = 10000;
         int min = 1;
@@ -150,6 +156,41 @@ public class Checkout extends HttpServlet {
 	 	}
 		   
 	 	
+	}
+
+	/**
+	 * Factory method for ProductDao - can be overridden in tests.
+	 */
+	protected IProductDao createProductDao(DataSource ds) {
+		return new ProductDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for OrderDao - can be overridden in tests.
+	 */
+	protected IOrderDao createOrderDao(DataSource ds) {
+		return new OrderDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for AddressDao - can be overridden in tests.
+	 */
+	protected IAddressDao createAddressDao(DataSource ds) {
+		return new AddressDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for InfoDao - can be overridden in tests.
+	 */
+	protected IInfoDao createInfoDao(DataSource ds) {
+		return new InfoDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for ContainDao - can be overridden in tests.
+	 */
+	protected IContainDao createContainDao(DataSource ds) {
+		return new ContainDaoDataSource(ds);
 	}
 
 }

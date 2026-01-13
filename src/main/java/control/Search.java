@@ -26,8 +26,8 @@ public class Search extends HttpServlet {
         String query = request.getParameter("ricerca");
         String id = request.getParameter("id");
         DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-        IProductDao productDao = new ProductDaoDataSource(ds);
-        IInfoDao infoDao = new InfoDaoDataSource(ds);
+        IProductDao productDao = createProductDao(ds);
+        IInfoDao infoDao = createInfoDao(ds);
 
         try {
             Cart cart = (Cart) request.getSession().getAttribute("cart");
@@ -43,7 +43,7 @@ public class Search extends HttpServlet {
                     response.setContentType("application/json");
                     response.setCharacterEncoding("UTF-8");
                     Gson gson = new GsonBuilder()
-                            .registerTypeAdapter(ProductBean.class, new ProductBeanWithCartQuantity(cart, infoDao))
+                            .registerTypeAdapter(ProductBean.class, new SingleProductBeanSerializer(cart, infoDao))
                             .create();
                     String json = gson.toJson(product);
                     response.getWriter().write(json);
@@ -69,9 +69,9 @@ public class Search extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e) {
-        	request.setAttribute("error",  "Error: sembra esserci un problema nella ricerca. se persiste contattare l'asistenza");
-	 		response.sendError(500, "Error: " + e.getMessage());
-
+            request.setAttribute("error",  "Error: c'è stato un problema con la ricerca.");
+            response.sendError(500, "Error: " + e.getMessage());
+            System.out.println("Error..." + e.getMessage());
         }
     }
 
@@ -79,9 +79,56 @@ public class Search extends HttpServlet {
         doGet(request, response);
     }
 
+    /**
+     * Factory method for ProductDao - can be overridden in tests.
+     */
+    protected IProductDao createProductDao(DataSource ds) {
+        return new ProductDaoDataSource(ds);
+    }
+
+    /**
+     * Factory method for InfoDao - can be overridden in tests.
+     */
+    protected IInfoDao createInfoDao(DataSource ds) {
+        return new InfoDaoDataSource(ds);
+    }
+
+    /**
+     * Serializer for a single ProductBean with cart quantity.
+     */
+    public static class SingleProductBeanSerializer implements JsonSerializer<ProductBean> {
+        private final Cart cart;
+        private final IInfoDao infoDao;
+
+        public SingleProductBeanSerializer(Cart cart, IInfoDao infoDao) {
+            this.cart = cart;
+            this.infoDao = infoDao;
+        }
+
+        @Override
+        public JsonElement serialize(ProductBean product, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("codice", product.getCodice());
+            jsonObject.addProperty("nome", product.getNome());
+            try {
+                if (infoDao != null) {
+                    var info = infoDao.doRetrieveByKey(product.getCodice());
+                    if (info != null) {
+                        jsonObject.addProperty("costo", info.getCosto());
+                    }
+                }
+            } catch (SQLException e) {
+                // ignore
+            }
+            jsonObject.addProperty("cartQuantity", cart.getProductQuantity(product));
+            return jsonObject;
+        }
+    }
+
     public static class ProductBeanWithCartQuantity implements JsonSerializer<Collection<ProductBean>> {
         private final Cart cart;
         private final IInfoDao infoDao;
+
         public ProductBeanWithCartQuantity(Cart cart, IInfoDao infoDao) {
             this.cart = cart;
             this.infoDao = infoDao;
@@ -90,19 +137,23 @@ public class Search extends HttpServlet {
         @Override
         public JsonElement serialize(Collection<ProductBean> src, Type typeOfSrc, JsonSerializationContext context) {
             JsonArray jsonArray = new JsonArray();
-
             for (ProductBean product : src) {
-                JsonObject productObject = context.serialize(product).getAsJsonObject();
-                productObject.addProperty("cartQuantity", cart.getProductQuantity(product));
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("codice", product.getCodice());
+                jsonObject.addProperty("nome", product.getNome());
                 try {
-                    JsonObject infoObject = context.serialize(infoDao.doRetrieveByKey(product.getInfoCorrenti())).getAsJsonObject();
-                    productObject.add("info", infoObject);
+                    if (infoDao != null) {
+                        var info = infoDao.doRetrieveByKey(product.getCodice());
+                        if (info != null) {
+                            jsonObject.addProperty("costo", info.getCosto());
+                        }
+                    }
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    // ignore
                 }
-                jsonArray.add(productObject);
+                jsonObject.addProperty("cartQuantity", cart.getProductQuantity(product));
+                jsonArray.add(jsonObject);
             }
-
             return jsonArray;
         }
     }
