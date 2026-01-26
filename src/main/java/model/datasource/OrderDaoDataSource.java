@@ -35,7 +35,7 @@ public class OrderDaoDataSource implements IOrderDao
 		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + OrderDaoDataSource.TABLE_NAME 
-				+ " (user, code, address, state, order_date, total_cost) VALUES (?,?,?,?,?,?)";
+				+ " (\"user\", code, address, state, order_date, total_cost) VALUES (?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
