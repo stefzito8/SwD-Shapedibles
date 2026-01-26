@@ -136,7 +136,7 @@ public class ImageDaoDataSource implements IImageDao
 		String selectSQL = "SELECT * FROM " + ImageDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.isEmpty()) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {

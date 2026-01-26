@@ -148,7 +148,7 @@ public class UserDaoDataSource implements IUserDao {
 		String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {

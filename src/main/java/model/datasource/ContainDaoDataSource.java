@@ -136,7 +136,7 @@ public class ContainDaoDataSource implements IContainDao {
 		String selectSQL = "SELECT * FROM " + ContainDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {

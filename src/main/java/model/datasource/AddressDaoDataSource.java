@@ -35,7 +35,7 @@ public class AddressDaoDataSource implements IAddressDao
 		/*@ nullable @*/ PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + AddressDaoDataSource.TABLE_NAME 
-				+ " (id, user, country, street, city, number, Postal_Code) VALUES (?,?,?,?,?,?,?)";
+				+ " (id, \"user\", country, street, city, number, Postal_Code) VALUES (?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
@@ -145,7 +145,7 @@ public class AddressDaoDataSource implements IAddressDao
 				String selectSQL = "SELECT * FROM " + AddressDaoDataSource.TABLE_NAME;
 				
 				if(order != null && !order.equals("")) {
-					selectSQL +=" ORDER BY" + order;
+					selectSQL +=" ORDER BY " + order;
 				}
 				
 				try {

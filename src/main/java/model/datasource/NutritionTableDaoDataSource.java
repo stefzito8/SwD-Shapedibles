@@ -146,7 +146,7 @@ public class NutritionTableDaoDataSource implements INutritionTableDao
 		String selectSQL = "SELECT * FROM " + NutritionTableDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {
