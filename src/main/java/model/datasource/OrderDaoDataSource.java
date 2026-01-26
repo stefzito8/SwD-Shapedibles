@@ -143,7 +143,7 @@ public class OrderDaoDataSource implements IOrderDao
 		String selectSQL = "SELECT * FROM " + OrderDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
-			selectSQL +=" ORDER BY" + order;
+			selectSQL +=" ORDER BY " + order;
 		}
 		
 		try {
