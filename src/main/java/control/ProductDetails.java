@@ -6,9 +6,11 @@ import model.bean.ProductBean;
 import model.dao.IInfoDao;
 import model.dao.INutritionTableDao;
 import model.dao.IProductDao;
+import model.dao.IUserDao;
 import model.datasource.InfoDaoDataSource;
 import model.datasource.NutritionTableDaoDataSource;
 import model.datasource.ProductDaoDataSource;
+import model.datasource.UserDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,9 +53,9 @@ public class ProductDetails extends HttpServlet {
 		IInfoDao infoDao = null;
 		INutritionTableDao nutDao= null;
 		DataSource ds = (DataSource) getServletContext().getAttribute("DataSource");
-		prodDao= new ProductDaoDataSource(ds);
-		infoDao= new InfoDaoDataSource(ds);
-		nutDao = new NutritionTableDaoDataSource(ds);
+		prodDao= createProductDao(ds);
+		infoDao= createInfoDao(ds);
+		nutDao = createNutritionTableDao(ds);
 		
 		try {
 			ProductBean product= prodDao.doRetrieveByKey(Integer.parseInt(request.getParameter("product"))) ;
@@ -77,5 +79,17 @@ public class ProductDetails extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/pages/productDetails.jsp");
 		dispatcher.forward(request, response);
 	}
+
+	protected IProductDao createProductDao(DataSource ds) {
+        return new ProductDaoDataSource(ds);
+    }
+
+	protected IInfoDao createInfoDao(DataSource ds) {
+        return new InfoDaoDataSource(ds);
+    }
+
+	protected INutritionTableDao createNutritionTableDao(DataSource ds) {
+        return new NutritionTableDaoDataSource(ds);
+    }
 
 }

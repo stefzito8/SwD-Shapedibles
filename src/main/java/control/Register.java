@@ -2,6 +2,7 @@ package control;
 
 import com.google.gson.Gson;
 import model.bean.UserBean;
+import model.dao.IUserDao;
 import model.datasource.UserDaoDataSource;
 import model.enums.Country;
 import model.enums.Gender;
@@ -57,7 +58,7 @@ public class Register extends HttpServlet {
 		request.setAttribute("genders", Gender.getValues());
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		UserDaoDataSource userDao = new UserDaoDataSource(ds);
+		IUserDao userDao = createUserDao(ds);
 		String error=null;
 		boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
 		String username= request.getParameter("username");
@@ -151,8 +152,8 @@ public class Register extends HttpServlet {
 	    }
 	    return sb.toString();
 	   }
-	
-	private boolean checkUsername(String username, UserDaoDataSource userDao) throws SQLException 
+
+	private boolean checkUsername(String username, IUserDao userDao) throws SQLException 
 	{
 		Collection<?> userCheck = (Collection<?>) userDao.doRetrieveAll("");
 		Iterator<?> it=  userCheck.iterator();
@@ -164,4 +165,8 @@ public class Register extends HttpServlet {
 		} 
 		return true;
 	}
+
+	protected IUserDao createUserDao(DataSource ds) {
+        return new UserDaoDataSource(ds);
+    }
 }

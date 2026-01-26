@@ -2,7 +2,9 @@ package control;
 
 import com.google.gson.Gson;
 import model.dao.IProductDao;
+import model.dao.IUserDao;
 import model.datasource.ProductDaoDataSource;
+import model.datasource.UserDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,8 +52,8 @@ public class Cart extends HttpServlet {
 		
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		productDao = new ProductDaoDataSource(ds);
-		
+		productDao = createProductDao(ds);
+
 		model.Cart cart = (model.Cart) request.getSession().getAttribute("cart");
 		if(cart == null) 
 		{
@@ -88,4 +90,8 @@ public class Cart extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
+
+	protected IProductDao createProductDao(DataSource ds) {
+        return new ProductDaoDataSource(ds);
+    }
 }
