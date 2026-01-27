@@ -9,18 +9,40 @@ import java.util.Map;
 
 public class Cart {
 
+	//@ spec_public
 	private final Map<ProductBean, Integer> products;
 
+	//@ public invariant products != null;
+	//@ ensures products != null && products.isEmpty();
 	public Cart() {
 		products = new HashMap<>();
 	}
 
+	//@ requires product != null;
+	/*@ 
+      @ ensures (\old(products.containsKey(product)) 
+      @     ==> products.containsKey(product) && products.get(product) == \old(products.get(product)) + 1);
+      @
+      @ ensures (!\old(products.containsKey(product))) 
+      @     ==> products.containsKey(product) && products.get(product) == 1;
+      @*/
 	public void addProduct(ProductBean product) {
 		System.out.println(products.getOrDefault(product, 0) + 1);
 		products.put(product, products.getOrDefault(product, 0) + 1);
 		System.out.println(products.getOrDefault(product, 0));
 	}
 
+	//@ requires product != null;
+	/*@ 
+      @ ensures (\old(products.containsKey(product)) && \old(products.get(product)) > 1) 
+      @     ==> products.containsKey(product) && products.get(product) == \old(products.get(product)) - 1;
+      @
+      @ ensures (\old(products.containsKey(product)) && \old(products.get(product)) == 1) 
+      @     ==> !products.containsKey(product);
+      @
+      @ ensures (!\old(products.containsKey(product))) 
+      @     ==> !products.containsKey(product);
+      @*/
 	public void deleteProduct(ProductBean product) {
 		if (products.containsKey(product)) {
 			int quantity = products.get(product) - 1;

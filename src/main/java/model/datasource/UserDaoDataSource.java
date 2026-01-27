@@ -16,8 +16,14 @@ import java.util.LinkedList;
 public class UserDaoDataSource implements IUserDao {
 	
 	private static final String TABLE_NAME="users";
-	private DataSource ds=null;
+
+	//@ spec_public non_null
+	private DataSource ds;
 	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public UserDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -28,14 +34,15 @@ public class UserDaoDataSource implements IUserDao {
 	public void doSave(UserBean user) throws SQLException
 	{
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + UserDaoDataSource.TABLE_NAME 
 				+ "(Username, email, pass, name_surname, gender, country, birthday, user_admin) VALUES (?,?,?,?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, user.getUsername());
 			preparedStatement.setString(2, user.getEmail());
@@ -63,8 +70,8 @@ public class UserDaoDataSource implements IUserDao {
 	@Override
 	public boolean doDelete(String username) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
@@ -72,11 +79,12 @@ public class UserDaoDataSource implements IUserDao {
 		
 		try {
 			connection= ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, username);
 			
 			result = preparedStatement.executeUpdate();
-			
+			//@ assert result >= 0;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -91,19 +99,21 @@ public class UserDaoDataSource implements IUserDao {
 	@Override
 	public UserBean doRetrieveByKey(String username) throws SQLException {
 		// TODO Auto-generated method stub
-				Connection connection = null;
-				PreparedStatement preparedStatement = null;
+				/*@ nullable @*/Connection connection = null;
+				/*@ nullable @*/PreparedStatement preparedStatement = null;
 				
 				UserBean bean= new UserBean();
+				//@ assert bean != null;
 				String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME + " WHERE USERNAME = ?";
 				
 				try {
 					connection = ds.getConnection();
+					//@ assert connection != null;
 					preparedStatement = connection.prepareStatement(selectSQL);
 					preparedStatement.setString(1, username);
 					
 					ResultSet rs = preparedStatement.executeQuery();
-					
+					//@ assert rs != null;
 					while(rs.next()) {
 						bean.setUsername(rs.getString("USERNAME"));
 						bean.setEmail(rs.getString("EMAIL"));
@@ -124,17 +134,18 @@ public class UserDaoDataSource implements IUserDao {
 					connection.close();
 				}
 				}
-				
+				//@ assert bean != null;
 				return bean;
 	}
 
 	@Override
 	public Collection<UserBean> doRetrieveAll(String order) throws SQLException{
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		Collection<UserBean> users= new LinkedList<UserBean>();
+		//@ assert users != null && users.isEmpty();
 		String selectSQL = "SELECT * FROM " + UserDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -143,10 +154,15 @@ public class UserDaoDataSource implements IUserDao {
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
+			//@ assert rs != null;
 			
+			/*@ 
+              @ loop_invariant users != null;
+              @*/
 			while(rs.next()) {
 				UserBean  bean = new UserBean();
 				
@@ -158,7 +174,9 @@ public class UserDaoDataSource implements IUserDao {
 				bean.setPaese(rs.getString("COUNTRY"));
 				bean.setDataNascita(rs.getString("BIRTHDAY"));
 				bean.setUserAdmin(rs.getInt("USER_ADMIN"));
+				//@ assert bean != null;
 				users.add(bean);
+				//@ assert !users.isEmpty();
 			}
 			
 		} finally {

@@ -14,8 +14,14 @@ import model.dao.IInfoDao;
 
 public class InfoDaoDataSource implements IInfoDao {
 	private static final String TABLE_NAME = "product_info";
-	private DataSource ds= null;
+
+	//@ spec_public non_null
+	private DataSource ds;
 	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
 	public InfoDaoDataSource(DataSource ds)
 	{
 		this.ds=ds;
@@ -25,14 +31,15 @@ public class InfoDaoDataSource implements IInfoDao {
 	@Override
 	public void doSave(InfoBean info) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		String insertSQL="INSERT INTO " + InfoDaoDataSource.TABLE_NAME 
 				+ " (name, price, description, availability , type) VALUES (?,?,?,?,?)";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setString(1, info.getNome());
 			preparedStatement.setDouble(2, info.getCosto());
@@ -56,8 +63,8 @@ public class InfoDaoDataSource implements IInfoDao {
 	@Override
 	public synchronized boolean doDelete(int code) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		int result = 0;
 		
@@ -65,11 +72,12 @@ public class InfoDaoDataSource implements IInfoDao {
 		
 		try {
 			connection= ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setInt(1, code);
 			
 			result = preparedStatement.executeUpdate();
-			
+			//@ assert result >= 0;
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -84,21 +92,21 @@ public class InfoDaoDataSource implements IInfoDao {
 	@Override
 	public InfoBean doRetrieveByKey(int code) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		InfoBean bean= new InfoBean();
+		//@ assert bean != null;
 		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE CODE= ? ";
 		
 		try {
-			//if(ds==null) System.out.println("ds nulla.");
 			connection = ds.getConnection();
-			//if(connection==null) System.out.println("connesione nulla.");
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setInt(1, code);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			 //@ assert rs != null;
 			while(rs.next()) {
 				bean.setCodice(rs.getInt("CODE"));
 				bean.setNome(rs.getString("NAME"));
@@ -122,21 +130,22 @@ public class InfoDaoDataSource implements IInfoDao {
 	@Override
 	public InfoBean doRetrieveByName(String name) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		InfoBean bean= new InfoBean();
+		//@ assert bean != null;
 		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME + " WHERE NAME= ? ";
 		
 		try {
-			//if(ds==null) System.out.println("ds nulla.");
+
 			connection = ds.getConnection();
-			//if(connection==null) System.out.println("connesione nulla.");
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, name);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			//@ assert rs != null;
 			while(rs.next()) {
 				bean.setCodice(rs.getInt("CODE"));
 				bean.setNome(rs.getString("NAME"));
@@ -160,10 +169,11 @@ public class InfoDaoDataSource implements IInfoDao {
 	
 	@Override
 	public Collection<InfoBean> doRetrieveAll(String order) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		Collection<InfoBean> infos= new LinkedList<InfoBean>();
+		//@ assert infos != null && infos.isEmpty();
 		String selectSQL = "SELECT * FROM " + InfoDaoDataSource.TABLE_NAME;
 		
 		if(order != null && !order.equals("")) {
@@ -172,10 +182,12 @@ public class InfoDaoDataSource implements IInfoDao {
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			
+			 //@ assert rs != null;
+            /*@ loop_invariant infos != null; @*/
 			while(rs.next()) {
 				InfoBean bean = new InfoBean();
 				
@@ -185,7 +197,9 @@ public class InfoDaoDataSource implements IInfoDao {
 				bean.setDescrizione(rs.getString("DESCRIPTION"));
 				bean.setDisponibilità(rs.getInt("AVAILABILITY"));
 				bean.setTipologia(rs.getString("TYPE"));
-				infos.add(bean);
+				 //@ assert bean != null;
+                infos.add(bean);
+                //@ assert !infos.isEmpty();
 			}
 			
 		} finally {
@@ -203,14 +217,15 @@ public class InfoDaoDataSource implements IInfoDao {
 	@Override
 	public void doUpdateQuantity(int code, int quantity) throws SQLException {
 		// TODO Auto-generated method stub
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+		/*@ nullable @*/Connection connection = null;
+		/*@ nullable @*/PreparedStatement preparedStatement = null;
 		
 		String insertSQL="UPDATE " + InfoDaoDataSource.TABLE_NAME 
 				+ " SET AVAILABILITY = ? WHERE CODE= ? ";
 		
 		try {
 			connection = ds.getConnection();
+			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setInt(1, quantity);
 			preparedStatement.setInt(2, code);

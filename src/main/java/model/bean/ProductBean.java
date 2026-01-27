@@ -11,10 +11,10 @@ public class ProductBean implements Serializable
 	@Serial
 	private static final long serialVersionUID = 1L;
 	
-	private int codice;
-	private int infoCorrenti;
-	String nome;
-	private Collection<ImageBean> immagini;
+	private /*@ spec_public @*/ int codice;
+	private /*@ spec_public @*/ int infoCorrenti;
+	private /*@ spec_public @*/ String nome;
+	private /*@ spec_public nullable @*/  Collection<ImageBean> immagini;
 	
 	public ProductBean()
 	{
@@ -23,40 +23,49 @@ public class ProductBean implements Serializable
       nome= " ";
 	}
 	
+	//@ pure
 	public int getCodice()
 	{
 		return codice;
 	}
 	
+	//@ assignable this.codice;
 	public void setCodice(int codice)
 	{
 		this.codice=codice;
 	}
 	
+	//@ pure
 	public int getInfoCorrenti()
 	{
 		return infoCorrenti;
 	}
 	
+	//@ assignable this.infoCorrenti;
 	public void setInfoCorrenti(int infoCorrenti)
 	{
 		this.infoCorrenti=infoCorrenti;
 	}
 	
+	//@ pure
 	public String getNome()
 	{
 		return nome;
 	}
 	
+	// assignable this.nome;
 	public void setNome (String nome)
 	{
 		this.nome=nome;
 	}
 	
+	// assignable this.immagini;
 	public void setImages (Collection<ImageBean> images) { this.immagini = images; }
 	
+	//@ pure
 	public Collection<ImageBean> getImages() { return immagini; }
 
+	//@ pure
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,6 +74,7 @@ public class ProductBean implements Serializable
         return Objects.equals(codice, that.codice);
     }
 
+	//@ pure
     @Override
     public int hashCode() {
         return Objects.hash(codice);
