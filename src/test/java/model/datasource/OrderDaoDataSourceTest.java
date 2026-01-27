@@ -307,6 +307,23 @@ public class OrderDaoDataSourceTest {
             assertTrue(orders.stream().anyMatch(o -> "COMPLETED".equals(o.getStato())));
             assertTrue(orders.stream().anyMatch(o -> "SHIPPED".equals(o.getStato())));
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            orderDao.doSave(createTestOrder("verifyuser", 42, "123 Verify Street", "PROCESSING", "2024-06-15", 199.99));
+
+            Collection<OrderBean> orders = orderDao.doRetrieveAll(null);
+            OrderBean retrieved = orders.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals("verifyuser", retrieved.getUtente());
+            assertEquals(42, retrieved.getCodice());
+            assertEquals("123 Verify Street", retrieved.getIndirizzo());
+            assertEquals("PROCESSING", retrieved.getStato());
+            assertEquals("2024-06-15", retrieved.getDataOrdine());
+            assertEquals(199.99, retrieved.getSaldoTotale(), 0.001);
+        }
     }
 
     // ============================================================================
@@ -356,6 +373,23 @@ public class OrderDaoDataSourceTest {
 
             assertNotNull(orders);
             assertTrue(orders.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveByUser")
+        void testRetrieveByUserVerifiesAllFields() throws SQLException {
+            orderDao.doSave(createTestOrder("fieldtestuser", 77, "456 Test Avenue", "SHIPPED", "2024-07-20", 349.50));
+
+            Collection<OrderBean> orders = orderDao.doRetrieveByUser("fieldtestuser");
+            OrderBean retrieved = orders.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals("fieldtestuser", retrieved.getUtente());
+            assertEquals(77, retrieved.getCodice());
+            assertEquals("456 Test Avenue", retrieved.getIndirizzo());
+            assertEquals("SHIPPED", retrieved.getStato());
+            assertEquals("2024-07-20", retrieved.getDataOrdine());
+            assertEquals(349.50, retrieved.getSaldoTotale(), 0.001);
         }
     }
 
@@ -429,6 +463,127 @@ public class OrderDaoDataSourceTest {
 
             OrderBean retrieved = orderDao.doRetrieveByKey("user1", 1);
             assertEquals(999999.99, retrieved.getSaldoTotale(), 0.01);
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator line 50")
+        void testDoSaveActuallyPersists() throws SQLException {
+            OrderBean order = createTestOrder("mutuser", 1001, "Mut Address", "PENDING", "2024-01-01", 99.99);
+            
+            // Verify empty before save
+            Collection<OrderBean> beforeSave = orderDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the order
+            orderDao.doSave(order);
+            
+            // Verify present after save
+            Collection<OrderBean> afterSave = orderDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 order after save");
+            
+            // Verify correct data was saved
+            OrderBean saved = afterSave.iterator().next();
+            assertEquals("mutuser", saved.getUtente());
+            assertEquals("PENDING", saved.getStato());
+            assertEquals(99.99, saved.getSaldoTotale(), 0.01);
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes data - kills NegateConditionalsMutator line 78")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            // First save an order
+            orderDao.doSave(createTestOrder("deluser", 2001, "Del Address", "NEW", "2024-02-01", 50.00));
+            
+            // Get the saved order to find its code
+            Collection<OrderBean> afterSave = orderDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size());
+            OrderBean saved = afterSave.iterator().next();
+            
+            // Delete it
+            boolean result = orderDao.doDelete(saved.getUtente(), saved.getCodice());
+            
+            // Both the return value AND the actual deletion matter
+            assertTrue(result, "doDelete should return true");
+            
+            // Verify it was actually deleted
+            Collection<OrderBean> afterDelete = orderDao.doRetrieveAll(null);
+            assertEquals(0, afterDelete.size(), "Should be empty after delete");
+        }
+        
+        @Test
+        @DisplayName("doDelete return value matches reality - kills return value mutations")
+        void testDoDeleteReturnValueMatchesReality() throws SQLException {
+            // Delete non-existent returns false
+            boolean falseResult = orderDao.doDelete("nonexistent", 99999);
+            assertFalse(falseResult, "Deleting non-existent should return false");
+            
+            // Add an order
+            orderDao.doSave(createTestOrder("retuser", 3001, "Ret Address", "NEW", "2024-03-01", 75.00));
+            Collection<OrderBean> afterSave = orderDao.doRetrieveAll(null);
+            OrderBean saved = afterSave.iterator().next();
+            
+            // Delete existing returns true AND actually removes
+            boolean trueResult = orderDao.doDelete(saved.getUtente(), saved.getCodice());
+            assertTrue(trueResult, "Deleting existing should return true");
+            assertTrue(orderDao.doRetrieveAll(null).isEmpty(), "Order should be gone");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 158")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            orderDao.doSave(createTestOrder("user1", 4001, "Address1", "NEW", "2024-04-01", 10.00));
+            orderDao.doSave(createTestOrder("user2", 4002, "Address2", "SHIPPED", "2024-04-02", 20.00));
+            orderDao.doSave(createTestOrder("user3", 4003, "Address3", "DELIVERED", "2024-04-03", 30.00));
+            
+            Collection<OrderBean> result = orderDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 orders");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByKey returns correct order - kills NegateConditionalsMutator line 115")
+        void testDoRetrieveByKeyReturnsCorrectOrder() throws SQLException {
+            orderDao.doSave(createTestOrder("keyuser", 5001, "Key Address", "PROCESSING", "2024-05-01", 123.45));
+            
+            // Get the saved order to find its actual code (since it's auto-generated)
+            Collection<OrderBean> allOrders = orderDao.doRetrieveAll(null);
+            OrderBean saved = allOrders.iterator().next();
+            
+            OrderBean result = orderDao.doRetrieveByKey(saved.getUtente(), saved.getCodice());
+            
+            assertNotNull(result);
+            assertEquals(saved.getCodice(), result.getCodice());
+            assertEquals("keyuser", result.getUtente());
+            assertEquals("Key Address", result.getIndirizzo());
+            assertEquals("PROCESSING", result.getStato());
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByUser returns orders for specific user - kills NegateConditionalsMutator line 198")
+        void testDoRetrieveByUserReturnsSpecificUserOnly() throws SQLException {
+            orderDao.doSave(createTestOrder("userA", 6001, "AddressA1", "NEW", "2024-06-01", 100.00));
+            orderDao.doSave(createTestOrder("userA", 6002, "AddressA2", "NEW", "2024-06-02", 200.00));
+            orderDao.doSave(createTestOrder("userB", 6003, "AddressB1", "NEW", "2024-06-03", 300.00));
+            
+            Collection<OrderBean> userAOrders = orderDao.doRetrieveByUser("userA");
+            
+            assertEquals(2, userAOrders.size(), "UserA should have 2 orders");
+            for (OrderBean order : userAOrders) {
+                assertEquals("userA", order.getUtente(), "All orders should belong to userA");
+                assertNotEquals("userB", order.getUtente());
+            }
         }
     }
 

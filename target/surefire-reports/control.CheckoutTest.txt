@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: control.CheckoutTest
+-------------------------------------------------------------------------------
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.169 s -- in control.CheckoutTest

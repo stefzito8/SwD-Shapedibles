@@ -217,6 +217,20 @@ public class ImageDaoDataSourceTest {
 
             assertEquals(1, images.size());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            imageDao.doSave(createTestImage(1, "verify_test_image.jpg"));
+
+            Collection<ImageBean> images = imageDao.doRetrieveAll(null);
+            ImageBean retrieved = images.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals(1, retrieved.getCodiceProdotto());
+            assertTrue(retrieved.getNumImage() > 0);
+            assertEquals("verify_test_image.jpg", retrieved.getImg());
+        }
     }
 
     // ============================================================================
@@ -255,6 +269,20 @@ public class ImageDaoDataSourceTest {
             assertNotNull(images);
             assertTrue(images.isEmpty());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveByProduct")
+        void testRetrieveByProductVerifiesAllFields() throws SQLException {
+            imageDao.doSave(createTestImage(1, "product_verify_image.png"));
+
+            Collection<ImageBean> images = imageDao.doRetrieveByProduct(1);
+            ImageBean retrieved = images.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals(1, retrieved.getCodiceProdotto());
+            assertTrue(retrieved.getNumImage() > 0);
+            assertEquals("product_verify_image.png", retrieved.getImg());
+        }
     }
 
     // ============================================================================
@@ -290,6 +318,119 @@ public class ImageDaoDataSourceTest {
 
             Collection<ImageBean> images = imageDao.doRetrieveAll(null);
             assertEquals(5, images.size());
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator")
+        void testDoSaveActuallyPersists() throws SQLException {
+            ImageBean image = createTestImage(1, "mutation_test.jpg");
+            
+            // Verify empty before save
+            Collection<ImageBean> beforeSave = imageDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the image
+            imageDao.doSave(image);
+            
+            // Verify present after save - if mutation removes doSave, this fails
+            Collection<ImageBean> afterSave = imageDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 image after save");
+            
+            // Verify correct data was saved
+            ImageBean saved = afterSave.iterator().next();
+            assertEquals(1, saved.getCodiceProdotto());
+            assertEquals("mutation_test.jpg", saved.getImg());
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes data - kills NegateConditionalsMutator line 76")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            // First save an image
+            imageDao.doSave(createTestImage(1, "delete_test.jpg"));
+            
+            // Verify it exists
+            Collection<ImageBean> afterSave = imageDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size());
+            ImageBean saved = afterSave.iterator().next();
+            
+            // Delete it
+            boolean result = imageDao.doDelete(saved.getNumImage(), saved.getCodiceProdotto());
+            
+            // Both the return value AND the actual deletion matter
+            assertTrue(result, "doDelete should return true");
+            
+            // Verify it was actually deleted
+            Collection<ImageBean> afterDelete = imageDao.doRetrieveAll(null);
+            assertEquals(0, afterDelete.size(), "Should be empty after delete");
+        }
+        
+        @Test
+        @DisplayName("doDelete return value matches actual deletion - kills return value mutations")
+        void testDoDeleteReturnValueMatchesReality() throws SQLException {
+            // Delete non-existent returns false AND doesn't affect database
+            boolean falseResult = imageDao.doDelete(999, 999);
+            assertFalse(falseResult, "Deleting non-existent should return false");
+            
+            // Add an image
+            imageDao.doSave(createTestImage(1, "return_test.jpg"));
+            Collection<ImageBean> afterSave = imageDao.doRetrieveAll(null);
+            ImageBean saved = afterSave.iterator().next();
+            
+            // Delete existing returns true AND actually removes
+            boolean trueResult = imageDao.doDelete(saved.getNumImage(), saved.getCodiceProdotto());
+            assertTrue(trueResult, "Deleting existing should return true");
+            assertTrue(imageDao.doRetrieveAll(null).isEmpty(), "Image should be gone");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 152")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            imageDao.doSave(createTestImage(1, "retrieve1.jpg"));
+            imageDao.doSave(createTestImage(1, "retrieve2.jpg"));
+            imageDao.doSave(createTestImage(1, "retrieve3.jpg"));
+            
+            Collection<ImageBean> result = imageDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 images");
+            
+            // Verify each element is valid
+            for (ImageBean img : result) {
+                assertNotNull(img);
+                assertEquals(1, img.getCodiceProdotto());
+                assertTrue(img.getImg().startsWith("retrieve"));
+            }
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByProduct returns images for specific product only")
+        void testDoRetrieveByProductReturnsSpecificProductOnly() throws SQLException {
+            // Add another product
+            insertTestProduct(2, "Another Product");
+            
+            // Save images for both products
+            imageDao.doSave(createTestImage(1, "product1_img.jpg"));
+            imageDao.doSave(createTestImage(2, "product2_img.jpg"));
+            
+            // Retrieve for product 1 only
+            Collection<ImageBean> product1Images = imageDao.doRetrieveByProduct(1);
+            
+            assertEquals(1, product1Images.size());
+            ImageBean img = product1Images.iterator().next();
+            assertEquals(1, img.getCodiceProdotto());
+            assertEquals("product1_img.jpg", img.getImg());
+            assertNotEquals(2, img.getCodiceProdotto());
         }
     }
 

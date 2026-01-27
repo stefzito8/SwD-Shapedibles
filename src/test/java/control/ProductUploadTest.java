@@ -205,9 +205,12 @@ public class ProductUploadTest {
                 assertFalse(infoDaoMock.constructed().isEmpty());
                 verify(infoDaoMock.constructed().get(0)).doSave(any(InfoBean.class));
                 
-                // Verify product was saved
+                // Verify product was saved with correct properties (kills setter mutations lines 119-120)
                 assertFalse(prodDaoMock.constructed().isEmpty());
-                verify(prodDaoMock.constructed().get(0)).doSave(any(ProductBean.class));
+                verify(prodDaoMock.constructed().get(0)).doSave(argThat(prod -> 
+                    prod.getInfoCorrenti() == 1 &&
+                    "New Product".equals(prod.getNome())
+                ));
                 
                 // Verify forward to admin page
                 verify(dispatcher).forward(request, response);
@@ -296,9 +299,12 @@ public class ProductUploadTest {
                 // Verify file was written
                 verify(mockPart).write(contains("product.jpg"));
                 
-                // Verify image was saved to database
+                // Verify image was saved to database with correct properties (kills setter mutations lines 124-125)
                 assertFalse(imgDaoMock.constructed().isEmpty());
-                verify(imgDaoMock.constructed().get(0)).doSave(any(ImageBean.class));
+                verify(imgDaoMock.constructed().get(0)).doSave(argThat(img -> 
+                    img.getCodiceProdotto() == 1 &&
+                    img.getImg() != null
+                ));
             }
         }
         

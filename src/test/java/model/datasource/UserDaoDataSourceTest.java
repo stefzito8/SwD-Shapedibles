@@ -294,6 +294,34 @@ public class UserDaoDataSourceTest {
             assertTrue(hasAdmin);
             assertTrue(hasNonAdmin);
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            UserBean user = new UserBean();
+            user.setUsername("verifyuser");
+            user.setEmail("verify@example.com");
+            user.setPass("securepass123");
+            user.setNomeCognome("Verify User Name");
+            user.setSesso("F");
+            user.setPaese("Germany");
+            user.setDataNascita("1985-06-15");
+            user.setUserAdmin(0);
+            userDao.doSave(user);
+
+            Collection<UserBean> users = userDao.doRetrieveAll(null);
+            UserBean retrieved = users.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals("verifyuser", retrieved.getUsername());
+            assertEquals("verify@example.com", retrieved.getEmail());
+            assertEquals("securepass123", retrieved.getPass());
+            assertEquals("Verify User Name", retrieved.getNomeCognome());
+            assertEquals("F", retrieved.getSesso());
+            assertEquals("Germany", retrieved.getPaese());
+            assertEquals("1985-06-15", retrieved.getDataNascita());
+            assertEquals(0, retrieved.getUserAdmin());
+        }
     }
 
     // ============================================================================
@@ -329,6 +357,121 @@ public class UserDaoDataSourceTest {
 
             Collection<UserBean> users = userDao.doRetrieveAll(null);
             assertEquals(10, users.size());
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator line 53")
+        void testDoSaveActuallyPersists() throws SQLException {
+            UserBean user = createTestUser("mutuser", "mut@test.com", "mutpass", 0);
+            
+            // Verify empty before save
+            Collection<UserBean> beforeSave = userDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the user
+            userDao.doSave(user);
+            
+            // Verify present after save
+            Collection<UserBean> afterSave = userDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 user after save");
+            
+            // Verify correct data was saved
+            UserBean saved = userDao.doRetrieveByKey("mutuser");
+            assertEquals("mutuser", saved.getUsername());
+            assertEquals("mut@test.com", saved.getEmail());
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes data - kills NegateConditionalsMutator line 82")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            // First save a user
+            userDao.doSave(createTestUser("deluser", "del@test.com", "delpass", 0));
+            
+            // Verify it exists
+            UserBean beforeDelete = userDao.doRetrieveByKey("deluser");
+            assertEquals("deluser", beforeDelete.getUsername());
+            
+            // Delete it
+            boolean result = userDao.doDelete("deluser");
+            
+            // Both the return value AND the actual deletion matter
+            assertTrue(result, "doDelete should return true");
+            
+            // Verify it was actually deleted
+            Collection<UserBean> afterDelete = userDao.doRetrieveAll(null);
+            assertEquals(0, afterDelete.size(), "Should be empty after delete");
+        }
+        
+        @Test
+        @DisplayName("doDelete return value matches reality - kills return value mutations")
+        void testDoDeleteReturnValueMatchesReality() throws SQLException {
+            // Delete non-existent returns false
+            boolean falseResult = userDao.doDelete("nonexistent");
+            assertFalse(falseResult, "Deleting non-existent should return false");
+            
+            // Add a user
+            userDao.doSave(createTestUser("retuser", "ret@test.com", "retpass", 0));
+            
+            // Delete existing returns true AND actually removes
+            boolean trueResult = userDao.doDelete("retuser");
+            assertTrue(trueResult, "Deleting existing should return true");
+            assertTrue(userDao.doRetrieveAll(null).isEmpty(), "User should be gone");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 166")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            userDao.doSave(createTestUser("user1", "u1@test.com", "pass1", 0));
+            userDao.doSave(createTestUser("user2", "u2@test.com", "pass2", 0));
+            userDao.doSave(createTestUser("user3", "u3@test.com", "pass3", 1));
+            
+            Collection<UserBean> result = userDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 users");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByKey returns correct user - kills NegateConditionalsMutator line 121")
+        void testDoRetrieveByKeyReturnsCorrectUser() throws SQLException {
+            userDao.doSave(createTestUser("keyuser", "key@test.com", "keypass", 0));
+            
+            UserBean result = userDao.doRetrieveByKey("keyuser");
+            
+            assertNotNull(result);
+            assertEquals("keyuser", result.getUsername());
+            assertEquals("key@test.com", result.getEmail());
+            assertEquals("Test User", result.getNomeCognome());
+            assertEquals("M", result.getSesso());
+            assertEquals("Italy", result.getPaese());
+            assertEquals(0, result.getUserAdmin());
+        }
+        
+        @Test
+        @DisplayName("Admin flag is correctly saved and retrieved - kills boundary mutations")
+        void testAdminFlagCorrectlySavedAndRetrieved() throws SQLException {
+            // Non-admin user
+            userDao.doSave(createTestUser("normaluser", "normal@test.com", "pass", 0));
+            UserBean normal = userDao.doRetrieveByKey("normaluser");
+            assertEquals(0, normal.getUserAdmin());
+            assertNotEquals(1, normal.getUserAdmin());
+            
+            // Admin user
+            userDao.doSave(createTestUser("adminuser", "admin@test.com", "pass", 1));
+            UserBean admin = userDao.doRetrieveByKey("adminuser");
+            assertEquals(1, admin.getUserAdmin());
+            assertNotEquals(0, admin.getUserAdmin());
         }
     }
 

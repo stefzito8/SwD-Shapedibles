@@ -152,7 +152,7 @@ public class Register extends HttpServlet {
 	    }
 	    return sb.toString();
 	   }
-
+	
 	private boolean checkUsername(String username, IUserDao userDao) throws SQLException 
 	{
 		Collection<?> userCheck = (Collection<?>) userDao.doRetrieveAll("");
@@ -166,7 +166,10 @@ public class Register extends HttpServlet {
 		return true;
 	}
 
+	/**
+	 * Factory method for UserDao - can be overridden in tests.
+	 */
 	protected IUserDao createUserDao(DataSource ds) {
-        return new UserDaoDataSource(ds);
-    }
+		return new UserDaoDataSource(ds);
+	}
 }

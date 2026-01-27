@@ -42,7 +42,7 @@ public class AccountManage extends HttpServlet {
 		IUserDao userDao = null;
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		userDao = new UserDaoDataSource(ds);
+		userDao = createUserDao(ds);
 		
 		String action = request.getParameter("action");
 		
@@ -79,4 +79,12 @@ public class AccountManage extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * Factory method for creating UserDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IUserDao implementation
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+		return new UserDaoDataSource(ds);
+	}
 }

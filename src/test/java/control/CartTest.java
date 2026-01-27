@@ -173,6 +173,7 @@ public class CartTest {
             product.setNome("Test Product");
             
             model.Cart cart = new model.Cart();
+            int initialSize = cart.getCartSize();
             
             when(request.getHeader("X-Requested-With")).thenReturn("XMLHttpRequest");
             when(request.getSession()).thenReturn(session);
@@ -185,7 +186,8 @@ public class CartTest {
             // Act
             cartServlet.doPost(request, response);
             
-            // Assert
+            // Assert - verify cart.addProduct was called (kills VoidMethodCallMutator mutation)
+            assertEquals(initialSize + 1, cart.getCartSize(), "Cart size should increase after addProduct");
             verify(session).setAttribute(eq("cart"), any(model.Cart.class));
             verify(response).setContentType("application/json");
             verify(response).setCharacterEncoding("UTF-8");
@@ -203,6 +205,7 @@ public class CartTest {
             
             model.Cart cart = new model.Cart();
             cart.addProduct(product); // Add product first so we can delete it
+            int initialSize = cart.getCartSize();
             
             when(request.getHeader("X-Requested-With")).thenReturn("XMLHttpRequest");
             when(request.getSession()).thenReturn(session);
@@ -215,7 +218,8 @@ public class CartTest {
             // Act
             cartServlet.doPost(request, response);
             
-            // Assert
+            // Assert - verify cart.deleteProduct was called (kills VoidMethodCallMutator mutation)
+            assertEquals(initialSize - 1, cart.getCartSize(), "Cart size should decrease after deleteProduct");
             verify(session).setAttribute(eq("cart"), any(model.Cart.class));
             verify(response).setContentType("application/json");
         }
@@ -285,8 +289,9 @@ public class CartTest {
             // Act
             cartServlet.doPost(request, response);
             
-            // Assert - cart may be set multiple times (once when created, once after processing)
-            verify(session, atLeastOnce()).setAttribute(eq("cart"), any(model.Cart.class));
+            // Assert - cart is set at least twice (once when created at line 59, once after processing at line 79)
+            // Verifying atLeast(2) ensures the line 59 setAttribute is called (kills VoidMethodCallMutator mutation)
+            verify(session, atLeast(2)).setAttribute(eq("cart"), any(model.Cart.class));
         }
 
         @Test

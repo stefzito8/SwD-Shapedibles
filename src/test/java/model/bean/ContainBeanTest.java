@@ -229,6 +229,12 @@ public class ContainBeanTest {
             
             String result = containBean.toString();
             assertEquals("100 200 5", result);
+            
+            // Kill mutations by verifying components are present AND in order
+            assertTrue(result.startsWith("100"), "toString must start with codiceOrdine");
+            assertTrue(result.endsWith("5"), "toString must end with quantità");
+            assertEquals(9, result.length(), "toString must have correct length");
+            assertTrue(result.contains(" "), "toString must contain space separators");
         }
 
         @Test
@@ -236,6 +242,7 @@ public class ContainBeanTest {
         void testToStringDefaults() {
             String result = containBean.toString();
             assertEquals("-1 -1 1", result);
+            assertFalse(result.isEmpty(), "toString must not return empty");
         }
 
         @Test
@@ -247,6 +254,72 @@ public class ContainBeanTest {
             
             String result = containBean.toString();
             assertEquals("0 0 0", result);
+            assertEquals(5, result.length());
+        }
+        
+        @Test
+        @DisplayName("toString components are correctly split - kills string mutation")
+        void testToStringSplitComponents() {
+            containBean.setCodiceOrdine(123);
+            containBean.setCodiceProdotto(456);
+            containBean.setQuantità(7);
+            
+            String result = containBean.toString();
+            String[] parts = result.split(" ");
+            
+            assertEquals(3, parts.length, "toString must have 3 parts");
+            assertEquals("123", parts[0]);
+            assertEquals("456", parts[1]);
+            assertEquals("7", parts[2]);
+        }
+    }
+    
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+    
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("Setters actually change values - kills increment/decrement mutations")
+        void testSettersActuallyChangeValues() {
+            containBean.setCodiceOrdine(1);
+            assertEquals(1, containBean.getCodiceOrdine());
+            assertNotEquals(0, containBean.getCodiceOrdine());
+            assertNotEquals(2, containBean.getCodiceOrdine());
+            
+            containBean.setCodiceProdotto(1);
+            assertEquals(1, containBean.getCodiceProdotto());
+            assertNotEquals(0, containBean.getCodiceProdotto());
+            assertNotEquals(2, containBean.getCodiceProdotto());
+            
+            containBean.setQuantità(1);
+            assertEquals(1, containBean.getQuantità());
+            assertNotEquals(0, containBean.getQuantità());
+            assertNotEquals(2, containBean.getQuantità());
+        }
+        
+        @Test
+        @DisplayName("Getters return exact values set - kills return value mutations")
+        void testGettersReturnExactValues() {
+            containBean.setCodiceOrdine(42);
+            containBean.setCodiceProdotto(84);
+            containBean.setQuantità(21);
+            
+            // Exact value checks
+            assertEquals(42, containBean.getCodiceOrdine());
+            assertEquals(84, containBean.getCodiceProdotto());
+            assertEquals(21, containBean.getQuantità());
+            
+            // Boundary checks to kill off-by-one mutations
+            assertTrue(containBean.getCodiceOrdine() > 41);
+            assertTrue(containBean.getCodiceOrdine() < 43);
+            assertTrue(containBean.getCodiceProdotto() > 83);
+            assertTrue(containBean.getCodiceProdotto() < 85);
+            assertTrue(containBean.getQuantità() > 20);
+            assertTrue(containBean.getQuantità() < 22);
         }
     }
 }

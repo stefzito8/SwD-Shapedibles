@@ -53,9 +53,9 @@ public class UserProfile extends HttpServlet {
 		IContainDao containDao = null;
 		
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		userDao = new UserDaoDataSource(ds);
-		orderDao = new OrderDaoDataSource(ds);
-		containDao= new ContainDaoDataSource(ds);
+		userDao = createUserDao(ds);
+		orderDao = createOrderDao(ds);
+		containDao= createContainDao(ds);
 		
 		String action = request.getParameter("action");
 		UserBean user = (UserBean) request.getSession().getAttribute("LoggedUser");
@@ -94,4 +94,30 @@ public class UserProfile extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * Factory method for creating UserDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IUserDao implementation
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+		return new UserDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for creating OrderDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IOrderDao implementation
+	 */
+	protected IOrderDao createOrderDao(DataSource ds) {
+		return new OrderDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for creating ContainDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IContainDao implementation
+	 */
+	protected IContainDao createContainDao(DataSource ds) {
+		return new ContainDaoDataSource(ds);
+	}
 }

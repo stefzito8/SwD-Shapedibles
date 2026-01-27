@@ -98,6 +98,8 @@ public class AuthenticationFilterTest {
             filter.doFilter(request, response, filterChain);
 
             // Assert
+            // Verify redirectURL is stored in session (kills VoidMethodCallMutator mutation)
+            verify(session).setAttribute("redirectURL", "/user/profile");
             verify(response).sendRedirect(contains("Login"));
             verify(filterChain, never()).doFilter(request, response);
         }
@@ -194,7 +196,8 @@ public class AuthenticationFilterTest {
             // Act
             filter.doFilter(request, response, filterChain);
 
-            // Assert - should redirect or send error
+            // Assert - should redirect to /Home (kills VoidMethodCallMutator mutation line 34)
+            verify(response).sendRedirect("/Home");
             verify(filterChain, never()).doFilter(request, response);
         }
 

@@ -310,4 +310,98 @@ public class ProductBeanTest {
             );
         }
     }
+    
+    // ============================================================================
+    // Equals and HashCode Tests - Kill mutations on equals/hashCode methods
+    // ============================================================================
+    
+    @Nested
+    @DisplayName("Equals and HashCode Tests - Mutation Killers")
+    class EqualsHashCodeTests {
+        
+        @Test
+        @DisplayName("equals returns true for same instance - kills B62 this==o mutation")
+        void testEqualsSameInstance() {
+            product.setCodice(100);
+            assertTrue(product.equals(product));
+        }
+        
+        @Test
+        @DisplayName("equals returns false for null - kills NegateConditionalsMutator on o==null")
+        void testEqualsNull() {
+            product.setCodice(100);
+            assertFalse(product.equals(null));
+        }
+        
+        @Test
+        @DisplayName("equals returns false for different class - kills getClass mutation")
+        void testEqualsDifferentClass() {
+            product.setCodice(100);
+            assertFalse(product.equals("not a product"));
+            assertFalse(product.equals(Integer.valueOf(100)));
+        }
+        
+        @Test
+        @DisplayName("equals returns true for same codice - kills BooleanTrueReturnValsMutator")
+        void testEqualsSameCodice() {
+            product.setCodice(100);
+            ProductBean other = new ProductBean();
+            other.setCodice(100);
+            assertTrue(product.equals(other));
+            // Symmetric
+            assertTrue(other.equals(product));
+        }
+        
+        @Test
+        @DisplayName("equals returns false for different codice - kills BooleanFalseReturnValsMutator")
+        void testEqualsDifferentCodice() {
+            product.setCodice(100);
+            ProductBean other = new ProductBean();
+            other.setCodice(200);
+            assertFalse(product.equals(other));
+            // Verify asymmetry is consistent
+            assertFalse(other.equals(product));
+        }
+        
+        @Test
+        @DisplayName("hashCode returns same value for equal objects")
+        void testHashCodeConsistency() {
+            product.setCodice(100);
+            ProductBean other = new ProductBean();
+            other.setCodice(100);
+            assertEquals(product.hashCode(), other.hashCode());
+            // Verify hashCode is consistent
+            int hash1 = product.hashCode();
+            int hash2 = product.hashCode();
+            assertEquals(hash1, hash2);
+        }
+        
+        @Test
+        @DisplayName("hashCode returns different values for different codes - kills PrimitiveReturnsMutator")
+        void testHashCodeDifference() {
+            product.setCodice(100);
+            ProductBean other = new ProductBean();
+            other.setCodice(200);
+            // Different objects SHOULD have different hash codes (not guaranteed but very likely)
+            assertNotEquals(product.getCodice(), other.getCodice());
+        }
+        
+        @Test
+        @DisplayName("getImages returns the images collection - kills EmptyObjectReturnValsMutator")
+        void testGetImagesReturnsCollection() {
+            // Default should be null, not empty
+            assertNull(product.getImages());
+            
+            // After setting, should return the exact collection
+            java.util.ArrayList<ImageBean> images = new java.util.ArrayList<>();
+            ImageBean img = new ImageBean();
+            img.setImg("test.jpg");
+            images.add(img);
+            product.setImages(images);
+            
+            assertNotNull(product.getImages());
+            assertEquals(1, product.getImages().size());
+            assertSame(images, product.getImages());
+        }
+    }
 }

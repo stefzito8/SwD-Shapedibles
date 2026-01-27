@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.bean</a> &gt; <span class="el_source">UserBean.java</span></div><h1>UserBean.java</h1><pre class="source lang-java linenums">package model.bean;
+
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class UserBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	String username;
+	String email;
+	String pass;
+	String nome_cognome;
+	String sesso;
+	String paese;
+	String data_nascita;
+	int user_admin;
+	
+	public UserBean()
+<span class="fc" id="L22">	{</span>
+<span class="fc" id="L23">		username= &quot; &quot;;</span>
+<span class="fc" id="L24">		email= &quot; &quot;;</span>
+<span class="fc" id="L25">		pass= &quot; &quot;;</span>
+<span class="fc" id="L26">		nome_cognome= &quot; &quot;;</span>
+<span class="fc" id="L27">		sesso= &quot; &quot;;</span>
+<span class="fc" id="L28">		paese= &quot; &quot;;</span>
+<span class="fc" id="L29">		data_nascita= &quot; &quot;;</span>
+<span class="fc" id="L30">		user_admin= -1;</span>
+<span class="fc" id="L31">	}</span>
+	
+	public void setUsername(String username) 
+	{
+<span class="fc" id="L35">		this.username=username;</span>
+<span class="fc" id="L36">	}</span>
+	public void setEmail(String email) 
+	{
+<span class="fc" id="L39">		this.email=email;</span>
+<span class="fc" id="L40">	}</span>
+	public void setPass(String pass) 
+	{
+<span class="fc" id="L43">		this.pass=pass;</span>
+<span class="fc" id="L44">	}</span>
+	public void setNomeCognome(String nome_cognome) 
+	{
+<span class="fc" id="L47">		this.nome_cognome=nome_cognome;</span>
+<span class="fc" id="L48">	}</span>
+	public void setSesso(String sesso) 
+	{
+<span class="fc" id="L51">		this.sesso=sesso;</span>
+<span class="fc" id="L52">	}</span>
+	public void setPaese(String paese) 
+	{
+<span class="fc" id="L55">		this.paese=paese;</span>
+<span class="fc" id="L56">	}</span>
+	public void setDataNascita(String data_nascita) 
+	{
+<span class="fc" id="L59">		this.data_nascita=data_nascita;</span>
+<span class="fc" id="L60">	}</span>
+	public void setUserAdmin(int user_admin) 
+	{
+<span class="fc" id="L63">		this.user_admin=user_admin;</span>
+<span class="fc" id="L64">	}</span>
+	
+	public String getUsername()
+	{
+<span class="fc" id="L68">		return username;</span>
+	}
+	public String getEmail()
+	{
+<span class="fc" id="L72">		return email;</span>
+	}
+	public String getPass()
+	{
+<span class="fc" id="L76">		return pass;</span>
+	}
+	public String getNomeCognome()
+	{
+<span class="fc" id="L80">		return nome_cognome;</span>
+	}
+	public String getSesso()
+	{
+<span class="fc" id="L84">		return sesso;</span>
+	}
+	public String getPaese()
+	{
+<span class="fc" id="L88">		return paese;</span>
+	}
+	public String getDataNascita()
+	{
+<span class="fc" id="L92">		return data_nascita;</span>
+	}
+	public int getUserAdmin()
+	{
+<span class="fc" id="L96">		return user_admin;</span>
+	}
+	
+	
+	@Override
+	public String toString() {
+<span class="fc" id="L102">		return username + user_admin;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

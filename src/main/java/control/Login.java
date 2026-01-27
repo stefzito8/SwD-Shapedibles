@@ -113,7 +113,12 @@ public class Login extends HttpServlet {
 	    return sb.toString();
 	   }
 
+	/**
+	 * Factory method for UserDao - can be overridden in tests.
+	 */
 	protected IUserDao createUserDao(DataSource ds) {
-        return new UserDaoDataSource(ds);
-    }
+		return new UserDaoDataSource(ds);
+	}
+
+	
 }

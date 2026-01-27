@@ -313,6 +313,20 @@ public class ContainDaoDataSourceTest {
 
             assertEquals(3, items.size());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            containDao.doSave(createTestContain(42, 777, 99));
+
+            Collection<ContainBean> items = containDao.doRetrieveAll(null);
+            ContainBean retrieved = items.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals(42, retrieved.getCodiceOrdine());
+            assertEquals(777, retrieved.getCodiceProdotto());
+            assertEquals(99, retrieved.getQuantità());
+        }
     }
 
     // ============================================================================
@@ -458,6 +472,121 @@ public class ContainDaoDataSourceTest {
 
             ContainBean retrieved = containDao.doRetrieveByKey(1);
             assertEquals(99999, retrieved.getQuantità());
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator line 47")
+        void testDoSaveActuallyPersists() throws SQLException {
+            ContainBean contain = createTestContain(1, 101, 5);
+            
+            // Verify empty before save
+            Collection<ContainBean> beforeSave = containDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the contain
+            containDao.doSave(contain);
+            
+            // Verify present after save
+            Collection<ContainBean> afterSave = containDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 contain after save");
+            
+            // Verify correct data was saved
+            ContainBean saved = afterSave.iterator().next();
+            assertEquals(101, saved.getCodiceProdotto());
+            assertEquals(5, saved.getQuantità());
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes data - kills NegateConditionalsMutator line 75")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            // First save a contain
+            containDao.doSave(createTestContain(1, 201, 3));
+            
+            // Verify it exists
+            Collection<ContainBean> afterSave = containDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size());
+            ContainBean saved = afterSave.iterator().next();
+            
+            // Delete it by order ID
+            boolean result = containDao.doDelete(saved.getCodiceOrdine());
+            
+            // Both the return value AND the actual deletion matter
+            assertTrue(result, "doDelete should return true");
+            
+            // Verify it was actually deleted
+            Collection<ContainBean> afterDelete = containDao.doRetrieveAll(null);
+            assertEquals(0, afterDelete.size(), "Should be empty after delete");
+        }
+        
+        @Test
+        @DisplayName("doDelete return value matches reality - kills return value mutations")
+        void testDoDeleteReturnValueMatchesReality() throws SQLException {
+            // Delete non-existent returns false
+            boolean falseResult = containDao.doDelete(99999);
+            assertFalse(falseResult, "Deleting non-existent should return false");
+            
+            // Add a contain
+            containDao.doSave(createTestContain(1, 301, 7));
+            Collection<ContainBean> afterSave = containDao.doRetrieveAll(null);
+            ContainBean saved = afterSave.iterator().next();
+            
+            // Delete existing returns true AND actually removes
+            boolean trueResult = containDao.doDelete(saved.getCodiceOrdine());
+            assertTrue(trueResult, "Deleting existing should return true");
+            assertTrue(containDao.doRetrieveAll(null).isEmpty(), "Contain should be gone");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 148")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            containDao.doSave(createTestContain(1, 401, 1));
+            containDao.doSave(createTestContain(2, 402, 2));
+            containDao.doSave(createTestContain(3, 403, 3));
+            
+            Collection<ContainBean> result = containDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 contains");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByKey returns correct contain - kills NegateConditionalsMutator line 108")
+        void testDoRetrieveByKeyReturnsCorrectContain() throws SQLException {
+            containDao.doSave(createTestContain(1, 501, 42));
+            
+            ContainBean result = containDao.doRetrieveByKey(1);
+            
+            assertNotNull(result);
+            assertEquals(1, result.getCodiceOrdine());
+            assertEquals(501, result.getCodiceProdotto());
+            assertEquals(42, result.getQuantità());
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByOrder returns contains for specific order - kills NegateConditionalsMutator line 184")
+        void testDoRetrieveByOrderReturnsSpecificOrderOnly() throws SQLException {
+            containDao.doSave(createTestContain(1, 601, 10));
+            containDao.doSave(createTestContain(1, 602, 20));
+            containDao.doSave(createTestContain(2, 603, 30));
+            
+            Collection<ContainBean> order1Contains = containDao.doRetrieveByOrder(1);
+            
+            assertEquals(2, order1Contains.size(), "Order 1 should have 2 contains");
+            for (ContainBean contain : order1Contains) {
+                assertEquals(1, contain.getCodiceOrdine(), "All contains should belong to order 1");
+                assertNotEquals(2, contain.getCodiceOrdine());
+            }
         }
     }
 

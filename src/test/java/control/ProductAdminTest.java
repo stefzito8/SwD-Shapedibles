@@ -21,12 +21,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 /**
  * Unit tests for ProductAdmin controller.
@@ -105,6 +108,7 @@ import static org.mockito.Mockito.*;
  */
 @UnitTest
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @DisplayName("ProductAdmin Controller Unit Tests")
 public class ProductAdminTest {
 
@@ -155,8 +159,8 @@ public class ProductAdminTest {
     class SessionCartHandlingTests {
 
         @Test
-        @DisplayName("TC-PA-1: New cart created when session cart is null")
-        void testNewCartCreatedWhenNull() throws ServletException, IOException {
+        @DisplayName("TC-PA-1: New cart created when session cart is null - verifies setAttribute is called")
+        void testNewCartCreatedWhenNull() throws ServletException, IOException, java.sql.SQLException {
             // Arrange
             when(request.getSession()).thenReturn(session);
             when(session.getAttribute("cart")).thenReturn(null);
@@ -169,8 +173,14 @@ public class ProductAdminTest {
             // Act
             productAdminServlet.doGet(request, response);
 
-            // Assert - cart may be set multiple times (once when created, once after processing)
-            verify(session, atLeastOnce()).setAttribute(eq("cart"), any(Cart.class));
+            // Assert - cart setAttribute is called at least twice (once when created, once after processing)
+            // This kills the mutation on line 44 by verifying the setAttribute call occurs
+            org.mockito.ArgumentCaptor<Cart> cartCaptor = org.mockito.ArgumentCaptor.forClass(Cart.class);
+            verify(session, atLeast(2)).setAttribute(eq("cart"), cartCaptor.capture());
+            
+            // Verify the captured cart is not null
+            assertNotNull(cartCaptor.getValue());
+            assertTrue(cartCaptor.getValue() instanceof Cart);
         }
 
         @Test
@@ -229,10 +239,13 @@ public class ProductAdminTest {
         }
 
         @Test
-        @DisplayName("TC-PA-4: addC action adds product to cart")
-        void testAddCActionAddsProductToCart() throws ServletException, IOException {
+        @DisplayName("TC-PA-4: addC action adds product to cart - verifies product is actually added")
+        void testAddCActionAddsProductToCart() throws ServletException, IOException, java.sql.SQLException {
             // Arrange
             Cart cart = new Cart();
+            ProductBean product = new ProductBean();
+            product.setCodice(1);
+            product.setNome("Test Product");
 
             when(request.getSession()).thenReturn(session);
             when(session.getAttribute("cart")).thenReturn(cart);
@@ -242,20 +255,56 @@ public class ProductAdminTest {
             when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
             when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
                     .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveByKey(1)).thenReturn(product);
+
+            // Assert cart is initially empty
+            assertEquals(0, cart.getCartSize());
 
             // Act
             productAdminServlet.doGet(request, response);
 
-            // Assert
-            verify(request).getParameter("id");
-            verify(session).setAttribute(eq("cart"), any(Cart.class));
+            // Assert - verify addProduct was called by checking cart now has product
+            assertEquals(1, cart.getCartSize());
+            assertTrue(cart.getProducts().contains(product));
+            verify(productDao).doRetrieveByKey(1);
+            verify(session).setAttribute(eq("cart"), eq(cart));
+        }
+        
+        @Test
+        @DisplayName("addC action - verify product retrieval is used")
+        void testAddCActionRetrievesAndAddsProduct() throws ServletException, IOException, java.sql.SQLException {
+            // Arrange
+            Cart cart = new Cart();
+            ProductBean product = new ProductBean();
+            product.setCodice(99);
+            product.setNome("Specific Product");
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(request.getParameter("action")).thenReturn("addC");
+            when(request.getParameter("id")).thenReturn("99");
+            when(request.getParameter("sort")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
+                    .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveByKey(99)).thenReturn(product);
+
+            // Act
+            productAdminServlet.doGet(request, response);
+
+            // Assert - cart must contain the specific product (kills mutation if addProduct call is removed)
+            assertTrue(cart.getProducts().contains(product), "Cart should contain the added product");
+            assertEquals(1, cart.getProductQuantity(product), "Product quantity should be 1");
         }
 
         @Test
-        @DisplayName("TC-PA-5: read action shows product details")
-        void testReadActionShowsProductDetails() throws ServletException, IOException {
+        @DisplayName("TC-PA-5: read action - verifies removeAttribute before setAttribute for product")
+        void testReadActionShowsProductDetails() throws ServletException, IOException, java.sql.SQLException {
             // Arrange
             Cart cart = new Cart();
+            ProductBean product = new ProductBean();
+            product.setCodice(1);
+            product.setNome("Test Product");
 
             when(request.getSession()).thenReturn(session);
             when(session.getAttribute("cart")).thenReturn(cart);
@@ -265,18 +314,21 @@ public class ProductAdminTest {
             when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
             when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
                     .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveByKey(1)).thenReturn(product);
 
             // Act
             productAdminServlet.doGet(request, response);
 
-            // Assert
-            verify(request).removeAttribute("product");
-            verify(request).setAttribute(eq("product"), any());
+            // Assert - verify removeAttribute is called BEFORE setAttribute (kills removeAttribute mutation)
+            org.mockito.InOrder inOrder = inOrder(request);
+            inOrder.verify(request).removeAttribute("product");
+            inOrder.verify(request).setAttribute("product", product);
+            verify(productDao).doRetrieveByKey(1);
         }
 
         @Test
         @DisplayName("TC-PA-6: delete action deletes product")
-        void testDeleteActionDeletesProduct() throws ServletException, IOException {
+        void testDeleteActionDeletesProduct() throws ServletException, IOException, SQLException {
             // Arrange
             Cart cart = new Cart();
 
@@ -292,8 +344,9 @@ public class ProductAdminTest {
             // Act
             productAdminServlet.doGet(request, response);
 
-            // Assert - delete action should be processed
+            // Assert - delete action should be processed and doDelete called
             verify(request).getParameter("id");
+            verify(productDao).doDelete(1);
             verify(requestDispatcher).forward(request, response);
         }
 
@@ -328,25 +381,85 @@ public class ProductAdminTest {
     class ExceptionHandlingTests {
 
         @Test
-        @DisplayName("TC-PA-8: SQLException in action handling triggers error")
-        void testSqlExceptionInActionHandling() throws ServletException, IOException {
+        @DisplayName("TC-PA-8: SQLException in action handling - sets error and sends 500")
+        void testSqlExceptionInActionHandling() throws Exception {
             // Arrange
             Cart cart = new Cart();
+            java.sql.SQLException sqlException = new java.sql.SQLException("Product action error");
 
             when(request.getSession()).thenReturn(session);
             when(session.getAttribute("cart")).thenReturn(cart);
             when(request.getParameter("action")).thenReturn("addC");
-            when(request.getParameter("id")).thenReturn("invalid"); // Will cause NumberFormatException
+            when(request.getParameter("id")).thenReturn("1");
+            when(request.getParameter("sort")).thenReturn(null);
             when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
+                    .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveByKey(1)).thenThrow(sqlException);
 
-            // Act & Assert - NumberFormatException expected
-            assertThrows(NumberFormatException.class, () -> {
-                productAdminServlet.doGet(request, response);
-            });
+            // Act
+            productAdminServlet.doGet(request, response);
+
+            // Assert - Kill mutations by verifying BOTH setAttribute and sendError
+            verify(request).setAttribute(eq("error"), 
+                eq("Error: sembra esserci un problema con l'elaborazione dei prodotti."));
+            verify(response).sendError(eq(500), argThat(msg -> 
+                msg != null && msg.contains("Product action error")
+            ));
         }
 
         @Test
-        @DisplayName("TC-PA-9: Null DataSource causes NullPointerException")
+        @DisplayName("TC-PA-9: SQLException during product retrieval - sets error and sends 500")
+        void testSqlExceptionDuringProductRetrieval() throws Exception {
+            // Arrange
+            Cart cart = new Cart();
+            java.sql.SQLException sqlException = new java.sql.SQLException("Product retrieval error");
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(request.getParameter("action")).thenReturn(null);
+            when(request.getParameter("sort")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
+                    .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveAll(any())).thenThrow(sqlException);
+
+            // Act
+            productAdminServlet.doGet(request, response);
+
+            // Assert - Kill mutations by verifying specific error message
+            verify(request).setAttribute(eq("error"), 
+                eq("Error: c'è stato un problema con il recupero dati dei prodotti."));
+            verify(response).sendError(eq(500), contains("Product retrieval error"));
+        }
+
+        @Test
+        @DisplayName("TC-PA-9b: SQLException verifies error flow order")
+        void testSqlExceptionFlowOrder() throws Exception {
+            // Arrange
+            Cart cart = new Cart();
+            java.sql.SQLException sqlException = new java.sql.SQLException("Flow error");
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(request.getParameter("action")).thenReturn(null);
+            when(request.getParameter("sort")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
+                    .thenReturn(requestDispatcher);
+            when(productDao.doRetrieveAll(any())).thenThrow(sqlException);
+
+            // Act
+            productAdminServlet.doGet(request, response);
+
+            // Assert - Use InOrder to verify sequence
+            org.mockito.InOrder inOrder = inOrder(request, response);
+            inOrder.verify(request).setAttribute(eq("error"), anyString());
+            inOrder.verify(response).sendError(eq(500), anyString());
+        }
+
+        @Test
+        @DisplayName("TC-PA-10: Null DataSource causes NullPointerException")
         void testNullDataSourceCausesError() throws ServletException, IOException {
             // Arrange
             when(request.getSession()).thenReturn(session);
@@ -357,6 +470,32 @@ public class ProductAdminTest {
             assertThrows(NullPointerException.class, () -> {
                 productAdminServlet.doGet(request, response);
             });
+        }
+
+        @Test
+        @DisplayName("TC-PA-11: SQLException during delete - sets error and sends 500")
+        void testSqlExceptionDuringDelete() throws Exception {
+            // Arrange
+            Cart cart = new Cart();
+            java.sql.SQLException sqlException = new java.sql.SQLException("Delete error");
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(request.getParameter("action")).thenReturn("delete");
+            when(request.getParameter("id")).thenReturn("1");
+            when(request.getParameter("sort")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(servletContext.getRequestDispatcher("/WEB-INF/jsp/admin/productAdmin.jsp"))
+                    .thenReturn(requestDispatcher);
+            doThrow(sqlException).when(productDao).doDelete(1);
+
+            // Act
+            productAdminServlet.doGet(request, response);
+
+            // Assert
+            verify(request).setAttribute(eq("error"), 
+                eq("Error: sembra esserci un problema con l'elaborazione dei prodotti."));
+            verify(response).sendError(eq(500), contains("Delete error"));
         }
     }
 

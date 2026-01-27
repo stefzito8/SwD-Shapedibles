@@ -48,8 +48,8 @@ public class Addresses extends HttpServlet {
 		IUserDao userDao = null;
 		IAddressDao addressDao= null;
 		DataSource ds= (DataSource) getServletContext().getAttribute("DataSource");
-		userDao = new UserDaoDataSource(ds);
-		addressDao= new AddressDaoDataSource(ds);
+		userDao = createUserDao(ds);
+		addressDao= createAddressDao(ds);
 		
 		 int max = 50;
 	     int min = 1;
@@ -95,4 +95,21 @@ public class Addresses extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * Factory method for creating UserDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IUserDao implementation
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+		return new UserDaoDataSource(ds);
+	}
+
+	/**
+	 * Factory method for creating AddressDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IAddressDao implementation
+	 */
+	protected IAddressDao createAddressDao(DataSource ds) {
+		return new AddressDaoDataSource(ds);
+	}
 }

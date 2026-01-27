@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDaoDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.datasource</a> &gt; <span class="el_source">UserDaoDataSource.java</span></div><h1>UserDaoDataSource.java</h1><pre class="source lang-java linenums">package model.datasource;
+
+
+import model.bean.UserBean;
+import model.dao.IUserDao;
+
+import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+
+public class UserDaoDataSource implements IUserDao {
+	
+	private static final String TABLE_NAME=&quot;users&quot;;
+<span class="fc" id="L19">	private DataSource ds=null;</span>
+	
+	public UserDaoDataSource(DataSource ds)
+<span class="fc" id="L22">	{</span>
+<span class="fc" id="L23">		this.ds=ds;</span>
+<span class="fc" id="L24">		System.out.println(&quot;DriverManager Product Model creation....&quot;);</span>
+<span class="fc" id="L25">	}</span>
+	
+	@Override
+	public void doSave(UserBean user) throws SQLException
+	{
+		// TODO Auto-generated method stub
+<span class="fc" id="L31">		Connection connection = null;</span>
+<span class="fc" id="L32">		PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L34">		String insertSQL=&quot;INSERT INTO &quot; + UserDaoDataSource.TABLE_NAME </span>
+				+ &quot;(Username, email, pass, name_surname, gender, country, birthday, user_admin) VALUES (?,?,?,?,?,?,?,?)&quot;;
+		
+		try {
+<span class="fc" id="L38">			connection = ds.getConnection();</span>
+<span class="fc" id="L39">			preparedStatement = connection.prepareStatement(insertSQL);</span>
+<span class="fc" id="L40">			preparedStatement.setString(1, user.getUsername());</span>
+<span class="fc" id="L41">			preparedStatement.setString(2, user.getEmail());</span>
+<span class="fc" id="L42">			preparedStatement.setString(3, user.getPass());</span>
+<span class="fc" id="L43">			preparedStatement.setString(4, user.getNomeCognome());</span>
+<span class="fc" id="L44">			preparedStatement.setString(5, user.getSesso());</span>
+<span class="fc" id="L45">			preparedStatement.setString(6, user.getPaese());</span>
+<span class="fc" id="L46">			preparedStatement.setString(7, user.getDataNascita());</span>
+<span class="fc" id="L47">			preparedStatement.setInt(8, user.getUserAdmin());</span>
+		
+			
+<span class="fc" id="L50">			preparedStatement.executeUpdate();</span>
+		} finally {
+			try {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L54">					 preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L56">				connection.close();</span>
+			}
+		}
+		
+		
+<span class="fc" id="L61">	}</span>
+
+	@Override
+	public boolean doDelete(String username) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L66">		Connection connection = null;</span>
+<span class="fc" id="L67">		PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L69">		int result = 0;</span>
+		
+<span class="fc" id="L71">		String deleteSQL = &quot;DELETE FROM &quot; +UserDaoDataSource.TABLE_NAME + &quot; WHERE USERNAME = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L74">			connection= ds.getConnection();</span>
+<span class="fc" id="L75">			preparedStatement = connection.prepareStatement(deleteSQL);</span>
+<span class="fc" id="L76">			preparedStatement.setString(1, username);</span>
+			
+<span class="fc" id="L78">			result = preparedStatement.executeUpdate();</span>
+			
+		} finally {
+			try {
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L83">					preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L85">				connection.close();</span>
+			}
+		}
+<span class="fc bfc" id="L88" title="All 2 branches covered.">		return (result!=0);</span>
+	}
+
+	@Override
+	public UserBean doRetrieveByKey(String username) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L94">				Connection connection = null;</span>
+<span class="fc" id="L95">				PreparedStatement preparedStatement = null;</span>
+				
+<span class="fc" id="L97">				UserBean bean= new UserBean();</span>
+<span class="fc" id="L98">				String selectSQL = &quot;SELECT * FROM &quot; + UserDaoDataSource.TABLE_NAME + &quot; WHERE USERNAME = ?&quot;;</span>
+				
+				try {
+<span class="fc" id="L101">					connection = ds.getConnection();</span>
+<span class="fc" id="L102">					preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L103">					preparedStatement.setString(1, username);</span>
+					
+<span class="fc" id="L105">					ResultSet rs = preparedStatement.executeQuery();</span>
+					
+<span class="fc bfc" id="L107" title="All 2 branches covered.">					while(rs.next()) {</span>
+<span class="fc" id="L108">						bean.setUsername(rs.getString(&quot;USERNAME&quot;));</span>
+<span class="fc" id="L109">						bean.setEmail(rs.getString(&quot;EMAIL&quot;));</span>
+<span class="fc" id="L110">						bean.setPass(rs.getString(&quot;PASS&quot;));</span>
+<span class="fc" id="L111">						bean.setNomeCognome(rs.getString(&quot;NAME_SURNAME&quot;));</span>
+<span class="fc" id="L112">						bean.setSesso(rs.getString(&quot;GENDER&quot;));</span>
+<span class="fc" id="L113">						bean.setPaese(rs.getString(&quot;COUNTRY&quot;));</span>
+<span class="fc" id="L114">						bean.setDataNascita(rs.getString(&quot;BIRTHDAY&quot;));</span>
+<span class="fc" id="L115">						bean.setUserAdmin(rs.getInt(&quot;USER_ADMIN&quot;));</span>
+					}
+					
+				} 
+				finally {
+					try{
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">						if(preparedStatement != null)</span>
+<span class="fc" id="L122">							preparedStatement.close();</span>
+				} finally{
+<span class="fc" id="L124">					connection.close();</span>
+				}
+				}
+				
+<span class="fc" id="L128">				return bean;</span>
+	}
+
+	@Override
+	public Collection&lt;UserBean&gt; doRetrieveAll(String order) throws SQLException{
+		// TODO Auto-generated method stub
+<span class="fc" id="L134">		Connection connection = null;</span>
+<span class="fc" id="L135">		PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L137">		Collection&lt;UserBean&gt; users= new LinkedList&lt;UserBean&gt;();</span>
+<span class="fc" id="L138">		String selectSQL = &quot;SELECT * FROM &quot; + UserDaoDataSource.TABLE_NAME;</span>
+		
+<span class="fc bfc" id="L140" title="All 4 branches covered.">		if(order != null &amp;&amp; !order.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L141">			selectSQL +=&quot; ORDER BY &quot; + order;</span>
+		}
+		
+		try {
+<span class="fc" id="L145">			connection = ds.getConnection();</span>
+<span class="fc" id="L146">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+			
+<span class="fc" id="L148">			ResultSet rs = preparedStatement.executeQuery();</span>
+			
+<span class="fc bfc" id="L150" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L151">				UserBean  bean = new UserBean();</span>
+				
+<span class="fc" id="L153">				bean.setUsername(rs.getString(&quot;USERNAME&quot;));</span>
+<span class="fc" id="L154">				bean.setEmail(rs.getString(&quot;EMAIL&quot;));</span>
+<span class="fc" id="L155">				bean.setPass(rs.getString(&quot;PASS&quot;));</span>
+<span class="fc" id="L156">				bean.setNomeCognome(rs.getString(&quot;NAME_SURNAME&quot;));</span>
+<span class="fc" id="L157">				bean.setSesso(rs.getString(&quot;GENDER&quot;));</span>
+<span class="fc" id="L158">				bean.setPaese(rs.getString(&quot;COUNTRY&quot;));</span>
+<span class="fc" id="L159">				bean.setDataNascita(rs.getString(&quot;BIRTHDAY&quot;));</span>
+<span class="fc" id="L160">				bean.setUserAdmin(rs.getInt(&quot;USER_ADMIN&quot;));</span>
+<span class="fc" id="L161">				users.add(bean);</span>
+<span class="fc" id="L162">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L167">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L169">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L173">		return users;</span>
+	}
+ 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

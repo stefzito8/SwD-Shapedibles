@@ -1,6 +1,7 @@
 package control;
 
 import categories.UnitTest;
+import model.bean.UserBean;
 import model.dao.IUserDao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,10 +21,13 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+
+import org.mockito.ArgumentCaptor;
 
 /**
  * Unit tests for Register controller.
@@ -439,7 +443,7 @@ public class RegisterTest {
 
         @Test
         @DisplayName("TC-REG-7: Valid inputs register successfully")
-        void testValidInputsRegisterSuccessfully() throws ServletException, IOException {
+        void testValidInputsRegisterSuccessfully() throws ServletException, IOException, SQLException {
             // Arrange
             setupValidRegistrationParams();
             when(request.getHeader("X-Requested-With")).thenReturn(null);
@@ -449,10 +453,23 @@ public class RegisterTest {
             // Act
             registerServlet.doPost(request, response);
 
-            // Assert - if registration successful, should redirect
+            // Assert - if registration successful, should save user and redirect
             verify(request, atLeastOnce()).getParameter("username");
             verify(request, atLeastOnce()).getParameter("email");
             verify(request, atLeastOnce()).getParameter("password");
+            
+            // Use ArgumentCaptor to verify UserBean properties were set (kills setter mutations lines 83-90)
+            ArgumentCaptor<UserBean> userCaptor = ArgumentCaptor.forClass(UserBean.class);
+            verify(userDao).doSave(userCaptor.capture());
+            UserBean capturedUser = userCaptor.getValue();
+            assertEquals("newUser", capturedUser.getUsername());
+            assertEquals("new@email.com", capturedUser.getEmail());
+            assertNotNull(capturedUser.getPass()); // Password is hashed
+            assertEquals("John Doe", capturedUser.getNomeCognome());
+            assertEquals("M", capturedUser.getSesso());
+            assertEquals("USA", capturedUser.getPaese());
+            assertEquals("1990-01-01", capturedUser.getDataNascita());
+            assertEquals(0, capturedUser.getUserAdmin()); // Default non-admin
         }
 
         @Test
@@ -728,6 +745,131 @@ public class RegisterTest {
 
             // Assert
             verify(request, atLeastOnce()).getParameter("password");
+        }
+    }
+
+    // ============================================================================
+    // CheckUsername Method Coverage Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("CheckUsername Coverage Tests")
+    class CheckUsernameCoverageTests {
+
+        @Test
+        @DisplayName("TC-REG-26: checkUsername returns false when username exists in list")
+        void testCheckUsernameReturnsFalseWhenExists() throws Exception {
+            // Arrange - setup existing user
+            setupValidRegistrationParams();
+            when(request.getHeader("X-Requested-With")).thenReturn("XMLHttpRequest");
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(request.getContextPath()).thenReturn("/app");
+            when(response.getWriter()).thenReturn(printWriter);
+
+            // Mock userDao to return a list containing the same username
+            model.bean.UserBean existingUser = new model.bean.UserBean();
+            existingUser.setUsername("newUser");
+            java.util.Collection<model.bean.UserBean> users = java.util.Collections.singletonList(existingUser);
+            when(userDao.doRetrieveAll(anyString())).thenReturn((java.util.Collection) users);
+
+            // Track setAttribute calls to properly simulate getAttribute
+            final java.util.Map<String, Object> attrs = new java.util.HashMap<>();
+            doAnswer(inv -> {
+                attrs.put(inv.getArgument(0), inv.getArgument(1));
+                return null;
+            }).when(request).setAttribute(anyString(), any());
+            when(request.getAttribute(anyString())).thenAnswer(inv -> attrs.get(inv.getArgument(0)));
+
+            // Act
+            registerServlet.doPost(request, response);
+
+            // Assert - Should set error because username exists
+            assertNotNull(attrs.get("error"), "Error attribute should be set");
+            assertNotNull(attrs.get("ajaxError"), "ajaxError attribute should be set");
+            verify(response).setStatus(401);
+        }
+
+        @Test
+        @DisplayName("TC-REG-27: checkUsername returns true for new username")
+        void testCheckUsernameReturnsTrueForNewUser() throws Exception {
+            // Arrange
+            setupValidRegistrationParams();
+            when(request.getHeader("X-Requested-With")).thenReturn("XMLHttpRequest");
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(request.getContextPath()).thenReturn("/app");
+            when(response.getWriter()).thenReturn(printWriter);
+
+            // Mock empty user list - username doesn't exist
+            when(userDao.doRetrieveAll(anyString())).thenReturn(java.util.Collections.emptyList());
+
+            // Act
+            registerServlet.doPost(request, response);
+
+            // Assert - Should write redirect URL (success case)
+            verify(response).setContentType("application/json");
+            verify(response).setCharacterEncoding("UTF-8");
+            // Verify writer was obtained (to output JSON response)
+            verify(response, atLeastOnce()).getWriter();
+            // Verify that something was written (redirect URL in JSON format)
+            assertTrue(stringWriter.toString().length() > 0, "Response should contain JSON output");
+        }
+
+        @Test
+        @DisplayName("TC-REG-28: Password mismatch with AJAX sets error and 401")
+        void testPasswordMismatchAjaxSets401() throws Exception {
+            // Arrange
+            when(request.getParameter("username")).thenReturn("newUser");
+            when(request.getParameter("email")).thenReturn("new@email.com");
+            when(request.getParameter("password")).thenReturn("Password123!");
+            when(request.getParameter("passwordConf")).thenReturn("Different123!"); // Mismatch
+            when(request.getParameter("name_surname")).thenReturn("John Doe");
+            when(request.getParameter("gender")).thenReturn("M");
+            when(request.getParameter("country")).thenReturn("USA");
+            when(request.getParameter("birthday")).thenReturn("1990-01-01");
+            when(request.getHeader("X-Requested-With")).thenReturn("XMLHttpRequest");
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(request.getContextPath()).thenReturn("/app");
+            when(response.getWriter()).thenReturn(printWriter);
+
+            // Mock empty user list - username doesn't exist
+            when(userDao.doRetrieveAll(anyString())).thenReturn(java.util.Collections.emptyList());
+
+            // Track setAttribute calls to properly simulate getAttribute
+            final java.util.Map<String, Object> attrs = new java.util.HashMap<>();
+            doAnswer(inv -> {
+                attrs.put(inv.getArgument(0), inv.getArgument(1));
+                return null;
+            }).when(request).setAttribute(anyString(), any());
+            when(request.getAttribute(anyString())).thenAnswer(inv -> attrs.get(inv.getArgument(0)));
+
+            // Act
+            registerServlet.doPost(request, response);
+
+            // Assert - Should set error attributes for password mismatch
+            assertNotNull(attrs.get("error"), "Error attribute should be set");
+            assertNotNull(attrs.get("ajaxError"), "ajaxError attribute should be set");
+            verify(response).setStatus(401);
+        }
+
+        @Test
+        @DisplayName("TC-REG-29: SQLException sets error attributes and sends 500")
+        void testSqlExceptionSetsErrorAttributesAndSends500() throws Exception {
+            // Arrange
+            setupValidRegistrationParams();
+            when(request.getHeader("X-Requested-With")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+            when(request.getContextPath()).thenReturn("/app");
+
+            // Mock SQLException on doRetrieveAll
+            when(userDao.doRetrieveAll(anyString())).thenThrow(new java.sql.SQLException("DB Error"));
+
+            // Act
+            registerServlet.doPost(request, response);
+
+            // Assert - Should set error and ajaxError, then sendError
+            verify(request).setAttribute(eq("error"), contains("Error:"));
+            verify(request).setAttribute(eq("ajaxError"), anyString());
+            verify(response).sendError(eq(500), anyString());
         }
     }
 

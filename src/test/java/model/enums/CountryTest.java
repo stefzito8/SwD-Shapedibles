@@ -460,4 +460,51 @@ public class CountryTest {
             assertEquals("United States", result);
         }
     }
+    
+    // ============================================================================
+    // Mutation Killer Tests - Targets surviving mutations
+    // ============================================================================
+    
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("getValues returns non-null array - kills NullReturnValsMutator on line 216")
+        void testGetValuesNotNull() {
+            String[] values = Country.getValues();
+            assertNotNull(values, "getValues() must not return null");
+            assertTrue(values.length > 0, "getValues() must return non-empty array");
+        }
+        
+        @Test
+        @DisplayName("getValues returns array with correct first element")
+        void testGetValuesFirstElement() {
+            String[] values = Country.getValues();
+            // First element should be the display name of first enum constant
+            assertEquals(Country.values()[0].toString(), values[0]);
+        }
+        
+        @Test
+        @DisplayName("getValues returns array with all elements - verifies stream mapping works")
+        void testGetValuesContainsAllCountries() {
+            String[] values = Country.getValues();
+            assertEquals(Country.values().length, values.length, 
+                "getValues() array length must match number of enum constants");
+            
+            // Verify some specific values are present
+            assertTrue(Arrays.asList(values).contains("United States"));
+            assertTrue(Arrays.asList(values).contains("Germany"));
+            assertTrue(Arrays.asList(values).contains("Zimbabwe"));
+        }
+        
+        @Test
+        @DisplayName("getValues returns new array each time - defensive copy")
+        void testGetValuesDefensiveCopy() {
+            String[] values1 = Country.getValues();
+            String[] values2 = Country.getValues();
+            assertNotSame(values1, values2, "getValues() should return new array each call");
+            assertArrayEquals(values1, values2, "Arrays should have same content");
+        }
+    }
 }

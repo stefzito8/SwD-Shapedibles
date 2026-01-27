@@ -192,6 +192,22 @@ public class InfoDaoDataSourceTest {
         }
 
         @Test
+        @DisplayName("Verify all fields are set in doRetrieveByName")
+        void testRetrieveByNameVerifiesAllFields() throws SQLException {
+            infoDao.doSave(createTestInfo("Complete Product", 42.50, "Detailed desc", 75, "Premium"));
+
+            InfoBean retrieved = infoDao.doRetrieveByName("Complete Product");
+
+            // Verify all setters were called - kills mutations on setCodice, setNome, setCosto, setDescrizione, setDisponibilità, setTipologia
+            assertTrue(retrieved.getCodice() > 0, "Codice should be set");
+            assertEquals("Complete Product", retrieved.getNome(), "Nome should be set correctly");
+            assertEquals(42.50, retrieved.getCosto(), 0.01, "Costo should be set correctly");
+            assertEquals("Detailed desc", retrieved.getDescrizione(), "Descrizione should be set correctly");
+            assertEquals(75, retrieved.getDisponibilità(), "Disponibilità should be set correctly");
+            assertEquals("Premium", retrieved.getTipologia(), "Tipologia should be set correctly");
+        }
+
+        @Test
         @DisplayName("Retrieve with empty name")
         void testRetrieveEmptyName() throws SQLException {
             InfoBean retrieved = infoDao.doRetrieveByName("");
@@ -282,6 +298,25 @@ public class InfoDaoDataSourceTest {
         }
 
         @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            infoDao.doSave(createTestInfo("Complete Info", 55.99, "Full Description", 150, "SpecialType"));
+
+            Collection<InfoBean> infos = infoDao.doRetrieveAll(null);
+
+            assertEquals(1, infos.size());
+            InfoBean retrieved = infos.iterator().next();
+            
+            // Verify all setters were called - kills mutations on setCodice, setNome, setCosto, setDescrizione, setDisponibilità, setTipologia
+            assertTrue(retrieved.getCodice() > 0, "Codice should be set");
+            assertEquals("Complete Info", retrieved.getNome(), "Nome should be set correctly");
+            assertEquals(55.99, retrieved.getCosto(), 0.01, "Costo should be set correctly");
+            assertEquals("Full Description", retrieved.getDescrizione(), "Descrizione should be set correctly");
+            assertEquals(150, retrieved.getDisponibilità(), "Disponibilità should be set correctly");
+            assertEquals("SpecialType", retrieved.getTipologia(), "Tipologia should be set correctly");
+        }
+
+        @Test
         @DisplayName("B4-False: Retrieve all with empty order string")
         void testRetrieveAllEmptyOrder() throws SQLException {
             infoDao.doSave(createTestInfo("Test", 10.0, "Desc", 10, "Type"));
@@ -300,6 +335,66 @@ public class InfoDaoDataSourceTest {
             Collection<InfoBean> infos = infoDao.doRetrieveAll("PRICE");
 
             assertEquals(2, infos.size());
+        }
+    }
+
+    // ============================================================================
+    // doUpdateQuantity Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("doUpdateQuantity Tests")
+    class DoUpdateQuantityTests {
+
+        @Test
+        @DisplayName("Update quantity of existing product")
+        void testUpdateQuantityExisting() throws SQLException {
+            // Save a product first
+            infoDao.doSave(createTestInfo("Test Product", 9.99, "Description", 100, "Type1"));
+            Collection<InfoBean> all = infoDao.doRetrieveAll(null);
+            int code = all.iterator().next().getCodice();
+
+            // Update the quantity
+            infoDao.doUpdateQuantity(code, 50);
+
+            // Verify the update
+            InfoBean retrieved = infoDao.doRetrieveByKey(code);
+            assertEquals(50, retrieved.getDisponibilità());
+        }
+
+        @Test
+        @DisplayName("Update quantity to zero")
+        void testUpdateQuantityToZero() throws SQLException {
+            infoDao.doSave(createTestInfo("Zero Qty", 5.0, "Desc", 25, "Type"));
+            Collection<InfoBean> all = infoDao.doRetrieveAll(null);
+            int code = all.iterator().next().getCodice();
+
+            infoDao.doUpdateQuantity(code, 0);
+
+            InfoBean retrieved = infoDao.doRetrieveByKey(code);
+            assertEquals(0, retrieved.getDisponibilità());
+        }
+
+        @Test
+        @DisplayName("Update quantity of non-existent product does not throw")
+        void testUpdateQuantityNonExistent() throws SQLException {
+            // Should not throw even for non-existent product
+            assertDoesNotThrow(() -> infoDao.doUpdateQuantity(999, 100));
+        }
+
+        @Test
+        @DisplayName("Update quantity multiple times")
+        void testUpdateQuantityMultipleTimes() throws SQLException {
+            infoDao.doSave(createTestInfo("Multi Update", 10.0, "Desc", 100, "Type"));
+            Collection<InfoBean> all = infoDao.doRetrieveAll(null);
+            int code = all.iterator().next().getCodice();
+
+            infoDao.doUpdateQuantity(code, 75);
+            infoDao.doUpdateQuantity(code, 50);
+            infoDao.doUpdateQuantity(code, 25);
+
+            InfoBean retrieved = infoDao.doRetrieveByKey(code);
+            assertEquals(25, retrieved.getDisponibilità());
         }
     }
 
@@ -336,6 +431,87 @@ public class InfoDaoDataSourceTest {
 
             Collection<InfoBean> infos = infoDao.doRetrieveAll(null);
             assertEquals(10, infos.size());
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator line 46")
+        void testDoSaveActuallyPersists() throws SQLException {
+            InfoBean info = createTestInfo("MutInfo", 29.99, "Mutation test", 100, "TestType");
+            
+            // Verify empty before save
+            Collection<InfoBean> beforeSave = infoDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the info
+            infoDao.doSave(info);
+            
+            // Verify present after save
+            Collection<InfoBean> afterSave = infoDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 info after save");
+            
+            // Verify correct data was saved
+            InfoBean saved = afterSave.iterator().next();
+            assertEquals("MutInfo", saved.getNome());
+            assertEquals(29.99, saved.getCosto(), 0.01);
+            assertEquals("Mutation test", saved.getDescrizione());
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByName returns correct info - kills NegateConditionalsMutator line 151")
+        void testDoRetrieveByNameReturnsCorrectInfo() throws SQLException {
+            infoDao.doSave(createTestInfo("NamedInfo", 49.99, "Named test", 50, "NameType"));
+            
+            InfoBean result = infoDao.doRetrieveByName("NamedInfo");
+            
+            assertNotNull(result);
+            assertEquals("NamedInfo", result.getNome());
+            assertEquals(49.99, result.getCosto(), 0.01);
+            assertEquals("Named test", result.getDescrizione());
+            assertEquals(50, result.getDisponibilità());
+            assertEquals("NameType", result.getTipologia());
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 193")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            infoDao.doSave(createTestInfo("Info1", 10.0, "Desc1", 10, "Type1"));
+            infoDao.doSave(createTestInfo("Info2", 20.0, "Desc2", 20, "Type2"));
+            infoDao.doSave(createTestInfo("Info3", 30.0, "Desc3", 30, "Type3"));
+            
+            Collection<InfoBean> result = infoDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 infos");
+        }
+        
+        @Test
+        @DisplayName("doUpdateQuantity actually updates - kills VoidMethodCallMutator line 221")
+        void testDoUpdateQuantityActuallyUpdates() throws SQLException {
+            infoDao.doSave(createTestInfo("QuantityInfo", 15.0, "Quantity test", 100, "QType"));
+            
+            // Get the saved info
+            InfoBean savedInfo = infoDao.doRetrieveByName("QuantityInfo");
+            int originalQuantity = savedInfo.getDisponibilità();
+            assertEquals(100, originalQuantity);
+            
+            // Update quantity
+            infoDao.doUpdateQuantity(savedInfo.getCodice(), 50);
+            
+            // Verify the update took effect
+            InfoBean updated = infoDao.doRetrieveByName("QuantityInfo");
+            assertEquals(50, updated.getDisponibilità());
+            assertNotEquals(originalQuantity, updated.getDisponibilità());
         }
     }
 

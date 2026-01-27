@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="model.datasource.NutritionTableDaoDataSourceTest$DoDeleteTests" time="0.011" tests="3" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main\target\test-classes;C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main\target\classes;C:\Users\Bingo\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Bingo\.m2\repository\javax\servlet\jsp\javax.servlet.jsp-api\2.3.3\javax.servlet.jsp-api-2.3.3.jar;C:\Users\Bingo\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Bingo\.m2\repository\org\xerial\sqlite-jdbc\3.42.0.0\sqlite-jdbc-3.42.0.0.jar;C:\Users\Bingo\.m2\repository\org\apache\tomcat\tomcat-dbcp\9.0.112\tomcat-dbcp-9.0.112.jar;C:\Users\Bingo\.m2\repository\org\apache\tomcat\tomcat-juli\9.0.112\tomcat-juli-9.0.112.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.1\junit-jupiter-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.1\junit-jupiter-api-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Bingo\.m2\repository\org\junit\platform\junit-platform-commons\1.10.1\junit-platform-commons-1.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.1\junit-jupiter-engine-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\platform\junit-platform-engine\1.10.1\junit-platform-engine-1.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.1\junit-jupiter-params-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Bingo\.m2\repository\org\mockito\mockito-core\5.8.0\mockito-core-5.8.0.jar;C:\Users\Bingo\.m2\repository\net\bytebuddy\byte-buddy\1.14.10\byte-buddy-1.14.10.jar;C:\Users\Bingo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.10\byte-buddy-agent-1.14.10.jar;C:\Users\Bingo\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Bingo\.m2\repository\org\mockito\mockito-junit-jupiter\5.8.0\mockito-junit-jupiter-5.8.0.jar;C:\Users\Bingo\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\Bingo\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\Bingo\.m2\repository\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;C:\Users\Bingo\.m2\repository\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;C:\Users\Bingo\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\Bingo\.m2\repository\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="java.vm.vendor" value="Red Hat, Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://access.redhat.com/"/>
+    <property name="user.timezone" value="GMT-08:00"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\RedHat\java-17-openjdk-17.0.17.0.10-1\bin"/>
+    <property name="sun.java.command" value="C:\Users\Bingo\AppData\Local\Temp\surefire12287388184137470400\surefirebooter-20260127002914699_3.jar C:\Users\Bingo\AppData\Local\Temp\surefire12287388184137470400 2026-01-27T00-29-14_473-jvmRun1 surefire-20260127002914699_1tmp surefire_0-20260127002914699_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main\target\test-classes;C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main\target\classes;C:\Users\Bingo\.m2\repository\javax\servlet\javax.servlet-api\4.0.1\javax.servlet-api-4.0.1.jar;C:\Users\Bingo\.m2\repository\javax\servlet\jsp\javax.servlet.jsp-api\2.3.3\javax.servlet.jsp-api-2.3.3.jar;C:\Users\Bingo\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Bingo\.m2\repository\org\xerial\sqlite-jdbc\3.42.0.0\sqlite-jdbc-3.42.0.0.jar;C:\Users\Bingo\.m2\repository\org\apache\tomcat\tomcat-dbcp\9.0.112\tomcat-dbcp-9.0.112.jar;C:\Users\Bingo\.m2\repository\org\apache\tomcat\tomcat-juli\9.0.112\tomcat-juli-9.0.112.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.1\junit-jupiter-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.1\junit-jupiter-api-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Bingo\.m2\repository\org\junit\platform\junit-platform-commons\1.10.1\junit-platform-commons-1.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.1\junit-jupiter-engine-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\platform\junit-platform-engine\1.10.1\junit-platform-engine-1.10.1.jar;C:\Users\Bingo\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.1\junit-jupiter-params-5.10.1.jar;C:\Users\Bingo\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Bingo\.m2\repository\org\mockito\mockito-core\5.8.0\mockito-core-5.8.0.jar;C:\Users\Bingo\.m2\repository\net\bytebuddy\byte-buddy\1.14.10\byte-buddy-1.14.10.jar;C:\Users\Bingo\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.10\byte-buddy-agent-1.14.10.jar;C:\Users\Bingo\.m2\repository\org\objenesis\objenesis\3.3\objenesis-3.3.jar;C:\Users\Bingo\.m2\repository\org\mockito\mockito-junit-jupiter\5.8.0\mockito-junit-jupiter-5.8.0.jar;C:\Users\Bingo\.m2\repository\com\h2database\h2\2.2.224\h2-2.2.224.jar;C:\Users\Bingo\.m2\repository\org\assertj\assertj-core\3.24.2\assertj-core-3.24.2.jar;C:\Users\Bingo\.m2\repository\org\openjdk\jmh\jmh-core\1.37\jmh-core-1.37.jar;C:\Users\Bingo\.m2\repository\net\sf\jopt-simple\jopt-simple\5.0.4\jopt-simple-5.0.4.jar;C:\Users\Bingo\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\Bingo\.m2\repository\org\openjdk\jmh\jmh-generator-annprocess\1.37\jmh-generator-annprocess-1.37.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Bingo"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="C:\Program Files\RedHat\java-17-openjdk-17.0.17.0.10-1"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="C:\Users\Bingo\AppData\Local\Temp\surefire12287388184137470400\surefirebooter-20260127002914699_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.17+10-LTS"/>
+    <property name="user.name" value="Bingo"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="(Red_Hat-17.0.17.0+10-1)"/>
+    <property name="localRepository" value="C:\Users\Bingo\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://access.redhat.com/support/cases/"/>
+    <property name="java.io.tmpdir" value="C:\Users\Bingo\AppData\Local\Temp\"/>
+    <property name="java.version" value="17.0.17"/>
+    <property name="user.dir" value="C:\Users\Bingo\Desktop\Upload\My current repo\SwD-Shapedibles-main\SwD-Shapedibles-main"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\RedHat\java-17-openjdk-17.0.17.0.10-1\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\Users\Bingo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\Bingo\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\RedHat\java-17-openjdk-17.0.17.0.10-1\bin;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files\Git\cmd;C:\Program Files\RedHat\java-17-openjdk-17.0.17.0.10-1\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Apache\maven\bin;;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Users\Bingo\AppData\Local\Programs\Python\Python314\Scripts\;C:\Users\Bingo\AppData\Local\Programs\Python\Python314\;C:\Users\Bingo\AppData\Local\Programs\Python\Launcher\;C:\Users\Bingo\AppData\Local\Microsoft\WindowsApps;C:\Users\Bingo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Bingo\.dotnet\tools;C:\Software\yt-dlp;c:\Users\Bingo\.vscode\extensions\vscjava.vscode-java-debug-0.58.5\bundled\scripts\noConfigScripts;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Red Hat, Inc."/>
+    <property name="java.vm.version" value="17.0.17+10-LTS"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testDeleteZeroProductId" classname="model.datasource.NutritionTableDaoDataSourceTest$DoDeleteTests" time="0.004">
+    <system-out><![CDATA[DriverManager Product Model creation....
+]]></system-out>
+  </testcase>
+  <testcase name="testDeleteNonExistentNutrition" classname="model.datasource.NutritionTableDaoDataSourceTest$DoDeleteTests" time="0.003">
+    <system-out><![CDATA[DriverManager Product Model creation....
+]]></system-out>
+  </testcase>
+  <testcase name="testDeleteExistingNutrition" classname="model.datasource.NutritionTableDaoDataSourceTest$DoDeleteTests" time="0.002">
+    <system-out><![CDATA[DriverManager Product Model creation....
+]]></system-out>
+  </testcase>
+</testsuite>

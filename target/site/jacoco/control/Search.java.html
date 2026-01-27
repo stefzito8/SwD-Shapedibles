@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Search.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">Search.java</span></div><h1>Search.java</h1><pre class="source lang-java linenums">package control;
+
+import com.google.gson.*;
+import model.Cart;
+import model.bean.ProductBean;
+import model.dao.IInfoDao;
+import model.dao.IProductDao;
+import model.datasource.InfoDaoDataSource;
+import model.datasource.ProductDaoDataSource;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.sql.SQLException;
+import java.util.Collection;
+
+@WebServlet(&quot;/search&quot;)
+<span class="fc" id="L24">public class Search extends HttpServlet {</span>
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L26">        String query = request.getParameter(&quot;ricerca&quot;);</span>
+<span class="fc" id="L27">        String id = request.getParameter(&quot;id&quot;);</span>
+<span class="fc" id="L28">        DataSource ds = (DataSource) getServletContext().getAttribute(&quot;DataSource&quot;);</span>
+<span class="fc" id="L29">        IProductDao productDao = createProductDao(ds);</span>
+<span class="fc" id="L30">        IInfoDao infoDao = createInfoDao(ds);</span>
+
+        try {
+<span class="fc" id="L33">            Cart cart = (Cart) request.getSession().getAttribute(&quot;cart&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">            if(cart == null)</span>
+            {
+<span class="fc" id="L36">                cart = new Cart();</span>
+<span class="fc" id="L37">                request.getSession().setAttribute(&quot;cart&quot;, cart);</span>
+            }
+            
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (id != null) {</span>
+<span class="fc" id="L41">                ProductBean product = productDao.doRetrieveByKey(Integer.parseInt(id));</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">                if (product != null) {</span>
+<span class="fc" id="L43">                    response.setContentType(&quot;application/json&quot;);</span>
+<span class="fc" id="L44">                    response.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L45">                    Gson gson = new GsonBuilder()</span>
+<span class="fc" id="L46">                            .registerTypeAdapter(ProductBean.class, new SingleProductBeanSerializer(cart, infoDao))</span>
+<span class="fc" id="L47">                            .create();</span>
+<span class="fc" id="L48">                    String json = gson.toJson(product);</span>
+<span class="fc" id="L49">                    response.getWriter().write(json);</span>
+<span class="fc" id="L50">                    return;</span>
+                }
+            }
+            
+<span class="fc" id="L54">            Collection&lt;ProductBean&gt; searchResults = productDao.searchByName(query);</span>
+
+            // Controllo se la richiesta è di tipo AJAX
+<span class="fc" id="L57">            boolean ajax = &quot;XMLHttpRequest&quot;.equals(request.getHeader(&quot;X-Requested-With&quot;));</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (ajax) {</span>
+<span class="fc" id="L59">                response.setContentType(&quot;application/json&quot;);</span>
+<span class="fc" id="L60">                response.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L61">                Gson gson = new GsonBuilder()</span>
+<span class="fc" id="L62">                        .registerTypeAdapter(searchResults.getClass(), new ProductBeanWithCartQuantity(cart, infoDao))</span>
+<span class="fc" id="L63">                        .create();</span>
+<span class="fc" id="L64">                String json = gson.toJson(searchResults);</span>
+<span class="fc" id="L65">                response.getWriter().write(json);</span>
+<span class="fc" id="L66">            } else {</span>
+<span class="fc" id="L67">                request.setAttribute(&quot;searchResults&quot;, searchResults);</span>
+<span class="fc" id="L68">                RequestDispatcher dispatcher = request.getRequestDispatcher(&quot;/WEB-INF/jsp/pages/searchResults.jsp&quot;);</span>
+<span class="fc" id="L69">                dispatcher.forward(request, response);</span>
+            }
+<span class="nc" id="L71">        } catch (SQLException e) {</span>
+<span class="nc" id="L72">            request.setAttribute(&quot;error&quot;,  &quot;Error: c'è stato un problema con la ricerca.&quot;);</span>
+<span class="nc" id="L73">            response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+<span class="nc" id="L74">            System.out.println(&quot;Error...&quot; + e.getMessage());</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">    }</span>
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L79">        doGet(request, response);</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Factory method for ProductDao - can be overridden in tests.
+     */
+    protected IProductDao createProductDao(DataSource ds) {
+<span class="fc" id="L86">        return new ProductDaoDataSource(ds);</span>
+    }
+
+    /**
+     * Factory method for InfoDao - can be overridden in tests.
+     */
+    protected IInfoDao createInfoDao(DataSource ds) {
+<span class="fc" id="L93">        return new InfoDaoDataSource(ds);</span>
+    }
+
+    /**
+     * Serializer for a single ProductBean with cart quantity.
+     */
+    public static class SingleProductBeanSerializer implements JsonSerializer&lt;ProductBean&gt; {
+        private final Cart cart;
+        private final IInfoDao infoDao;
+
+<span class="fc" id="L103">        public SingleProductBeanSerializer(Cart cart, IInfoDao infoDao) {</span>
+<span class="fc" id="L104">            this.cart = cart;</span>
+<span class="fc" id="L105">            this.infoDao = infoDao;</span>
+<span class="fc" id="L106">        }</span>
+
+        @Override
+        public JsonElement serialize(ProductBean product, Type typeOfSrc, JsonSerializationContext context) {
+<span class="fc" id="L110">            JsonObject jsonObject = new JsonObject();</span>
+<span class="fc" id="L111">            jsonObject.addProperty(&quot;codice&quot;, product.getCodice());</span>
+<span class="fc" id="L112">            jsonObject.addProperty(&quot;nome&quot;, product.getNome());</span>
+            try {
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">                if (infoDao != null) {</span>
+<span class="fc" id="L115">                    var info = infoDao.doRetrieveByKey(product.getCodice());</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">                    if (info != null) {</span>
+<span class="fc" id="L117">                        jsonObject.addProperty(&quot;costo&quot;, info.getCosto());</span>
+                    }
+                }
+<span class="nc" id="L120">            } catch (SQLException e) {</span>
+                // ignore
+<span class="fc" id="L122">            }</span>
+<span class="fc" id="L123">            jsonObject.addProperty(&quot;cartQuantity&quot;, cart.getProductQuantity(product));</span>
+<span class="fc" id="L124">            return jsonObject;</span>
+        }
+    }
+
+    public static class ProductBeanWithCartQuantity implements JsonSerializer&lt;Collection&lt;ProductBean&gt;&gt; {
+        private final Cart cart;
+        private final IInfoDao infoDao;
+
+<span class="fc" id="L132">        public ProductBeanWithCartQuantity(Cart cart, IInfoDao infoDao) {</span>
+<span class="fc" id="L133">            this.cart = cart;</span>
+<span class="fc" id="L134">            this.infoDao = infoDao;</span>
+<span class="fc" id="L135">        }</span>
+
+        @Override
+        public JsonElement serialize(Collection&lt;ProductBean&gt; src, Type typeOfSrc, JsonSerializationContext context) {
+<span class="fc" id="L139">            JsonArray jsonArray = new JsonArray();</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">            for (ProductBean product : src) {</span>
+<span class="fc" id="L141">                JsonObject jsonObject = new JsonObject();</span>
+<span class="fc" id="L142">                jsonObject.addProperty(&quot;codice&quot;, product.getCodice());</span>
+<span class="fc" id="L143">                jsonObject.addProperty(&quot;nome&quot;, product.getNome());</span>
+                try {
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">                    if (infoDao != null) {</span>
+<span class="fc" id="L146">                        var info = infoDao.doRetrieveByKey(product.getCodice());</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">                        if (info != null) {</span>
+<span class="fc" id="L148">                            jsonObject.addProperty(&quot;costo&quot;, info.getCosto());</span>
+                        }
+                    }
+<span class="nc" id="L151">                } catch (SQLException e) {</span>
+                    // ignore
+<span class="fc" id="L153">                }</span>
+<span class="fc" id="L154">                jsonObject.addProperty(&quot;cartQuantity&quot;, cart.getProductQuantity(product));</span>
+<span class="fc" id="L155">                jsonArray.add(jsonObject);</span>
+<span class="fc" id="L156">            }</span>
+<span class="fc" id="L157">            return jsonArray;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

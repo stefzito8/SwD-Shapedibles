@@ -216,6 +216,22 @@ public class ProductDaoDataSourceTest {
             assertNotNull(retrieved);
             assertEquals(-1, retrieved.getCodice());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveByName")
+        void testRetrieveByNameVerifiesAllFields() throws SQLException {
+            ProductBean product = createTestProduct("FieldTestProduct", 42);
+            productDao.doSave(product);
+
+            ProductBean retrieved = productDao.doRetrieveByName("FieldTestProduct");
+
+            // Assertions on ALL fields to kill setter mutations
+            assertTrue(retrieved.getCodice() > 0);
+            assertEquals("FieldTestProduct", retrieved.getNome());
+            assertEquals(42, retrieved.getInfoCorrenti());
+            // Verify images collection is initialized (even if empty)
+            assertNotNull(retrieved.getImages());
+        }
     }
 
     // ============================================================================
@@ -319,6 +335,22 @@ public class ProductDaoDataSourceTest {
 
             assertEquals(2, products.size());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            productDao.doSave(createTestProduct("AllFieldsProduct", 77));
+
+            Collection<ProductBean> products = productDao.doRetrieveAll(null);
+            ProductBean retrieved = products.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertTrue(retrieved.getCodice() > 0);
+            assertEquals("AllFieldsProduct", retrieved.getNome());
+            assertEquals(77, retrieved.getInfoCorrenti());
+            // Verify images collection is initialized (even if empty)
+            assertNotNull(retrieved.getImages());
+        }
     }
 
     // ============================================================================
@@ -386,6 +418,22 @@ public class ProductDaoDataSourceTest {
 
             // Depending on database collation, this may find one or both
             assertFalse(results.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Verify all fields are populated in searchByName")
+        void testSearchByNameVerifiesAllFields() throws SQLException {
+            productDao.doSave(createTestProduct("SearchFieldTest", 88));
+
+            List<ProductBean> results = productDao.searchByName("SearchFieldTest");
+            ProductBean retrieved = results.get(0);
+
+            // Assertions on ALL fields to kill setter mutations
+            assertTrue(retrieved.getCodice() > 0);
+            assertEquals("SearchFieldTest", retrieved.getNome());
+            assertEquals(88, retrieved.getInfoCorrenti());
+            // Verify images collection is initialized (even if empty)
+            assertNotNull(retrieved.getImages());
         }
     }
 
@@ -466,6 +514,90 @@ public class ProductDaoDataSourceTest {
 
             Collection<ProductBean> products = productDao.doRetrieveAll(null);
             assertEquals(10, products.size());
+        }
+    }
+    
+    // ============================================================================
+    // Mutation Killer Tests - Targets surviving NegateConditionalsMutator
+    // ============================================================================
+    
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave successfully persists product - kills VoidMethodCallMutator")
+        void testDoSaveActuallyPersists() throws SQLException {
+            Collection<ProductBean> beforeSave = productDao.doRetrieveAll(null);
+            int countBefore = beforeSave.size();
+            
+            ProductBean product = createTestProduct("MutationTestProduct", 123);
+            productDao.doSave(product);
+            
+            Collection<ProductBean> afterSave = productDao.doRetrieveAll(null);
+            assertEquals(countBefore + 1, afterSave.size(), "doSave must increase count by exactly 1");
+            
+            // Verify the saved data matches - kills NegateConditionalsMutator on doSave
+            ProductBean retrieved = productDao.doRetrieveByName("MutationTestProduct");
+            assertNotEquals(-1, retrieved.getCodice(), "Product must have a valid code after save");
+            assertEquals("MutationTestProduct", retrieved.getNome());
+            assertEquals(123, retrieved.getInfoCorrenti());
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes product - kills NegateConditionalsMutator on doDelete line 84")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            productDao.doSave(createTestProduct("ToBeDeleted", 1));
+            Collection<ProductBean> all = productDao.doRetrieveAll(null);
+            int code = all.iterator().next().getCodice();
+            
+            // Verify it exists
+            ProductBean before = productDao.doRetrieveByKey(code);
+            assertNotEquals(-1, before.getCodice(), "Product must exist before delete");
+            
+            // Delete
+            boolean deleted = productDao.doDelete(code);
+            assertTrue(deleted, "doDelete must return true for existing product");
+            
+            // Verify it's gone
+            ProductBean after = productDao.doRetrieveByKey(code);
+            assertEquals(-1, after.getCodice(), "Product must be gone after delete");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByName returns bean with correct code - kills NegateConditionalsMutator line 176/184")
+        void testDoRetrieveByNameReturnsCorrectCode() throws SQLException {
+            ProductBean product = createTestProduct("UniqueTestName", 42);
+            productDao.doSave(product);
+            
+            ProductBean retrieved = productDao.doRetrieveByName("UniqueTestName");
+            
+            // The code should be a valid auto-generated ID, not -1
+            assertTrue(retrieved.getCodice() > 0, "Retrieved product must have valid positive code");
+            
+            // Verify code matches what we can retrieve by key
+            ProductBean retrievedByKey = productDao.doRetrieveByKey(retrieved.getCodice());
+            assertEquals(retrieved.getCodice(), retrievedByKey.getCodice(), "Code must be consistent");
+        }
+        
+        @Test
+        @DisplayName("doUpdateInfo actually updates value - kills VoidMethodCallMutator and NegateConditionalsMutator")
+        void testDoUpdateInfoActuallyUpdates() throws SQLException {
+            productDao.doSave(createTestProduct("UpdateTest", 1));
+            Collection<ProductBean> all = productDao.doRetrieveAll(null);
+            int code = all.iterator().next().getCodice();
+            
+            // Verify initial value
+            ProductBean before = productDao.doRetrieveByKey(code);
+            assertEquals(1, before.getInfoCorrenti(), "Initial infoCorrenti must be 1");
+            
+            // Update
+            productDao.doUpdateInfo(code, 999);
+            
+            // Verify update took effect
+            ProductBean after = productDao.doRetrieveByKey(code);
+            assertEquals(999, after.getInfoCorrenti(), "doUpdateInfo must actually update the value");
+            assertNotEquals(before.getInfoCorrenti(), after.getInfoCorrenti(), "Value must have changed");
         }
     }
 

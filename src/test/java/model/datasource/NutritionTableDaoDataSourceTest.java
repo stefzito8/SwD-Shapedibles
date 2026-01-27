@@ -281,6 +281,37 @@ public class NutritionTableDaoDataSourceTest {
 
             assertEquals(2, tables.size());
         }
+
+        @Test
+        @DisplayName("Verify all fields are populated in doRetrieveAll")
+        void testRetrieveAllVerifiesAllFields() throws SQLException {
+            // Note: Using integer values because DAO uses getInt() which rounds float values
+            NutritionTableBean nutrition = new NutritionTableBean();
+            nutrition.setCodiceProdotto(1);
+            nutrition.setEnergia(333);
+            nutrition.setGrassi(22.0);
+            nutrition.setGrassiSaturi(8.0);
+            nutrition.setCarboedrati(45.0);
+            nutrition.setZucherri(12.0);
+            nutrition.setFibre(7.0);
+            nutrition.setProteine(19.0);
+            nutrition.setSale(2.0);
+            nutritionDao.doSave(nutrition);
+
+            Collection<NutritionTableBean> tables = nutritionDao.doRetrieveAll(null);
+            NutritionTableBean retrieved = tables.iterator().next();
+
+            // Assertions on ALL fields to kill setter mutations
+            assertEquals(1, retrieved.getCodiceProdotto());
+            assertEquals(333, retrieved.getEnergia());
+            assertEquals(22.0, retrieved.getGrassi(), 0.01);
+            assertEquals(8.0, retrieved.getGrassiSaturi(), 0.01);
+            assertEquals(45.0, retrieved.getCarboedrati(), 0.01);
+            assertEquals(12.0, retrieved.getZucherri(), 0.01);
+            assertEquals(7.0, retrieved.getFibre(), 0.01);
+            assertEquals(19.0, retrieved.getProteine(), 0.01);
+            assertEquals(2.0, retrieved.getSale(), 0.01);
+        }
     }
 
     // ============================================================================
@@ -374,6 +405,122 @@ public class NutritionTableDaoDataSourceTest {
 
             assertEquals(0, retrieved.getEnergia());
             assertEquals(0.0, retrieved.getGrassi(), 0.01);
+        }
+    }
+
+    // ============================================================================
+    // Mutation Killer Tests
+    // ============================================================================
+
+    @Nested
+    @DisplayName("Mutation Killer Tests")
+    class MutationKillerTests {
+        
+        @Test
+        @DisplayName("doSave actually persists data - kills VoidMethodCallMutator line 52")
+        void testDoSaveActuallyPersists() throws SQLException {
+            NutritionTableBean nutrition = createTestNutrition(1);
+            
+            // Verify empty before save
+            Collection<NutritionTableBean> beforeSave = nutritionDao.doRetrieveAll(null);
+            assertEquals(0, beforeSave.size(), "Should be empty before save");
+            
+            // Save the nutrition
+            nutritionDao.doSave(nutrition);
+            
+            // Verify present after save
+            Collection<NutritionTableBean> afterSave = nutritionDao.doRetrieveAll(null);
+            assertEquals(1, afterSave.size(), "Should have 1 nutrition after save");
+            
+            // Verify correct data was saved
+            NutritionTableBean saved = nutritionDao.doRetrieveByKey(1);
+            assertEquals(1, saved.getCodiceProdotto());
+            assertEquals(100, saved.getEnergia());
+            assertEquals(5.0, saved.getGrassi(), 0.01);
+        }
+        
+        @Test
+        @DisplayName("doDelete actually removes data - kills NegateConditionalsMutator line 79")
+        void testDoDeleteActuallyRemoves() throws SQLException {
+            // First save a nutrition record
+            nutritionDao.doSave(createTestNutrition(1));
+            
+            // Verify it exists
+            NutritionTableBean beforeDelete = nutritionDao.doRetrieveByKey(1);
+            assertEquals(1, beforeDelete.getCodiceProdotto());
+            
+            // Delete it
+            boolean result = nutritionDao.doDelete(1);
+            
+            // Both the return value AND the actual deletion matter
+            assertTrue(result, "doDelete should return true");
+            
+            // Verify it was actually deleted
+            Collection<NutritionTableBean> afterDelete = nutritionDao.doRetrieveAll(null);
+            assertEquals(0, afterDelete.size(), "Should be empty after delete");
+        }
+        
+        @Test
+        @DisplayName("doDelete return value matches reality - kills return value mutations")
+        void testDoDeleteReturnValueMatchesReality() throws SQLException {
+            // Delete non-existent returns false
+            boolean falseResult = nutritionDao.doDelete(99999);
+            assertFalse(falseResult, "Deleting non-existent should return false");
+            
+            // Add a nutrition record
+            nutritionDao.doSave(createTestNutrition(1));
+            
+            // Delete existing returns true AND actually removes
+            boolean trueResult = nutritionDao.doDelete(1);
+            assertTrue(trueResult, "Deleting existing should return true");
+            assertTrue(nutritionDao.doRetrieveAll(null).isEmpty(), "Nutrition should be gone");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveAll returns correct collection - kills EmptyObjectReturnValsMutator line 164")
+        void testDoRetrieveAllReturnsCorrectCollection() throws SQLException {
+            // Products 1, 2, 3 are already inserted in setUp
+            nutritionDao.doSave(createTestNutrition(1));
+            nutritionDao.doSave(createTestNutrition(2));
+            nutritionDao.doSave(createTestNutrition(3));
+            
+            Collection<NutritionTableBean> result = nutritionDao.doRetrieveAll(null);
+            
+            // Must use the returned collection
+            assertNotNull(result, "Result must not be null");
+            assertFalse(result.isEmpty(), "Result must not be empty");
+            assertEquals(3, result.size(), "Must have 3 nutrition records");
+        }
+        
+        @Test
+        @DisplayName("doRetrieveByKey returns correct nutrition - kills NegateConditionalsMutator")
+        void testDoRetrieveByKeyReturnsCorrectNutrition() throws SQLException {
+            // Create nutrition with known values (note: Salt is stored as int in DB)
+            NutritionTableBean nutrition = new NutritionTableBean();
+            nutrition.setCodiceProdotto(1);
+            nutrition.setEnergia(100);
+            nutrition.setGrassi(5.0);
+            nutrition.setGrassiSaturi(2.0);
+            nutrition.setCarboedrati(20.0);
+            nutrition.setZucherri(5.0);
+            nutrition.setFibre(2.0);
+            nutrition.setProteine(10.0);
+            nutrition.setSale(1.0);  // Use 1.0 since Salt is stored as int
+            
+            nutritionDao.doSave(nutrition);
+            
+            NutritionTableBean result = nutritionDao.doRetrieveByKey(1);
+            
+            assertNotNull(result);
+            assertEquals(1, result.getCodiceProdotto());
+            assertEquals(100, result.getEnergia());
+            assertEquals(5.0, result.getGrassi(), 0.01);
+            assertEquals(2.0, result.getGrassiSaturi(), 0.01);
+            assertEquals(20.0, result.getCarboedrati(), 0.01);
+            assertEquals(5.0, result.getZucherri(), 0.01);
+            assertEquals(2.0, result.getFibre(), 0.01);
+            assertEquals(10.0, result.getProteine(), 0.01);
+            assertEquals(1.0, result.getSale(), 0.01);  // Salt stored as int, so 1.0 -> 1
         }
     }
 

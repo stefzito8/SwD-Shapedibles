@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockedConstruction;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -145,7 +146,7 @@ public class OrdersTest {
     class DefaultViewTests {
         
         @Test
-        @DisplayName("No action shows all orders")
+        @DisplayName("No action shows all orders - verifies removeAttribute then setAttribute")
         void testNoActionShowsAllOrders() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn(null);
             when(request.getParameter("sort")).thenReturn(null);
@@ -158,7 +159,10 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                verify(request).setAttribute("orders", allOrders);
+                // Verify removeAttribute is called BEFORE setAttribute (kills removeAttribute mutation)
+                org.mockito.InOrder inOrder = inOrder(request);
+                inOrder.verify(request).removeAttribute("orders");
+                inOrder.verify(request).setAttribute("orders", allOrders);
                 verify(dispatcher).forward(request, response);
             }
         }
@@ -210,7 +214,7 @@ public class OrdersTest {
     class UserFilterTests {
         
         @Test
-        @DisplayName("UserFilter filters orders by username")
+        @DisplayName("UserFilter filters orders by username - verifies removeAttribute then setAttribute")
         void testUserFilterByUsername() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn("UserFilter");
             when(request.getParameter("user")).thenReturn("testuser");
@@ -228,7 +232,11 @@ public class OrdersTest {
                 servlet.doPost(request, response);
                 
                 verify(orderDaoMock.constructed().get(0)).doRetrieveByUser("testuser");
-                verify(request, atLeastOnce()).setAttribute(eq("orders"), any());
+                // There are 2 removeAttribute calls - first at line 80 (initial) and at line 86 (UserFilter branch)
+                // Verify both are called to kill VoidMethodCallMutator mutations
+                verify(request, atLeast(2)).removeAttribute("orders");
+                // Verify setAttribute is called for the filtered orders (line 87)
+                verify(request).setAttribute(eq("orders"), eq(userOrders));
             }
         }
         
@@ -286,8 +294,10 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                // Verify filtered orders are set
-                verify(request, atLeastOnce()).setAttribute(eq("orders"), any());
+                // There are 2 removeAttribute calls - first at line 80 (initial) and at line 99 (DateFilter branch)
+                // Verify both are called to kill VoidMethodCallMutator mutations
+                verify(request, atLeast(2)).removeAttribute("orders");
+                verify(request, atLeast(2)).setAttribute(eq("orders"), any());
                 verify(dispatcher).forward(request, response);
             }
         }
@@ -312,6 +322,8 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
+                // Verify removeAttribute is called (kills mutation) - may be called multiple times
+                verify(request, atLeast(1)).removeAttribute("orders");
                 verify(dispatcher).forward(request, response);
             }
         }
@@ -375,6 +387,9 @@ public class OrdersTest {
                 servlet.doPost(request, response);
                 
                 verify(orderDaoMock.constructed().get(0)).doRetrieveByUser("testuser");
+                // Verify removeAttribute is called before setAttribute (kills VoidMethodCallMutator mutation on line 113)
+                verify(request, atLeast(2)).removeAttribute("orders");
+                verify(request, atLeast(2)).setAttribute(eq("orders"), any());
                 verify(dispatcher).forward(request, response);
             }
         }
@@ -439,6 +454,8 @@ public class OrdersTest {
                 servlet.doPost(request, response);
                 
                 verify(containDaoMock.constructed().get(0)).doRetrieveByOrder(1);
+                // Verify removeAttribute is called before setAttribute to kill VoidMethodCallMutator mutations
+                verify(request).removeAttribute("Details");
                 verify(request).setAttribute("Details", orderItems);
             }
         }
@@ -500,7 +517,7 @@ public class OrdersTest {
     class ExceptionHandlingTests {
         
         @Test
-        @DisplayName("SQLException sets error and sends 500")
+        @DisplayName("SQLException sets error attribute AND sends 500")
         void testSqlExceptionHandled() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn(null);
             when(request.getParameter("sort")).thenReturn(null);
@@ -513,8 +530,72 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
+                // Kill mutations by verifying BOTH calls
+                verify(request).setAttribute(eq("error"), argThat(msg -> 
+                    msg != null && msg.toString().contains("Error:")
+                ));
+                verify(response).sendError(eq(500), contains("Database error"));
+            }
+        }
+
+        @Test
+        @DisplayName("SQLException in UserFilter - sets error and sends 500")
+        void testSqlExceptionInUserFilter() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("UserFilter");
+            when(request.getParameter("user")).thenReturn("testuser");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> {
+                        when(mock.doRetrieveAll(any())).thenReturn(Collections.emptyList());
+                        when(mock.doRetrieveByUser(anyString())).thenThrow(new SQLException("User filter error"));
+                    });
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
                 verify(request).setAttribute(eq("error"), anyString());
-                verify(response).sendError(eq(500), anyString());
+                verify(response).sendError(eq(500), contains("User filter error"));
+            }
+        }
+
+        @Test
+        @DisplayName("SQLException in orderDetails - sets error and sends 500")
+        void testSqlExceptionInOrderDetails() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("orderDetails");
+            when(request.getParameter("orderNum")).thenReturn("1");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveAll(any())).thenReturn(Collections.emptyList()));
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveByOrder(1)).thenThrow(new SQLException("Order details error")))) {
+                
+                servlet.doPost(request, response);
+                
+                verify(request).setAttribute(eq("error"), anyString());
+                verify(response).sendError(eq(500), contains("Order details error"));
+            }
+        }
+
+        @Test
+        @DisplayName("SQLException - verifies error flow order")
+        void testSqlExceptionFlowOrder() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn(null);
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> {
+                        when(mock.doRetrieveAll(any())).thenThrow(new SQLException("Flow error"));
+                    });
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                // Use InOrder to verify sequence
+                org.mockito.InOrder inOrder = inOrder(request, response);
+                inOrder.verify(request).setAttribute(eq("error"), anyString());
+                inOrder.verify(response).sendError(eq(500), anyString());
             }
         }
         
@@ -699,7 +780,7 @@ public class OrdersTest {
     class IsRightDateBoundaryTests {
         
         @Test
-        @DisplayName("Order date equals minimum date")
+        @DisplayName("Order date equals minimum date - should be INCLUDED")
         void testOrderDateEqualsMin() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn("DateFilter");
             when(request.getParameter("dateMin")).thenReturn("2025-06-15");
@@ -709,7 +790,7 @@ public class OrdersTest {
             Collection<OrderBean> orders = new ArrayList<>();
             OrderBean order = new OrderBean();
             order.setCodice(1);
-            order.setDataOrdine("2025-06-15"); // Equals min
+            order.setDataOrdine("2025-06-15"); // Equals min - should be included
             orders.add(order);
             
             try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
@@ -718,13 +799,16 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                // Order should be included
-                verify(dispatcher).forward(request, response);
+                // Capture the filtered orders and verify the order IS included
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(1, filteredOrders.size(), "Order at min boundary should be included");
             }
         }
         
         @Test
-        @DisplayName("Order date equals maximum date")
+        @DisplayName("Order date equals maximum date - should be INCLUDED")
         void testOrderDateEqualsMax() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn("DateFilter");
             when(request.getParameter("dateMin")).thenReturn("2025-01-01");
@@ -734,7 +818,7 @@ public class OrdersTest {
             Collection<OrderBean> orders = new ArrayList<>();
             OrderBean order = new OrderBean();
             order.setCodice(1);
-            order.setDataOrdine("2025-06-15"); // Equals max
+            order.setDataOrdine("2025-06-15"); // Equals max - should be included
             orders.add(order);
             
             try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
@@ -743,12 +827,16 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                verify(dispatcher).forward(request, response);
+                // Capture the filtered orders and verify the order IS included
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(1, filteredOrders.size(), "Order at max boundary should be included");
             }
         }
         
         @Test
-        @DisplayName("Order date one day before minimum")
+        @DisplayName("Order date one day before minimum - should be EXCLUDED")
         void testOrderDateBeforeMin() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn("DateFilter");
             when(request.getParameter("dateMin")).thenReturn("2025-06-16");
@@ -758,7 +846,7 @@ public class OrdersTest {
             Collection<OrderBean> orders = new ArrayList<>();
             OrderBean order = new OrderBean();
             order.setCodice(1);
-            order.setDataOrdine("2025-06-15"); // One day before min
+            order.setDataOrdine("2025-06-15"); // One day before min - should be excluded
             orders.add(order);
             
             try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
@@ -767,13 +855,16 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                // Order should be excluded from filtered result
-                verify(dispatcher).forward(request, response);
+                // Capture the filtered orders and verify the order is EXCLUDED
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(0, filteredOrders.size(), "Order before min boundary should be excluded");
             }
         }
         
         @Test
-        @DisplayName("Order date one day after maximum")
+        @DisplayName("Order date one day after maximum - should be EXCLUDED")
         void testOrderDateAfterMax() throws ServletException, IOException, SQLException {
             when(request.getParameter("action")).thenReturn("DateFilter");
             when(request.getParameter("dateMin")).thenReturn("2025-01-01");
@@ -783,7 +874,7 @@ public class OrdersTest {
             Collection<OrderBean> orders = new ArrayList<>();
             OrderBean order = new OrderBean();
             order.setCodice(1);
-            order.setDataOrdine("2025-06-15"); // One day after max
+            order.setDataOrdine("2025-06-15"); // One day after max - should be excluded
             orders.add(order);
             
             try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
@@ -792,8 +883,179 @@ public class OrdersTest {
                 
                 servlet.doPost(request, response);
                 
-                // Order should be excluded from filtered result
-                verify(dispatcher).forward(request, response);
+                // Capture the filtered orders and verify the order is EXCLUDED
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(0, filteredOrders.size(), "Order after max boundary should be excluded");
+            }
+        }
+
+        @Test
+        @DisplayName("Order date inside range - should be INCLUDED")
+        void testOrderDateInsideRange() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("DateFilter");
+            when(request.getParameter("dateMin")).thenReturn("2025-01-01");
+            when(request.getParameter("dateMax")).thenReturn("2025-12-31");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            Collection<OrderBean> orders = new ArrayList<>();
+            OrderBean order = new OrderBean();
+            order.setCodice(1);
+            order.setDataOrdine("2025-06-15"); // Inside range
+            orders.add(order);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveAll(any())).thenReturn(orders));
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(1, filteredOrders.size(), "Order inside range should be included");
+            }
+        }
+
+        @Test
+        @DisplayName("Multiple orders - some inside, some outside range")
+        void testMultipleOrdersMixedRange() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("DateFilter");
+            when(request.getParameter("dateMin")).thenReturn("2025-03-01");
+            when(request.getParameter("dateMax")).thenReturn("2025-06-30");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            Collection<OrderBean> orders = new ArrayList<>();
+            // Before min - excluded
+            OrderBean order1 = new OrderBean();
+            order1.setCodice(1);
+            order1.setDataOrdine("2025-02-15");
+            orders.add(order1);
+            // At min - included
+            OrderBean order2 = new OrderBean();
+            order2.setCodice(2);
+            order2.setDataOrdine("2025-03-01");
+            orders.add(order2);
+            // Inside - included
+            OrderBean order3 = new OrderBean();
+            order3.setCodice(3);
+            order3.setDataOrdine("2025-04-15");
+            orders.add(order3);
+            // At max - included
+            OrderBean order4 = new OrderBean();
+            order4.setCodice(4);
+            order4.setDataOrdine("2025-06-30");
+            orders.add(order4);
+            // After max - excluded
+            OrderBean order5 = new OrderBean();
+            order5.setCodice(5);
+            order5.setDataOrdine("2025-07-15");
+            orders.add(order5);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveAll(any())).thenReturn(orders));
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(3, filteredOrders.size(), "Should include only orders 2, 3, 4");
+            }
+        }
+
+        @Test
+        @DisplayName("User-DateFilter - verifies user filter AND date filter together")
+        void testUserDateFilterBothApplied() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("User-DateFilter");
+            when(request.getParameter("user")).thenReturn("testuser");
+            when(request.getParameter("dateMin")).thenReturn("2025-03-01");
+            when(request.getParameter("dateMax")).thenReturn("2025-06-30");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            Collection<OrderBean> userOrders = new ArrayList<>();
+            // Inside range - included
+            OrderBean order1 = new OrderBean();
+            order1.setCodice(1);
+            order1.setUtente("testuser");
+            order1.setDataOrdine("2025-04-15");
+            userOrders.add(order1);
+            // Outside range - excluded
+            OrderBean order2 = new OrderBean();
+            order2.setCodice(2);
+            order2.setUtente("testuser");
+            order2.setDataOrdine("2025-08-15");
+            userOrders.add(order2);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> {
+                        when(mock.doRetrieveAll(any())).thenReturn(Collections.emptyList());
+                        when(mock.doRetrieveByUser("testuser")).thenReturn(userOrders);
+                    });
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(1, filteredOrders.size(), "Should include only order 1 (inside date range)");
+            }
+        }
+        
+        @Test
+        @DisplayName("Boundary: Order date one day before min - excluded")
+        void testOrderDateOneDayBeforeMin() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("DateFilter");
+            when(request.getParameter("dateMin")).thenReturn("2025-03-02");
+            when(request.getParameter("dateMax")).thenReturn("2025-06-30");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            Collection<OrderBean> orders = new ArrayList<>();
+            OrderBean order = new OrderBean();
+            order.setCodice(1);
+            order.setDataOrdine("2025-03-01"); // One day BEFORE min
+            orders.add(order);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveAll(any())).thenReturn(orders));
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(0, filteredOrders.size(), "Order before min date should be excluded");
+            }
+        }
+        
+        @Test
+        @DisplayName("Boundary: Order date one day after max - excluded")
+        void testOrderDateOneDayAfterMax() throws ServletException, IOException, SQLException {
+            when(request.getParameter("action")).thenReturn("DateFilter");
+            when(request.getParameter("dateMin")).thenReturn("2025-03-01");
+            when(request.getParameter("dateMax")).thenReturn("2025-06-29");
+            when(request.getParameter("sort")).thenReturn(null);
+            
+            Collection<OrderBean> orders = new ArrayList<>();
+            OrderBean order = new OrderBean();
+            order.setCodice(1);
+            order.setDataOrdine("2025-06-30"); // One day AFTER max
+            orders.add(order);
+            
+            try (MockedConstruction<OrderDaoDataSource> orderDaoMock = mockConstruction(OrderDaoDataSource.class,
+                    (mock, context) -> when(mock.doRetrieveAll(any())).thenReturn(orders));
+                 MockedConstruction<ContainDaoDataSource> containDaoMock = mockConstruction(ContainDaoDataSource.class)) {
+                
+                servlet.doPost(request, response);
+                
+                ArgumentCaptor<Collection> ordersCaptor = ArgumentCaptor.forClass(Collection.class);
+                verify(request, atLeast(2)).setAttribute(eq("orders"), ordersCaptor.capture());
+                Collection<?> filteredOrders = ordersCaptor.getAllValues().get(ordersCaptor.getAllValues().size() - 1);
+                assertEquals(0, filteredOrders.size(), "Order after max date should be excluded");
             }
         }
     }

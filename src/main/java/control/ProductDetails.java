@@ -6,11 +6,9 @@ import model.bean.ProductBean;
 import model.dao.IInfoDao;
 import model.dao.INutritionTableDao;
 import model.dao.IProductDao;
-import model.dao.IUserDao;
 import model.datasource.InfoDaoDataSource;
 import model.datasource.NutritionTableDaoDataSource;
 import model.datasource.ProductDaoDataSource;
-import model.datasource.UserDaoDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -80,16 +78,25 @@ public class ProductDetails extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * Factory method for ProductDao - can be overridden in tests.
+	 */
 	protected IProductDao createProductDao(DataSource ds) {
-        return new ProductDaoDataSource(ds);
-    }
+		return new ProductDaoDataSource(ds);
+	}
 
+	/**
+	 * Factory method for InfoDao - can be overridden in tests.
+	 */
 	protected IInfoDao createInfoDao(DataSource ds) {
-        return new InfoDaoDataSource(ds);
-    }
+		return new InfoDaoDataSource(ds);
+	}
 
+	/**
+	 * Factory method for NutritionTableDao - can be overridden in tests.
+	 */
 	protected INutritionTableDao createNutritionTableDao(DataSource ds) {
-        return new NutritionTableDaoDataSource(ds);
-    }
+		return new NutritionTableDaoDataSource(ds);
+	}
 
 }

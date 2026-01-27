@@ -6,8 +6,12 @@
 out
 TSW-Shapedibles.iml
 /bin/
-/target/
 *.iml
 .idea/
 *.class
-jacoco.exec
+*.exec
+/target/*
+!/target/site/
+!/target/pit-reports/
+!/target/surefire-reports/
+!/target/jmh-results/

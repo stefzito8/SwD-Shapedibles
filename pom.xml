@@ -92,6 +92,19 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-core</artifactId>
+            <version>1.37</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openjdk.jmh</groupId>
+            <artifactId>jmh-generator-annprocess</artifactId>
+            <version>1.37</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -156,7 +169,39 @@
                     <outputFormats>
                         <outputFormat>HTML</outputFormat>
                         <outputFormat>XML</outputFormat>
+                        <outputFormat>CSV</outputFormat>
                     </outputFormats>
+
+                    <mutators>
+                        <mutator>DEFAULTS</mutator>
+                        <mutator>CONSTRUCTOR_CALLS</mutator>
+                        <mutator>NON_VOID_METHOD_CALLS</mutator>
+                    </mutators>
+
+                    <excludedMethods>
+                        <param>close</param>
+                        <param>printStackTrace</param>
+                        <param>println</param>
+                        <param>toString</param>
+                        <param>hashCode</param>
+                    </excludedMethods>
+
+                    <avoidCallsTo>
+                        <avoidCallsTo>java.sql.Connection</avoidCallsTo>
+                        <avoidCallsTo>java.sql.PreparedStatement</avoidCallsTo>
+                        <avoidCallsTo>java.sql.ResultSet</avoidCallsTo>
+                        <avoidCallsTo>java.io.PrintStream</avoidCallsTo>
+                        <avoidCallsTo>java.util.logging</avoidCallsTo>
+                    </avoidCallsTo>
+
+                    <threads>4</threads>
+                    <timeoutConstant>10000</timeoutConstant>
+                    <timeoutFactor>1.5</timeoutFactor>
+
+                    <coverageThreshold>70</coverageThreshold>
+
+                    <timestampedReports>false</timestampedReports>
+                    <verbose>false</verbose>
                 </configuration>
             </plugin>
 

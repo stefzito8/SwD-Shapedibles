@@ -523,6 +523,8 @@ public class LoginTest {
 
             // Assert - Session should be requested (with true for new session)
             verify(request, atLeastOnce()).getSession(true);
+            // Verify session.setAttribute("LoggedUser"...) is called (kills VoidMethodCallMutator mutation line 69)
+            verify(session).setAttribute(eq("LoggedUser"), any(UserBean.class));
         }
 
         @Test
@@ -541,8 +543,9 @@ public class LoginTest {
             // Act
             loginServlet.doPost(request, response);
 
-            // Assert - redirectURL should be checked
+            // Assert - redirectURL should be checked and removed (kills VoidMethodCallMutator mutation line 72)
             verify(session, atLeastOnce()).getAttribute("redirectURL");
+            verify(session).removeAttribute("redirectURL");
         }
     }
 

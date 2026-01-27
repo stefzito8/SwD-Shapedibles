@@ -2,6 +2,7 @@ package control;
 
 import categories.UnitTest;
 import model.Cart;
+import model.bean.ContainBean;
 import model.bean.InfoBean;
 import model.bean.OrderBean;
 import model.bean.ProductBean;
@@ -31,11 +32,15 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+
+import org.mockito.ArgumentCaptor;
+import java.util.List;
 
 /**
  * Unit tests for Checkout controller.
@@ -361,18 +366,29 @@ public class CheckoutTest {
 
         @Test
         @DisplayName("TC-CHK-7: Confirm action processes order")
-        void testConfirmActionProcessesOrder() throws ServletException, IOException {
+        void testConfirmActionProcessesOrder() throws ServletException, IOException, SQLException {
             // Arrange
             UserBean user = new UserBean();
             user.setUsername("testuser");
             Cart cart = new Cart();
             ProductBean product = new ProductBean();
             product.setCodice(1);
+            product.setNome("TestProduct");
             cart.addProduct(product);
+            
+            // Verify cart has item before confirm
+            assertEquals(1, cart.getCartSize());
             
             // When address is provided, the servlet expects an order in session
             OrderBean existingOrder = new OrderBean();
             existingOrder.setCodice(12345);
+            
+            // Setup info bean for the product in cart
+            InfoBean infoBean = new InfoBean();
+            infoBean.setCodice(1);
+            infoBean.setNome("TestProduct");
+            infoBean.setDisponibilità(10);
+            infoBean.setCosto(5.0);
             
             when(request.getSession()).thenReturn(session);
             when(session.getAttribute("LoggedUser")).thenReturn(user);
@@ -382,12 +398,22 @@ public class CheckoutTest {
             when(request.getParameter("address")).thenReturn("123 Test St");
             when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
             when(servletContext.getRequestDispatcher("/WEB-INF/jsp/pages/checkout.jsp")).thenReturn(requestDispatcher);
+            when(infoDao.doRetrieveByKey(anyInt())).thenReturn(infoBean);
+            when(productDao.doRetrieveByName("TestProduct")).thenReturn(product);
             
             // Act
             checkoutServlet.doPost(request, response);
             
-            // Assert - order should be processed
+            // Assert - order should be processed and saved
             verify(request, atLeastOnce()).setAttribute(eq("order"), any());
+            
+            // Verify void method calls to kill VoidMethodCallMutator mutations
+            verify(orderDao).doSave(any(OrderBean.class));
+            verify(containDao).doSave(any(ContainBean.class));
+            verify(infoDao).doUpdateQuantity(anyInt(), anyInt());
+            
+            // Verify cart is cleared after confirm (kills VoidMethodCallMutator mutation on line 143 - cart.ClearCart())
+            assertEquals(0, cart.getCartSize());
         }
 
         @Test
@@ -573,6 +599,69 @@ public class CheckoutTest {
                 checkoutServlet.doPost(request, response);
             });
         }
+
+        @Test
+        @DisplayName("TC-CHK-16: SQLException sets error attribute and sends 500")
+        void testSqlExceptionSetsErrorAndSends500() throws Exception {
+            // Arrange
+            UserBean user = new UserBean();
+            user.setUsername("testuser");
+            Cart cart = new Cart();
+            ProductBean product = new ProductBean();
+            product.setCodice(1);
+            cart.addProduct(product);
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("LoggedUser")).thenReturn(user);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(session.getAttribute("order")).thenReturn(null);
+            when(request.getParameter("action")).thenReturn(null);
+            when(request.getParameter("address")).thenReturn(null);
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+
+            // Make addressDao throw SQLException
+            when(addressDao.doRetrieveByUser(anyString())).thenThrow(new java.sql.SQLException("DB Error"));
+
+            // Act
+            checkoutServlet.doPost(request, response);
+
+            // Assert - Should set error and sendError 500
+            verify(request).setAttribute(eq("error"), contains("Error:"));
+            verify(response).sendError(eq(500), anyString());
+        }
+
+        @Test
+        @DisplayName("TC-CHK-17: SQLException during confirm order sets error and sends 500")
+        void testSqlExceptionDuringConfirmSetsErrorAndSends500() throws Exception {
+            // Arrange
+            UserBean user = new UserBean();
+            user.setUsername("testuser");
+            Cart cart = new Cart();
+            ProductBean product = new ProductBean();
+            product.setCodice(1);
+            cart.addProduct(product);
+
+            model.bean.OrderBean existingOrder = new model.bean.OrderBean();
+            existingOrder.setCodice(999);
+
+            when(request.getSession()).thenReturn(session);
+            when(session.getAttribute("LoggedUser")).thenReturn(user);
+            when(session.getAttribute("cart")).thenReturn(cart);
+            when(session.getAttribute("order")).thenReturn(existingOrder);
+            when(request.getParameter("action")).thenReturn("confirm");
+            when(request.getParameter("address")).thenReturn("123 Test St");
+            when(servletContext.getAttribute("DataSource")).thenReturn(dataSource);
+
+            // Make orderDao.doSave throw SQLException
+            doThrow(new java.sql.SQLException("DB Error")).when(orderDao).doSave(any());
+
+            // Act
+            checkoutServlet.doPost(request, response);
+
+            // Assert - Should set error and sendError 500
+            verify(request).setAttribute(eq("error"), contains("Error:"));
+            verify(response).sendError(eq(500), anyString());
+        }
     }
 
     // ============================================================================
@@ -608,6 +697,30 @@ public class CheckoutTest {
             
             // Assert - new order should be created and set in session
             verify(session).setAttribute(eq("order"), any());
+            // Verify request attribute operations (kills VoidMethodCallMutator mutations)
+            verify(request).removeAttribute("addresses");
+            verify(request).setAttribute(eq("addresses"), any());
+            verify(request).removeAttribute("order");
+            
+            // Use ArgumentCaptor to verify OrderBean properties (kills setter mutations lines 85-87)
+            ArgumentCaptor<OrderBean> orderCaptor = ArgumentCaptor.forClass(OrderBean.class);
+            verify(request).setAttribute(eq("order"), orderCaptor.capture());
+            OrderBean capturedOrder = orderCaptor.getValue();
+            assertEquals("testuser", capturedOrder.getUtente());
+            assertEquals("in checkout", capturedOrder.getStato());
+            assertNotNull(capturedOrder.getDataOrdine());
+            
+            // Verify containList properties (kills setter mutations lines 118-120)
+            @SuppressWarnings("unchecked")
+            ArgumentCaptor<List<ContainBean>> containListCaptor = ArgumentCaptor.forClass(List.class);
+            verify(request).removeAttribute("containList");
+            verify(request).setAttribute(eq("containList"), containListCaptor.capture());
+            List<ContainBean> capturedContainList = containListCaptor.getValue();
+            assertFalse(capturedContainList.isEmpty());
+            ContainBean capturedContain = capturedContainList.get(0);
+            assertEquals(1, capturedContain.getCodiceProdotto());
+            assertEquals(capturedOrder.getCodice(), capturedContain.getCodiceOrdine());
+            assertEquals(1, capturedContain.getQuantità());
         }
 
         @Test
