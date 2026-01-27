@@ -37,9 +37,21 @@ public class AuthenticationFilter implements Filter {
             }
             chain.doFilter(request, response);
         } else {
-            session = httpRequest.getSession();
-            session.setAttribute("redirectURL", httpRequest.getRequestURI());
-            
+            // FIX: Validazione dell'input prima di metterlo in sessione
+            String requestURI = httpRequest.getRequestURI();
+            String contextPath = httpRequest.getContextPath();
+
+            // Controllo di nullità
+            // Controllo che l'URI inizi con il context path della nostra app (evita redirect esterni)
+            if (requestURI != null && requestURI.startsWith(contextPath)) {
+                
+                // Rimuove eventuali caratteri di a capo (CRLF) 
+                // per evitare log injection o corruzione degli header se usato successivamente
+                String safeURI = requestURI.replaceAll("[\r\n]", "");
+                
+                session = httpRequest.getSession();
+                session.setAttribute("redirectURL", safeURI);
+            }
             httpResponse.sendRedirect(loginURI);
         }
     }
