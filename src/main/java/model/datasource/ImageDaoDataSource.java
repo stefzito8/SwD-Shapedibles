@@ -146,12 +146,12 @@ public class ImageDaoDataSource implements IImageDao
 			connection = ds.getConnection();
 			//@ assert connection != null;
 			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			ResultSet rs = preparedStatement.executeQuery();
 			//@ assert rs != null;
 			/*@ 
               @ loop_invariant images != null;
               @*/
-			ResultSet rs = preparedStatement.executeQuery();
-			
 			while(rs.next()) {
 				ImageBean  bean = new ImageBean();
 				
