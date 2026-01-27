@@ -1,0 +1,7 @@
+services:
+  web-app:
+    image: justalish/mia-applicazione:v1.3
+    ports:
+      - "8443:8443"
+      - "8080:8080"
+    restart: unless-stopped
