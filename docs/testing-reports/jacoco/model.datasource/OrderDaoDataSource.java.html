@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderDaoDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.datasource</a> &gt; <span class="el_source">OrderDaoDataSource.java</span></div><h1>OrderDaoDataSource.java</h1><pre class="source lang-java linenums">package model.datasource;
+
+
+import model.bean.OrderBean;
+import model.dao.IOrderDao;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+
+public class OrderDaoDataSource implements IOrderDao
+{
+	private static final String TABLE_NAME=&quot;orders&quot;;
+
+	//@ spec_public non_null
+	private DataSource ds;
+	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
+	public OrderDaoDataSource(DataSource ds)
+<span class="fc" id="L27">	{</span>
+<span class="fc" id="L28">		this.ds=ds;</span>
+<span class="fc" id="L29">		System.out.println(&quot;DriverManager Product Model creation....&quot;);</span>
+<span class="fc" id="L30">	}</span>
+	
+	@Override
+	public void doSave(OrderBean order) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L35">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L36">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L38">		String insertSQL=&quot;INSERT INTO &quot; + OrderDaoDataSource.TABLE_NAME </span>
+				+ &quot; (\&quot;User\&quot;, code, address, state, order_date, total_cost) VALUES (?,?,?,?,?,?)&quot;;
+		
+		try {
+<span class="fc" id="L42">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L44">			preparedStatement = connection.prepareStatement(insertSQL);</span>
+<span class="fc" id="L45">			preparedStatement.setString(1, order.getUtente());</span>
+<span class="fc" id="L46">			preparedStatement.setInt(2, order.getCodice());</span>
+<span class="fc" id="L47">			preparedStatement.setString(3, order.getIndirizzo());</span>
+<span class="fc" id="L48">			preparedStatement.setString(4, order.getStato());</span>
+<span class="fc" id="L49">			preparedStatement.setString(5, order.getDataOrdine());</span>
+<span class="fc" id="L50">			preparedStatement.setDouble(6, order.getSaldoTotale());</span>
+
+			
+<span class="fc" id="L53">			preparedStatement.executeUpdate();</span>
+		} 
+		finally {
+			try {
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L58">					 preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L60">				connection.close();;</span>
+			}
+		}
+<span class="fc" id="L63">	}</span>
+
+	@Override
+	public boolean doDelete(String user, int id) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L68">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L69">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L71">		int result = 0;</span>
+		
+<span class="fc" id="L73">		String deleteSQL = &quot;DELETE FROM &quot; + OrderDaoDataSource.TABLE_NAME + &quot; WHERE CODE = ? AND \&quot;User\&quot; = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L76">			connection= ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L78">			preparedStatement = connection.prepareStatement(deleteSQL);</span>
+<span class="fc" id="L79">			preparedStatement.setInt(1, id);</span>
+<span class="fc" id="L80">			preparedStatement.setString(2, user);</span>
+			
+<span class="fc" id="L82">			result = preparedStatement.executeUpdate();</span>
+			//@ assert result &gt;= 0;
+		} finally {
+			try {
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L87">					preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L89">				connection.close();</span>
+			}
+		}
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		return (result!=0);</span>
+	}
+
+	@Override
+	public OrderBean doRetrieveByKey(String user, int id) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L98">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L99">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L101">		OrderBean bean= new OrderBean();</span>
+		//@ assert bean != null;
+<span class="fc" id="L103">		String selectSQL = &quot;SELECT * FROM &quot; + OrderDaoDataSource.TABLE_NAME + &quot; WHERE CODE = ? AND \&quot;User\&quot; = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L106">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L108">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L109">			preparedStatement.setInt(1, id);</span>
+<span class="fc" id="L110">			preparedStatement.setString(2, user);</span>
+			
+<span class="fc" id="L112">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+<span class="fc bfc" id="L114" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L115">				bean.setUtente(rs.getString(&quot;User&quot;));</span>
+<span class="fc" id="L116">				bean.setCodice(rs.getInt(&quot;code&quot;));</span>
+<span class="fc" id="L117">				bean.setIndirizzo(rs.getString(&quot;address&quot;));</span>
+<span class="fc" id="L118">				bean.setStato(rs.getString(&quot;state&quot;));</span>
+<span class="fc" id="L119">				bean.setDataOrdine(rs.getString(&quot;order_date&quot;));</span>
+<span class="fc" id="L120">				bean.setSaldoTotale(rs.getDouble(&quot;total_cost&quot;));</span>
+			}
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L126">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L128">			connection.close();</span>
+		}
+		}
+		//@ assert bean != null;
+<span class="fc" id="L132">		return bean;</span>
+	}
+
+	@Override
+	public Collection&lt;OrderBean&gt; doRetrieveAll(String order) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L138">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L139">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L141">		Collection&lt;OrderBean&gt; orders= new LinkedList&lt;OrderBean&gt;();</span>
+		//@ assert orders != null &amp;&amp; orders.isEmpty();
+<span class="fc" id="L143">		String selectSQL = &quot;SELECT * FROM &quot; + OrderDaoDataSource.TABLE_NAME;</span>
+		
+<span class="fc bfc" id="L145" title="All 4 branches covered.">		if(order != null &amp;&amp; !order.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L146">			selectSQL +=&quot; ORDER BY &quot; + order;</span>
+		}
+		
+		try {
+<span class="fc" id="L150">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L152">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+			
+<span class="fc" id="L154">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+			/*@ 
+              @ loop_invariant orders != null;
+              @*/
+<span class="fc bfc" id="L159" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L160">				OrderBean  bean = new OrderBean();</span>
+				
+<span class="fc" id="L162">				bean.setUtente(rs.getString(&quot;User&quot;));</span>
+<span class="fc" id="L163">				bean.setCodice(rs.getInt(&quot;code&quot;));</span>
+<span class="fc" id="L164">				bean.setIndirizzo(rs.getString(&quot;address&quot;));</span>
+<span class="fc" id="L165">				bean.setStato(rs.getString(&quot;state&quot;));</span>
+<span class="fc" id="L166">				bean.setDataOrdine(rs.getString(&quot;order_date&quot;));</span>
+<span class="fc" id="L167">				bean.setSaldoTotale(rs.getDouble(&quot;total_cost&quot;));</span>
+				//@ assert bean != null;
+<span class="fc" id="L169">				orders.add(bean);</span>
+				//@ assert !orders.isEmpty();
+<span class="fc" id="L171">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L176">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L178">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L182">		return orders;</span>
+	}
+
+	@Override
+	public Collection&lt;OrderBean&gt; doRetrieveByUser(String user) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L188">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L189">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L191">		Collection&lt;OrderBean&gt; orders= new LinkedList&lt;OrderBean&gt;();</span>
+		//@ assert orders != null &amp;&amp; orders.isEmpty();
+<span class="fc" id="L193">		String selectSQL = &quot;SELECT * FROM &quot; + OrderDaoDataSource.TABLE_NAME + &quot; WHERE \&quot;User\&quot;= ? &quot;;</span>
+		
+		try {
+<span class="fc" id="L196">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L198">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L199">			preparedStatement.setString(1, user);</span>
+<span class="fc" id="L200">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+
+			/*@ 
+              @ loop_invariant orders != null;
+              @*/
+<span class="fc bfc" id="L206" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L207">				OrderBean  bean = new OrderBean();</span>
+				
+<span class="fc" id="L209">				bean.setUtente(rs.getString(&quot;User&quot;));</span>
+<span class="fc" id="L210">				bean.setCodice(rs.getInt(&quot;code&quot;));</span>
+<span class="fc" id="L211">				bean.setIndirizzo(rs.getString(&quot;address&quot;));</span>
+<span class="fc" id="L212">				bean.setStato(rs.getString(&quot;state&quot;));</span>
+<span class="fc" id="L213">				bean.setDataOrdine(rs.getString(&quot;order_date&quot;));</span>
+<span class="fc" id="L214">				bean.setSaldoTotale(rs.getDouble(&quot;total_cost&quot;));</span>
+				//@ assert bean != null;
+<span class="fc" id="L216">				orders.add(bean);</span>
+				//@ assert !orders.isEmpty();
+<span class="fc" id="L218">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L223">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L225">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L229">		return orders;</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

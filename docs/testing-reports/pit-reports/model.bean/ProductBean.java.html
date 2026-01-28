@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>ProductBean.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package model.bean;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serial;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Objects;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@SuppressWarnings(&#34;ALL&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class ProductBean implements Serializable</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Serial</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static final long serialVersionUID = 1L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ int codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ int infoCorrenti;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ String nome;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public nullable @*/  Collection&#60;ImageBean&#62; immagini;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public ProductBean()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  codice= -1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      infoCorrenti=-1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>      nome= &#34; &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int getCodice()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_29'/>
+29
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_29'>1</a>
+<span>
+
+1. getCodice : replaced int return with 0 for model/bean/ProductBean::getCodice &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setCodice(int codice)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.codice=codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int getInfoCorrenti()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_41'/>
+41
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_41'>1</a>
+<span>
+
+1. getInfoCorrenti : replaced int return with 0 for model/bean/ProductBean::getInfoCorrenti &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return infoCorrenti;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.infoCorrenti;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setInfoCorrenti(int infoCorrenti)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.infoCorrenti=infoCorrenti;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String getNome()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_53'>1</a>
+<span>
+
+1. getNome : replaced return value with &#34;&#34; for model/bean/ProductBean::getNome &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return nome;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;// assignable this.nome;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setNome (String nome)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;this.nome=nome;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;// assignable this.immagini;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;public void setImages (Collection&#60;ImageBean&#62; images) { this.immagini = images; }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_66'/>
+66
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_66'>1</a>
+<span>
+
+1. getImages : replaced return value with Collections.emptyList for model/bean/ProductBean::getImages &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;public Collection&#60;ImageBean&#62; getImages() { return immagini; }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public boolean equals(Object o) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_71'/>
+71
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_71'>1</a>
+<span>
+
+1. equals : replaced boolean return with false for model/bean/ProductBean::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (this == o) return true;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_72'/>
+72
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_72'>5</a>
+<span>
+
+1. equals : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+2. equals : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+
+3. equals : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+
+4. equals : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+5. equals : replaced boolean return with true for model/bean/ProductBean::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        if (o == null || getClass() != o.getClass()) return false;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        ProductBean that = (ProductBean) o;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_74'/>
+74
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_74'>5</a>
+<span>
+
+1. equals : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+2. equals : removed call to java/util/Objects::equals &rarr; KILLED<br/>
+
+3. equals : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+4. equals : replaced boolean return with false for model/bean/ProductBean::equals &rarr; KILLED<br/>
+
+5. equals : replaced boolean return with true for model/bean/ProductBean::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return Objects.equals(codice, that.codice);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public int hashCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        return Objects.hash(codice);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@151ce559_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_29'>29</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_29'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCodice<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testDefaultValueBoundary()]</span></span> replaced int return with 0 for model/bean/ProductBean::getCodice &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_41'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getInfoCorrenti<br/><b>Killed by : </b>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchByNameVerifiesAllFields()]</span></span> replaced int return with 0 for model/bean/ProductBean::getInfoCorrenti &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getNome<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testNullName()]</span></span> replaced return value with &#34;&#34; for model/bean/ProductBean::getNome &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_66'>66</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_66'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getImages<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testGetImagesReturnsCollection()]</span></span> replaced return value with Collections.emptyList for model/bean/ProductBean::getImages &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_71'>71</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_71'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameInstance()]</span></span> replaced boolean return with false for model/bean/ProductBean::equals &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_72'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsDifferentClass()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsNull()]</span></span> replaced boolean return with true for model/bean/ProductBean::equals &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@151ce559_74'>74</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@151ce559_74'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed call to java/util/Objects::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()]</span></span> replaced boolean return with false for model/bean/ProductBean::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>5.<span><b>5</b><br/><b>Location : </b>equals<br/><b>Killed by : </b>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsDifferentCodice()]</span></span> replaced boolean return with true for model/bean/ProductBean::equals &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+
+<li class='mutator'>EMPTY_RETURNS</li>
+
+<li class='mutator'>FALSE_RETURNS</li>
+
+<li class='mutator'>INCREMENTS</li>
+
+<li class='mutator'>INVERT_NEGS</li>
+
+<li class='mutator'>MATH</li>
+
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+
+<li class='mutator'>NULL_RETURNS</li>
+
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+
+<li class='mutator'>TRUE_RETURNS</li>
+
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsDifferentCodice()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameCodice()] (0 ms)</li><li>model.CartTest.[engine:junit-jupiter]/[class:model.CartTest]/[nested-class:GetProductsTests]/[method:testGetProductsReturnsAll()] (0 ms)</li><li>control.CartTest.[engine:junit-jupiter]/[class:control.CartTest]/[nested-class:CartOperationsTests]/[method:testDeleteRemovesProductAtZero()] (1 ms)</li><li>control.CartTest.[engine:junit-jupiter]/[class:control.CartTest]/[nested-class:CartOperationsTests]/[method:testDeleteReducesQuantity()] (1 ms)</li><li>control.CartTest.[engine:junit-jupiter]/[class:control.CartTest]/[nested-class:ActionSwitchTests]/[method:testDeleteAction()] (2 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testNullName()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:GeneralTests]/[method:testDefaultValues()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testSingleCharBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testMaxLengthBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testValidNonEmptyName()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testEmptyStringBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testOverMaxLengthBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testEmptyStringName()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testSingleCharName()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testMaxLengthName()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:NomeTests]/[method:testNameWithSpecialChars()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:GeneralTests]/[method:testFieldsCanBeUpdated()] (1 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:GeneralTests]/[method:testSetAndGetBothFields()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchFindsNoProducts()] (2 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoRetrieveByKeyReturnsCorrectProduct()] (3 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveProductNameOnly()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllEmptyOrder()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:LoopBoundaryTests]/[method:testLoopOneIteration()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllWithoutOrder()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveNewProduct()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchCaseSensitive()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchByNameVerifiesAllFields()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllOrderByCode()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllVerifiesAllFields()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveMultipleProducts()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllWithOrder()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchPartialMatch()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByNameTests]/[method:testRetrieveByNameVerifiesAllFields()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchFindsProducts()] (2 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByNameTests]/[method:testRetrieveExistingByName()] (3 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:LoopBoundaryTests]/[method:testLoopMultipleIterations()] (3 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveExistingProduct()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoRetrieveByNameReturnsCorrectCode()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoUpdateInfoTests]/[method:testUpdateInfoExistingProduct()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoDeleteTests]/[method:testDeleteExistingProduct()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testIdMaxValueBoundary()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testIdParamReturnsSingleProduct()] (0 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoUpdateInfoActuallyUpdates()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoDeleteActuallyRemoves()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoSaveActuallyPersists()] (2 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:SearchByNameTests]/[method:testSearchEmptyQuery()] (7 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoUpdateInfoTests]/[method:testUpdateInfoDifferentValue()] (2 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoSaveInsertsNewProduct()] (5 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testIdZeroBoundary()] (5 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:ProductCreationTests]/[method:testSuccessfulProductCreation()] (4 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchByIdReturnsProductJson()] (5 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:TransactionTests]/[method:testDatabaseResetProvidesCleanState()] (13 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchAjaxReturnsJson()] (6 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxMultipleResults()] (26 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsSameInstance()] (0 ms)</li><li>model.CartTest.[engine:junit-jupiter]/[class:model.CartTest]/[nested-class:DeleteProductTests]/[method:testDeleteProductDecrementsQuantity()] (0 ms)</li><li>control.ProductAdminTest.[engine:junit-jupiter]/[class:control.ProductAdminTest]/[nested-class:ActionTests]/[method:testAddCActionRetrievesAndAddsProduct()] (0 ms)</li><li>control.ProductAdminTest.[engine:junit-jupiter]/[class:control.ProductAdminTest]/[nested-class:ActionTests]/[method:testAddCActionAddsProductToCart()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsDifferentClass()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testDefaultValueBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testOneBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testHashCodeDifference()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testValidPositiveCode()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testNegativeCode()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testZeroCode()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testLargeValueBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testZeroBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testLargePositiveCode()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testTypicalValueBoundary()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testMaxIntegerCode()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:CodiceTests]/[method:testMaxIntegerBoundary()] (0 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByNameTests]/[method:testRetrieveEmptyName()] (0 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveZeroCode()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByNameTests]/[method:testRetrieveNonExistentByName()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveNonExistentProduct()] (1 ms)</li><li>model.datasource.ProductDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.ProductDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveNegativeCode()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoRetrieveByKeyReturnsNullForNonExistent()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testHandleVeryLargeProductCode()] (5 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testHandleZeroProductCode()] (6 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testHandleNegativeProductCode()] (6 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoDeleteRemovesProduct()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoRetrieveByNameFindsProduct()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testSearchByNameFindsMatchingProducts()] (3 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ExceptionHandlingTests]/[method:testNegativeProductId()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:RequestDispatcherTests]/[method:testCorrectJspPath()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:RequestDispatcherTests]/[method:testForwardCalledWithRequestAndResponse()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:BoundaryValueTests]/[method:testMinimumPositiveProductId()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:BoundaryValueTests]/[method:testProductIdWithLeadingZeros()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ExceptionHandlingTests]/[method:testVeryLargeProductId()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ProductRetrievalTests]/[method:testProductNotFoundStillForwards()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoRetrieveAllWithOrderSortsCorrectly()] (4 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ExceptionHandlingTests]/[method:testNullDataSourceError()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:ProductDaoTests]/[method:testDoRetrieveAllReturnsAllProducts()] (4 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ProductDataTests]/[method:testProductInfoSetAsAttribute()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ProductDataTests]/[method:testAttributesRemovedBeforeSetting()] (1 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ProductDataTests]/[method:testNutritionTableSetAsAttribute()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:TransactionTests]/[method:testConcurrentDaoOperations()] (6 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:DoGetTests]/[method:testDoGetDelegatesToDoPost()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testDoRetrieveAllWithNullOrder()] (6 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:DoGetTests]/[method:testDoGetSameAsDoPost()] (0 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:ProductRetrievalTests]/[method:testValidProductIdDisplaysProduct()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testDoRetrieveAllWithEmptyOrder()] (6 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:ViewModeTests]/[method:testViewModeWithViewAction()] (3 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:HomeControllerIntegrationTests]/[method:testHomeRetrievesProductsFromDatabase()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testProductDaoSearchByName()] (8 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:DoGetTests]/[method:testDoGetDelegatesToDoPost()] (4 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchFindsMatchingProducts()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:HomeControllerIntegrationTests]/[method:testHomeForwardsToJsp()] (6 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:ViewModeTests]/[method:testViewModeLoadsProductData()] (4 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:ProductDetailsControllerIntegrationTests]/[method:testProductDetailsHandlesNonExistentProduct()] (7 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:DoGetTests]/[method:testDoGetDelegatesToDoPost()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testOrderItemsProductConsistency()] (8 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:BoundaryValueTests]/[method:testZeroPrice()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testProductInfoConsistency()] (7 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:LoopBoundaryTests]/[method:testZeroFileParts()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:EdgeCaseTests]/[method:testSearchHandlesSpecialCharacters()] (10 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:LoopBoundaryTests]/[method:testNullFileParts()] (5 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testProductNutritionConsistency()] (7 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testProductInfoConsistency()] (8 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:BoundaryValueTests]/[method:testZeroQuantity()] (4 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:ProductCreationTests]/[method:testInfoBeanSavedCorrectly()] (4 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:HelperMethodTests]/[method:testExtractFileNameNoFilename()] (3 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:HelperMethodTests]/[method:testNoFileExtension()] (2 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:CartStateTests]/[method:testCartWithItemsProceeds()] (1 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:BoundaryValueTests]/[method:testFileOneByteOverLimit()] (2 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:AddressHandlingTests]/[method:testProvidedAddressUsed()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:CheckoutLoopTests]/[method:testSingleItemCheckout()] (1 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:LoopBoundaryTests]/[method:testSingleFilePart()] (2 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:LoopBoundaryTests]/[method:testLoopSingleIteration()] (1 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testInvalidFileExtension()] (3 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:LoopBoundaryTests]/[method:testLoopMultipleIterations()] (1 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testFileTooLarge()] (3 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:ProductDetailsControllerIntegrationTests]/[method:testProductDetailsRetrievesInfo()] (5 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:BoundaryValueTests]/[method:testFileAtExactLimit()] (2 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:ProductDetailsControllerIntegrationTests]/[method:testProductDetailsRetrievesProduct()] (5 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:CheckoutLoopTests]/[method:testMultipleItemsCheckout()] (1 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testValidGifUpload()] (3 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionDuringConfirmSetsErrorAndSends500()] (2 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testValidPngUpload()] (3 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testValidJpgUpload()] (3 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testValidBmpUpload()] (3 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:FileUploadTests]/[method:testInvalidMagicNumber()] (3 ms)</li><li>control.ProductUploadTest.[engine:junit-jupiter]/[class:control.ProductUploadTest]/[nested-class:HelperMethodTests]/[method:testJpegExtension()] (5 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderStateTests]/[method:testNewOrderCreated()] (4 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderSubmissionTests]/[method:testConfirmActionProcessesOrder()] (1 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:EditActionTests]/[method:testEditActionSavesNutritionData()] (5 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:LoopBoundaryTests]/[method:testMultipleExistingImagesDeleted()] (6 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:EditActionTests]/[method:testEditActionUpdatesImages()] (6 ms)</li><li>control.ProductDetailsTest.[engine:junit-jupiter]/[class:control.ProductDetailsTest]/[nested-class:BoundaryValueTests]/[method:testZeroProductId()] (23 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testInvalidFileExtensionSetsError()] (5 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testFileTooLargeSetsError()] (6 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testFileOneByteOverLimitIsRejected()] (6 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:EditActionTests]/[method:testEditActionUpdatesProduct()] (4 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testInvalidMagicNumberSetsError()] (5 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:EditActionTests]/[method:testEditActionSavesNewImages()] (4 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testValidJpgFileIsProcessed()] (5 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testValidPngFileIsProcessed()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testProductDaoRetrievesTestData()] (35 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:FileUploadTests]/[method:testFileAtExactLimitIsAccepted()] (12 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderStateTests]/[method:testExistingOrderReused()] (68 ms)</li><li>control.ProductEditTest.[engine:junit-jupiter]/[class:control.ProductEditTest]/[nested-class:LoopBoundaryTests]/[method:testZeroFileParts()] (88 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testEqualsNull()] (0 ms)</li><li>model.bean.ProductBeanTest.[engine:junit-jupiter]/[class:model.bean.ProductBeanTest]/[nested-class:EqualsHashCodeTests]/[method:testGetImagesReturnsCollection()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.3
+
+</body>
+</html>

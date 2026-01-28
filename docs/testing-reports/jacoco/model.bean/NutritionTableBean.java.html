@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NutritionTableBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.bean</a> &gt; <span class="el_source">NutritionTableBean.java</span></div><h1>NutritionTableBean.java</h1><pre class="source lang-java linenums">package model.bean;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+public class NutritionTableBean implements Serializable{
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+	
+	 private /*@ spec_public @*/int codice_prodotto;
+	 private /*@ spec_public @*/int energia;
+	 private /*@ spec_public @*/double grassi;
+	 private /*@ spec_public @*/double grassi_saturi;
+	 private /*@ spec_public @*/double carboedrati;
+	 private /*@ spec_public @*/double zucherri;
+	 private /*@ spec_public @*/double fibre;
+	 private /*@ spec_public @*/double proteine;
+	 private /*@ spec_public @*/double sale;
+	
+	public NutritionTableBean()
+<span class="fc" id="L22">	{</span>
+<span class="fc" id="L23">	  codice_prodotto=-1;</span>
+<span class="fc" id="L24">	  energia=0;</span>
+<span class="fc" id="L25">	  grassi=0.0;</span>
+<span class="fc" id="L26">	  grassi_saturi=0.0;</span>
+<span class="fc" id="L27">	  carboedrati=0.0;</span>
+<span class="fc" id="L28">	  zucherri=0.0;</span>
+<span class="fc" id="L29">	  fibre=0.0;</span>
+<span class="fc" id="L30">	  proteine=0.0;</span>
+<span class="fc" id="L31">	  sale=0.0;</span>
+<span class="fc" id="L32">	}</span>
+	
+	//@ pure
+	public int getCodiceProdotto()
+	{
+<span class="fc" id="L37">		return codice_prodotto;</span>
+	}
+	
+	//@ pure
+	public int getEnergia()
+	{
+<span class="fc" id="L43">		return energia;</span>
+	}
+	
+	//@ pure
+	public double getGrassi()
+	{
+<span class="fc" id="L49">		return grassi;</span>
+	}
+	
+	//@ pure
+	public double getGrassiSaturi()
+	{
+<span class="fc" id="L55">		return grassi_saturi;</span>
+	}
+	
+	//@ pure
+	public double getCarboedrati()
+	{
+<span class="fc" id="L61">		return carboedrati;</span>
+	}
+	
+	//@ pure
+	public double getZucherri()
+	{
+<span class="fc" id="L67">		return zucherri;</span>
+	}
+	
+	//@ pure
+	public double getFibre()
+	{
+<span class="fc" id="L73">		return fibre;</span>
+	}
+	
+	//@ pure
+	public double getProteine()
+	{
+<span class="fc" id="L79">		return proteine;</span>
+	}
+	
+	//@ pure
+	public double getSale()
+	{
+<span class="fc" id="L85">		return sale;</span>
+	}
+	
+	//@ assignable this.codice_prodotto;
+	public void setCodiceProdotto (int codice_prodotto)
+	{
+<span class="fc" id="L91">	  this.codice_prodotto=codice_prodotto;</span>
+<span class="fc" id="L92">	}</span>
+	
+	//@ assignable this.energia;
+	public void setEnergia(int energia)
+	{
+<span class="fc" id="L97">		  this.energia=energia;</span>
+<span class="fc" id="L98">	}</span>
+	
+	//@ assignable this.grassi;
+	public void setGrassi(double grassi)
+	{
+<span class="fc" id="L103">		  this.grassi=grassi;</span>
+<span class="fc" id="L104">	}</span>
+	
+	//@ assignable this.grassi_saturi;
+	public void setGrassiSaturi(double grassi_saturi)
+	{
+<span class="fc" id="L109">		  this.grassi_saturi=grassi_saturi;</span>
+<span class="fc" id="L110">	}</span>
+	
+	//@ assignable this.carboedrati;
+	public void setCarboedrati(double carboedrati)
+	{
+<span class="fc" id="L115">		  this.carboedrati=carboedrati;</span>
+<span class="fc" id="L116">	}</span>
+	
+	//@ assignable this.zucherri;
+	public void setZucherri(double zucherri)
+	{
+<span class="fc" id="L121">		  this.zucherri=zucherri;</span>
+<span class="fc" id="L122">	}</span>
+	
+	//@ assignable this.fibre;
+	public void setFibre(double fibre)
+	{
+<span class="fc" id="L127">		  this.fibre=fibre;</span>
+<span class="fc" id="L128">	}</span>
+	
+	//@ assignable this.proteine;
+	public void setProteine(double proteine)
+	{
+<span class="fc" id="L133">		  this.proteine=proteine;</span>
+<span class="fc" id="L134">	}</span>
+	
+	//@ assignable this.sale;
+	public void setSale(double sale)
+	{
+<span class="fc" id="L139">		  this.sale=sale;</span>
+<span class="fc" id="L140">	}</span>
+	
+	//@ pure
+	@Override
+	public String toString() {
+<span class="fc" id="L145">		return codice_prodotto + &quot; &quot; + energia + &quot; &quot; + grassi + &quot; &quot; + grassi_saturi + &quot; &quot; + carboedrati + &quot; &quot;+ zucherri + &quot; &quot; + fibre + &quot; &quot; + proteine + &quot; &quot; + sale;</span>
+	}
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

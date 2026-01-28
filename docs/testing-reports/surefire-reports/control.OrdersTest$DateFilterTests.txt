@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: control.OrdersTest$DateFilterTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in control.OrdersTest$DateFilterTests

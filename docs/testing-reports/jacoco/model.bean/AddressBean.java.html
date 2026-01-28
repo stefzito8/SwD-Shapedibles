@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.bean</a> &gt; <span class="el_source">AddressBean.java</span></div><h1>AddressBean.java</h1><pre class="source lang-java linenums">package model.bean;
+
+import java.io.Serializable;
+
+<span class="fc" id="L5">public class AddressBean implements Serializable{</span>
+
+	private static final long serialVersionUID = 1L;
+	
+	private /*@ spec_public @*/ String id;
+	private /*@ spec_public @*/ String utente;
+	private /*@ spec_public @*/ String paese;
+	private /*@ spec_public @*/ String strada;
+	private /*@ spec_public @*/ String città;
+	private /*@ spec_public @*/ int numero;
+	private /*@ spec_public @*/ String codice_postale;
+	
+	//@ pure
+	public String getId()
+	{
+<span class="fc" id="L20">		return id;</span>
+	}
+	
+	//@ pure
+	public String getUtente()
+	{
+<span class="fc" id="L26">		return utente;</span>
+	}
+	
+	//@ pure
+	public String getPaese()
+	{
+<span class="fc" id="L32">		return paese;</span>
+	}
+	
+	//@ pure
+	public String getStrada()
+	{
+<span class="fc" id="L38">		return strada;</span>
+	}
+	
+	//@ pure
+	public String getCittà()
+	{
+<span class="fc" id="L44">		return città;</span>
+	}
+
+	//@ pure
+	public int getNumero()
+	{
+<span class="fc" id="L50">		return numero;</span>
+	}
+
+	//@ pure
+	public String getCodicePostale()
+	{
+<span class="fc" id="L56">		return codice_postale;</span>
+	}
+	
+	//@ assignable this.id;
+	public void setId(String id)
+	{
+<span class="fc" id="L62">		this.id=id;</span>
+<span class="fc" id="L63">	}</span>
+	
+	//@ assignable this.utente;
+	public void setUtente(String utente)
+	{
+<span class="fc" id="L68">		this.utente=utente;</span>
+<span class="fc" id="L69">	}</span>
+	
+	//@ assignable this.paese;
+	public void setPaese(String paese)
+	{
+<span class="fc" id="L74">		this.paese=paese;</span>
+<span class="fc" id="L75">	}</span>
+	
+	//@ assignable this.strada;
+	public void setStrada(String strada)
+	{
+<span class="fc" id="L80">		this.strada=strada;</span>
+<span class="fc" id="L81">	}</span>
+	
+	//@ assignable this.città;
+	public void setCittà(String città)
+	{
+<span class="fc" id="L86">		this.città=città;</span>
+<span class="fc" id="L87">	}</span>
+	
+	//@ assignable this.numero;
+	public void setNumero(int numero)
+	{
+<span class="fc" id="L92">		this.numero=numero;</span>
+<span class="fc" id="L93">	}</span>
+	
+	//@ assignable this.codice_postale;
+	public void setCodicePostale(String codice_postale)
+	{
+<span class="fc" id="L98">		this.codice_postale=codice_postale;</span>
+<span class="fc" id="L99">	}</span>
+	
+	//@ pure
+	@Override
+	public String toString() {
+<span class="fc" id="L104">		return id + &quot; &quot; + utente + &quot; &quot; + paese + &quot; &quot; + strada + &quot; &quot;+ città + &quot; &quot; + numero + &quot; &quot; + codice_postale;</span>
+	}
+	
+	//@ pure
+	public String selectString() {
+<span class="fc" id="L109">		return paese + &quot;, &quot; + strada + &quot;, &quot;+ città + &quot;, &quot; + numero + &quot;, &quot; + codice_postale;</span>
+	}
+	
+	
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

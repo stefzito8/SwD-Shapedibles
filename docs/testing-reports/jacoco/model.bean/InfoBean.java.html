@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InfoBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.bean</a> &gt; <span class="el_source">InfoBean.java</span></div><h1>InfoBean.java</h1><pre class="source lang-java linenums">package model.bean;
+
+import java.io.Serializable;
+
+public class InfoBean implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private /*@ spec_public @*/ int codice;
+	private /*@ spec_public @*/ String nome;
+	private /*@ spec_public @*/ double costo;
+	private /*@ spec_public @*/ String descrizione;
+	private /*@ spec_public @*/ int disponibilità;
+	private /*@ spec_public @*/ String tipologia;
+	  
+	public InfoBean()
+<span class="fc" id="L17">	{</span>
+<span class="fc" id="L18">	 codice= -1;</span>
+<span class="fc" id="L19">     nome= &quot; &quot;;</span>
+<span class="fc" id="L20">	 costo= 0.0;</span>
+<span class="fc" id="L21">	 descrizione= &quot; &quot;;</span>
+<span class="fc" id="L22">	 disponibilità= 1;</span>
+<span class="fc" id="L23">	 tipologia= &quot; &quot;;</span>
+<span class="fc" id="L24">	}</span>
+	
+	//@ pure
+	public int getCodice()
+	{
+<span class="fc" id="L29">		return codice;</span>
+	}
+	
+	//@ pure
+	public String getNome()
+	{
+<span class="fc" id="L35">		return nome;</span>
+	}
+	
+	//@ pure
+	public double getCosto()
+	{
+<span class="fc" id="L41">		return costo;</span>
+	}
+	
+	//@ pure
+	public String getDescrizione()
+	{
+<span class="fc" id="L47">		return descrizione;</span>
+	}
+	
+	//@ pure
+	public int getDisponibilità()
+	{
+<span class="fc" id="L53">		return disponibilità;</span>
+	}
+	
+	//@ pure
+	public String getTipologia()
+	{
+<span class="fc" id="L59">		return tipologia;</span>
+	}
+	
+	 //@ assignable this.codice;
+	public void setCodice(int codice)
+	{
+<span class="fc" id="L65">		this.codice=codice;</span>
+<span class="fc" id="L66">	}</span>
+	
+	 //@ assignable this.nome;
+	public void setNome (String nome)
+	{
+<span class="fc" id="L71">		this.nome=nome;</span>
+<span class="fc" id="L72">	}</span>
+	
+	 //@ assignable this.costo;
+	public void setCosto (double costo)
+	{
+<span class="fc" id="L77">		this.costo=costo;</span>
+<span class="fc" id="L78">	}</span>
+	
+	 //@ assignable this.descrizione;
+	public void setDescrizione (String descrizione)
+	{
+<span class="fc" id="L83">		this.descrizione=descrizione;</span>
+<span class="fc" id="L84">	}</span>
+	
+	 //@ assignable this.disponibilità;
+	public void setDisponibilità (int disponibilità)
+	{
+<span class="fc" id="L89">		this.disponibilità=disponibilità;</span>
+<span class="fc" id="L90">	}</span>
+	
+	 //@ assignable this.tipologia;
+	public void setTipologia (String tipologia)
+	{
+<span class="fc" id="L95">		this.tipologia=tipologia;</span>
+<span class="fc" id="L96">	}</span>
+	
+	 //@ pure
+	@Override
+	public String toString() {
+<span class="fc" id="L101">		return nome + &quot; (&quot; + codice + &quot;), &quot; + costo + &quot; &quot; + tipologia + &quot;&quot;+ disponibilità + &quot;. &quot; + descrizione;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

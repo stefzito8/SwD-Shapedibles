@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageDaoDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.datasource</a> &gt; <span class="el_source">ImageDaoDataSource.java</span></div><h1>ImageDaoDataSource.java</h1><pre class="source lang-java linenums">package model.datasource;
+
+import model.bean.ImageBean;
+import model.dao.IImageDao;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+
+<span class="fc" id="L14">public class ImageDaoDataSource implements IImageDao</span>
+{
+	private static final String TABLE_NAME=&quot;images&quot;;
+	//@ spec_public non_null
+	private DataSource ds;
+	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
+	public ImageDaoDataSource(DataSource ds)
+<span class="fc" id="L25">	{</span>
+<span class="fc" id="L26">		this.ds=ds;</span>
+<span class="fc" id="L27">		System.out.println(&quot;DriverManager Product Model creation....&quot;);</span>
+<span class="fc" id="L28">	}</span>
+	
+	@Override
+	public void doSave(ImageBean image) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L33">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L34">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L36">		String insertSQL=&quot;INSERT INTO &quot; + ImageDaoDataSource.TABLE_NAME </span>
+				+ &quot; (img, Product_code) VALUES (?,?)&quot;;
+		
+		try {
+<span class="fc" id="L40">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L42">			preparedStatement = connection.prepareStatement(insertSQL);</span>
+<span class="fc" id="L43">			preparedStatement.setString(1, image.getImg());</span>
+<span class="fc" id="L44">			preparedStatement.setInt(2, image.getCodiceProdotto());</span>
+			
+			
+
+			
+<span class="fc" id="L49">			preparedStatement.executeUpdate();</span>
+		} 
+		finally {
+			try {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L54">					 preparedStatement.close();</span>
+			} finally {
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">                assert connection != null;</span>
+<span class="fc" id="L57">                connection.close();</span>
+			}
+		}
+<span class="fc" id="L60">	}</span>
+
+	@Override
+	public boolean doDelete(int num, int codice) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L65">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L66">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+		int result;
+		
+<span class="fc" id="L70">		String deleteSQL = &quot;DELETE FROM &quot; + ImageDaoDataSource.TABLE_NAME + &quot; WHERE Product_Code = ? AND  Images_Num = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L73">			connection= ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L75">			preparedStatement = connection.prepareStatement(deleteSQL);</span>
+<span class="fc" id="L76">			preparedStatement.setInt(1, codice);</span>
+<span class="fc" id="L77">			preparedStatement.setInt(2, num);</span>
+			
+<span class="fc" id="L79">			result = preparedStatement.executeUpdate();</span>
+			//@ assert result &gt;= 0;
+		} finally {
+			try {
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L84">					preparedStatement.close();</span>
+			} finally {
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">                assert connection != null;</span>
+<span class="fc" id="L87">                connection.close();</span>
+			}
+		}
+<span class="fc bfc" id="L90" title="All 2 branches covered.">		return (result!=0);</span>
+	}
+
+	@Override
+	public ImageBean doRetrieveByKey(int codice, int num) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L96">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L97">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L99">		ImageBean bean= new ImageBean();</span>
+		//@ assert bean != null;
+<span class="fc" id="L101">		String selectSQL = &quot;SELECT * FROM &quot; + ImageDaoDataSource.TABLE_NAME + &quot; WHERE Product_Code = ? AND Images_Num = ? &quot;;</span>
+		
+		try {
+<span class="fc" id="L104">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L106">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L107">			preparedStatement.setInt(1, codice);</span>
+			
+			
+<span class="nc" id="L110">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+<span class="nc bnc" id="L112" title="All 2 branches missed.">			while(rs.next()) {</span>
+<span class="nc" id="L113">				bean.setNumImage(rs.getInt(&quot;Images_Num&quot;));</span>
+<span class="nc" id="L114">				bean.setCodiceProdotto(rs.getInt(&quot;Product_Code&quot;));</span>
+<span class="nc" id="L115">				bean.setImg(rs.getString(&quot;img&quot;));  </span>
+			}
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L121">					preparedStatement.close();</span>
+		} finally{
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">                assert connection != null;</span>
+<span class="fc" id="L124">                connection.close();</span>
+		}
+		}
+		//@ assert bean != null;
+<span class="nc" id="L128">		return bean;</span>
+	}
+
+	@Override
+	public Collection&lt;ImageBean&gt; doRetrieveAll(String order) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L134">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L135">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L137">		Collection&lt;ImageBean&gt; images= new LinkedList&lt;&gt;();</span>
+		//@ assert images != null &amp;&amp; images.isEmpty();
+<span class="fc" id="L139">		String selectSQL = &quot;SELECT * FROM &quot; + ImageDaoDataSource.TABLE_NAME;</span>
+		
+<span class="fc bfc" id="L141" title="All 4 branches covered.">		if(order != null &amp;&amp; !order.isEmpty()) {</span>
+<span class="fc" id="L142">			selectSQL +=&quot; ORDER BY &quot; + order;</span>
+		}
+		
+		try {
+<span class="fc" id="L146">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L148">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+			
+<span class="fc" id="L150">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+			/*@ 
+              @ loop_invariant images != null;
+              @*/
+<span class="fc bfc" id="L155" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L156">				ImageBean  bean = new ImageBean();</span>
+				
+<span class="fc" id="L158">				bean.setNumImage(rs.getInt(&quot;Images_Num&quot;));</span>
+<span class="fc" id="L159">				bean.setCodiceProdotto(rs.getInt(&quot;Product_Code&quot;));</span>
+<span class="fc" id="L160">				bean.setImg(rs.getString(&quot;img&quot;));  </span>
+				//@ assert bean != null;
+<span class="fc" id="L162">				images.add(bean);</span>
+				//@ assert !images.isEmpty();
+<span class="fc" id="L164">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L169">					preparedStatement.close();</span>
+		} finally{
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">                assert connection != null;</span>
+<span class="fc" id="L172">                connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L176">		return images;</span>
+	}
+
+	@Override
+	public Collection&lt;ImageBean&gt; doRetrieveByProduct(int codice) throws SQLException {
+<span class="fc" id="L181">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L182">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L184">		Collection&lt;ImageBean&gt; images= new LinkedList&lt;ImageBean&gt;();</span>
+		//@ assert images != null &amp;&amp; images.isEmpty();
+<span class="fc" id="L186">		String selectSQL = &quot;SELECT * FROM &quot; + ImageDaoDataSource.TABLE_NAME + &quot; WHERE Product_Code= ? &quot;;</span>
+		
+		try {
+<span class="fc" id="L189">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L191">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L192">			preparedStatement.setInt(1, codice);</span>
+<span class="fc" id="L193">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assert rs != null;
+			
+			/*@ 
+              @ loop_invariant images != null;
+              @*/
+<span class="fc bfc" id="L199" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L200">				ImageBean  bean = new ImageBean();</span>
+				
+<span class="fc" id="L202">				bean.setNumImage(rs.getInt(&quot;Images_Num&quot;));</span>
+<span class="fc" id="L203">				bean.setCodiceProdotto(rs.getInt(&quot;Product_Code&quot;));</span>
+<span class="fc" id="L204">				bean.setImg(rs.getString(&quot;img&quot;));  </span>
+				//@ assert bean != null;
+<span class="fc" id="L206">				images.add(bean);</span>
+				//@ assert !images.isEmpty();
+<span class="fc" id="L208">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L213">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L215">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L219">		return images;</span>
+
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
