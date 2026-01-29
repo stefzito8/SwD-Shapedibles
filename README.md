@@ -54,7 +54,7 @@ From the root of the repository, run:
 docker compose up -d
 ````
 
-This command will:
+That is it. The command will:
 
 1. Build the application from source using a multi-stage Docker build
 2. Deploy the generated WAR file to a Tomcat container
@@ -86,4 +86,3 @@ docker compose down
 
 * The Docker setup is intended for **development and evaluation purposes**.
 * The application is still under development and may contain incomplete or experimental features.
-```
