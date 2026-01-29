@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Register.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">Register.java</span></div><h1>Register.java</h1><pre class="source lang-java linenums">package control;
+
+import com.google.gson.Gson;
+import model.bean.UserBean;
+import model.dao.IUserDao;
+import model.datasource.UserDaoDataSource;
+import model.enums.Country;
+import model.enums.Gender;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.Serial;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
+
+/**
+ * Servlet implementation class Register
+ */
+@WebServlet(&quot;/Register&quot;)
+@MultipartConfig
+public class Register extends HttpServlet {
+	@Serial
+	private static final long serialVersionUID = 1L;
+	
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Register() {
+<span class="fc" id="L40">        super();</span>
+<span class="fc" id="L41">    }</span>
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L47">		request.setAttribute(&quot;countries&quot;, Country.getValues());</span>
+<span class="fc" id="L48">		request.setAttribute(&quot;genders&quot;, Gender.getValues());</span>
+		//Make doGet dispatch the user to the loginView page
+<span class="fc" id="L50">		request.getRequestDispatcher(&quot;/WEB-INF/jsp/pages/registerView.jsp&quot;).forward(request, response);</span>
+<span class="fc" id="L51">	}</span>
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L57">		request.setAttribute(&quot;countries&quot;, Country.getValues());</span>
+<span class="fc" id="L58">		request.setAttribute(&quot;genders&quot;, Gender.getValues());</span>
+		
+<span class="fc" id="L60">		DataSource ds= (DataSource) getServletContext().getAttribute(&quot;DataSource&quot;);</span>
+<span class="fc" id="L61">		IUserDao userDao = createUserDao(ds);</span>
+<span class="fc" id="L62">		String error=null;</span>
+<span class="fc" id="L63">		boolean ajax = &quot;XMLHttpRequest&quot;.equals(request.getHeader(&quot;X-Requested-With&quot;));</span>
+<span class="fc" id="L64">		String username= request.getParameter(&quot;username&quot;);</span>
+<span class="fc" id="L65">		String email= request.getParameter(&quot;email&quot;);</span>
+<span class="fc" id="L66">		String password= request.getParameter(&quot;password&quot;);</span>
+<span class="fc" id="L67">		String passwordConf= request.getParameter(&quot;passwordConf&quot;);</span>
+<span class="fc" id="L68">		String nomeCognome= request.getParameter(&quot;name_surname&quot;);</span>
+<span class="fc" id="L69">		String sesso= request.getParameter(&quot;gender&quot;);</span>
+<span class="fc" id="L70">		String paese= request.getParameter(&quot;country&quot;);</span>
+<span class="fc" id="L71">		String dataNascista= request.getParameter(&quot;birthday&quot;);</span>
+<span class="fc" id="L72">		int isAdmin= 0;</span>
+
+<span class="fc" id="L74">		String redirectURL = request.getContextPath() + &quot;/Login&quot;;</span>
+		
+		try {
+		
+<span class="fc" id="L78">			UserBean user= new UserBean();</span>
+<span class="fc" id="L79">			System.out.println(checkUsername(username, userDao));</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">			if(checkUsername(username, userDao)==true) {</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">				if(password.equals(passwordConf)) </span>
+				{
+<span class="fc" id="L83">					user.setUsername(username);</span>
+<span class="fc" id="L84">					user.setEmail(email);</span>
+<span class="fc" id="L85">					user.setPass(hashPassword(password));</span>
+<span class="fc" id="L86">					user.setNomeCognome(nomeCognome);</span>
+<span class="fc" id="L87">					user.setSesso(sesso);</span>
+<span class="fc" id="L88">					user.setPaese(paese);</span>
+<span class="fc" id="L89">					user.setDataNascita(dataNascista);</span>
+<span class="fc" id="L90">					user.setUserAdmin(isAdmin);</span>
+			
+				
+<span class="fc" id="L93">					userDao.doSave(user);</span>
+				}
+				else {
+<span class="fc" id="L96">			    		error = &quot;Le password non combaciano.&quot;;</span>
+<span class="fc" id="L97">			    		request.setAttribute(&quot;error&quot;, &quot;Error: &quot; + error);</span>
+<span class="fc" id="L98">			    		request.setAttribute(&quot;ajaxError&quot;, error);</span>
+			 		}
+			}
+		    else {
+<span class="fc" id="L102">		    		error = &quot;L'username scelto è già esistente&quot;;</span>
+<span class="fc" id="L103">		    		request.setAttribute(&quot;error&quot;, &quot;Error: &quot; + error);</span>
+<span class="fc" id="L104">		    		request.setAttribute(&quot;ajaxError&quot;, error);</span>
+		 		 }
+			
+				
+		    }
+<span class="fc" id="L109">			catch(SQLException e)</span>
+			{
+				
+<span class="fc" id="L112">				error = &quot;C'è stato un errore nel salvataggio delle credenziali, assicurarsi di inserire i campi corretamente.&quot;;</span>
+<span class="fc" id="L113">				request.setAttribute(&quot;error&quot;, &quot;Error: &quot; + error);</span>
+<span class="fc" id="L114">				request.setAttribute(&quot;ajaxError&quot;, error);</span>
+<span class="fc" id="L115">		 		response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+			}
+<span class="nc" id="L117">			catch(NoSuchAlgorithmException e)</span>
+			{
+				
+<span class="nc" id="L120">				error = &quot;Sembra esserci un problema con la registrazione, se persiste contattare l'assistenza.&quot;;</span>
+<span class="nc" id="L121">				request.setAttribute(&quot;error&quot;, &quot;Error: &quot; + error);</span>
+<span class="nc" id="L122">				request.setAttribute(&quot;ajaxError&quot;, error);</span>
+<span class="nc" id="L123">				response.sendError(500, &quot;Error: &quot; + e.getMessage());System.out.println(&quot;Error...&quot; + e.getMessage());</span>
+<span class="fc" id="L124">			}</span>
+			
+			
+
+<span class="fc bfc" id="L128" title="All 2 branches covered.">			if(ajax) {</span>
+<span class="fc" id="L129">				response.setContentType(&quot;application/json&quot;);</span>
+<span class="fc" id="L130">				response.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="fc" id="L131">				Gson gson = new Gson();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">				if (request.getAttribute(&quot;ajaxError&quot;) != null) {</span>
+<span class="fc" id="L133">					String ajaxError = request.getAttribute(&quot;ajaxError&quot;).toString();</span>
+<span class="fc" id="L134">					response.setStatus(401);</span>
+<span class="fc" id="L135">					response.getWriter().write(gson.toJson(ajaxError));</span>
+					
+<span class="fc" id="L137">				}</span>
+				else
+<span class="fc" id="L139">					response.getWriter().write(gson.toJson(redirectURL));</span>
+<span class="fc" id="L140">			}</span>
+			else
+<span class="fc" id="L142">				response.sendRedirect(redirectURL);</span>
+		 
+<span class="fc" id="L144">	}</span>
+	
+	private String hashPassword(String password) throws NoSuchAlgorithmException {
+<span class="fc" id="L147">	    MessageDigest md = MessageDigest.getInstance(&quot;SHA-512&quot;);</span>
+<span class="fc" id="L148">	    byte[] hashedBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L149">	    StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">	    for (byte b : hashedBytes) {</span>
+<span class="fc" id="L151">	        sb.append(String.format(&quot;%02x&quot;, b));</span>
+	    }
+<span class="fc" id="L153">	    return sb.toString();</span>
+	   }
+	
+	private boolean checkUsername(String username, IUserDao userDao) throws SQLException 
+	{
+<span class="fc" id="L158">		Collection&lt;?&gt; userCheck = (Collection&lt;?&gt;) userDao.doRetrieveAll(&quot;&quot;);</span>
+<span class="fc" id="L159">		Iterator&lt;?&gt; it=  userCheck.iterator();</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">		while(it.hasNext()) </span>
+		{
+<span class="fc" id="L162">			UserBean bean= (UserBean) it.next();</span>
+<span class="fc" id="L163">			System.out.println(bean.getUsername());</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">			if(username.equals(bean.getUsername())) return false;</span>
+<span class="nc" id="L165">		} </span>
+<span class="fc" id="L166">		return true;</span>
+	}
+
+	/**
+	 * Factory method for UserDao - can be overridden in tests.
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+<span class="nc" id="L173">		return new UserDaoDataSource(ds);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>OrderBean.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package model.bean;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.Serializable;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>public class OrderBean implements Serializable{</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private static final long serialVersionUID = 1L;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ String utente;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ int codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ String indirizzo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ String stato;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ String data_ordine;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;private /*@ spec_public @*/ double saldo_totale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public OrderBean()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  utente=&#34; &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  codice=0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  indirizzo=&#34; &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  stato=&#34; &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  data_ordine=&#34; &#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  saldo_totale=0.0;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String getUtente()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_29'/>
+29
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_29'>1</a>
+<span>
+
+1. getUtente : replaced return value with &#34;&#34; for model/bean/OrderBean::getUtente &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return utente;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int getCodice()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_35'/>
+35
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_35'>1</a>
+<span>
+
+1. getCodice : replaced int return with 0 for model/bean/OrderBean::getCodice &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String getIndirizzo()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_41'/>
+41
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_41'>1</a>
+<span>
+
+1. getIndirizzo : replaced return value with &#34;&#34; for model/bean/OrderBean::getIndirizzo &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return indirizzo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String getStato()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_47'>1</a>
+<span>
+
+1. getStato : replaced return value with &#34;&#34; for model/bean/OrderBean::getStato &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return stato;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String getDataOrdine()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_53'>1</a>
+<span>
+
+1. getDataOrdine : replaced return value with &#34;&#34; for model/bean/OrderBean::getDataOrdine &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return data_ordine;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public double getSaldoTotale()</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{ </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_59'>1</a>
+<span>
+
+1. getSaldoTotale : replaced double return with 0.0d for model/bean/OrderBean::getSaldoTotale &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>&#9;&#9;return saldo_totale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_61'/>
+61
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_61'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_62'/>
+62
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_62'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.utente;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_63'/>
+63
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_63'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setUtente(String utente) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_64'/>
+64
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_64'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_65'/>
+65
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_65'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.utente=utente;&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_67'/>
+67
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_67'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_68'/>
+68
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_68'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_69'/>
+69
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_69'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setCodice(int codice) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.codice=codice;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_72'/>
+72
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_72'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_73'/>
+73
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_73'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.indirizzo;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setIndirizzo(String indirizzo) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.indirizzo=indirizzo;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_79'/>
+79
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_79'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.stato;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setStato(String stato) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.stato=stato;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_86'/>
+86
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_86'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.data_ordine;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setDataOrdine(String data_ordine)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.data_ordine=data_ordine;&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ assignable this.saldo_totale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_93'/>
+93
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_93'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void setSaldoTotale(double saldo_totale) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;{</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;  this.saldo_totale=saldo_totale;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;//@ pure</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public String toString() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;return utente + &#34; (&#34; + codice + &#34;), &#34; + indirizzo + &#34; &#34; + stato + &#34; &#34;+ data_ordine + &#34; &#34; + saldo_totale;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@376a34fb_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_29'>29</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_29'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getUtente<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:UtenteTests]/[method:testDefaultUtente()]</span></span> replaced return value with &#34;&#34; for model/bean/OrderBean::getUtente &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_35'>35</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_35'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getCodice<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testNegativeCodice()]</span></span> replaced int return with 0 for model/bean/OrderBean::getCodice &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_41'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getIndirizzo<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:IndirizzoTests]/[method:testNullIndirizzo()]</span></span> replaced return value with &#34;&#34; for model/bean/OrderBean::getIndirizzo &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getStato<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testDefaultStato()]</span></span> replaced return value with &#34;&#34; for model/bean/OrderBean::getStato &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getDataOrdine<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:DataOrdineTests]/[method:testDefaultDataOrdine()]</span></span> replaced return value with &#34;&#34; for model/bean/OrderBean::getDataOrdine &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@376a34fb_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@376a34fb_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>getSaldoTotale<br/><b>Killed by : </b>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testPrecisionSaldoTotale()]</span></span> replaced double return with 0.0d for model/bean/OrderBean::getSaldoTotale &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+
+<li class='mutator'>EMPTY_RETURNS</li>
+
+<li class='mutator'>FALSE_RETURNS</li>
+
+<li class='mutator'>INCREMENTS</li>
+
+<li class='mutator'>INVERT_NEGS</li>
+
+<li class='mutator'>MATH</li>
+
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+
+<li class='mutator'>NULL_RETURNS</li>
+
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+
+<li class='mutator'>TRUE_RETURNS</li>
+
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:IndirizzoTests]/[method:testNullIndirizzo()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:IndirizzoTests]/[method:testDefaultIndirizzo()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:IndirizzoTests]/[method:testValidIndirizzo()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:ConstructorTests]/[method:testDefaultConstructor()] (0 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveWrongUser()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveMultipleOrdersSameUser()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllWithoutOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:LoopBoundaryTests]/[method:testLoopOneIteration()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoDeleteTests]/[method:testDeleteWrongCode()] (3 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoDeleteTests]/[method:testDeleteExistingOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveWrongCode()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByUserTests]/[method:testRetrieveByUserVerifiesAllFields()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveOrderZeroTotal()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:TotalBoundaryTests]/[method:testLargeTotal()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllWithOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveOrderAllFields()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoSaveTests]/[method:testSaveNewOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllVerifiesAllFields()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllEmptyOrder()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveExistingOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByUserTests]/[method:testRetrieveByUserSingle()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoDeleteTests]/[method:testDeleteWrongUser()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoRetrieveAllReturnsCorrectCollection()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:TotalBoundaryTests]/[method:testSmallTotal()] (3 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:OrderDaoTests]/[method:testDoSaveCreatesNewOrder()] (5 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoDeleteActuallyRemoves()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoSaveActuallyPersists()] (3 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoRetrieveByUserReturnsSpecificUserOnly()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByUserTests]/[method:testRetrieveByUserMultiple()] (4 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:LoopBoundaryTests]/[method:testLoopMultipleIterations()] (4 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoRetrieveByKeyReturnsCorrectOrder()] (1 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:MutationKillerTests]/[method:testDoDeleteReturnValueMatchesReality()] (3 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveAllTests]/[method:testRetrieveAllDifferentStates()] (4 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:ExceptionHandlingTests]/[method:testNullCartHandled()] (2 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:TotalBoundaryTests]/[method:testMinimumTotal()] (8 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:AuthenticationTests]/[method:testAuthenticatedUserSeesCheckout()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:AddressHandlingTests]/[method:testEmptyAddressHandled()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:CartStateTests]/[method:testEmptyCartHandling()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderSubmissionTests]/[method:testNonConfirmActionContinuesCheckout()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:DoGetTests]/[method:testDoGetDelegatesToDoPost()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:LoopBoundaryTests]/[method:testLoopZeroIterations()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:CheckoutLoopTests]/[method:testEmptyCartCheckout()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:CartStateTests]/[method:testCartWithItemsProceeds()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:AddressHandlingTests]/[method:testProvidedAddressUsed()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:LoopBoundaryTests]/[method:testLoopSingleIteration()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:CheckoutLoopTests]/[method:testSingleItemCheckout()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:LoopBoundaryTests]/[method:testLoopMultipleIterations()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:CheckoutLoopTests]/[method:testMultipleItemsCheckout()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionDuringConfirmSetsErrorAndSends500()] (2 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderStateTests]/[method:testNewOrderCreated()] (4 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderSubmissionTests]/[method:testConfirmActionProcessesOrder()] (1 ms)</li><li>control.CheckoutTest.[engine:junit-jupiter]/[class:control.CheckoutTest]/[nested-class:OrderStateTests]/[method:testExistingOrderReused()] (68 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:DataOrdineTests]/[method:testDefaultDataOrdine()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:DataOrdineTests]/[method:testNullDataOrdine()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:DataOrdineTests]/[method:testValidDataOrdine()] (0 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:DateFilterTests]/[method:testDateFilterSameDay()] (2 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:LoopBoundaryTests]/[method:testSingleOrderDateFilter()] (2 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:DateFilterTests]/[method:testDateFilterNoOrdersInRange()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:UserDateFilterTests]/[method:testUserDateFilterOutsideRange()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:LoopBoundaryTests]/[method:testMultipleOrdersDateFilter()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateOneDayAfterMax()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateOneDayBeforeMin()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:DateFilterTests]/[method:testDateFilterWithinRange()] (2 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateAfterMax()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateBeforeMin()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:UserDateFilterTests]/[method:testUserDateFilter()] (2 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateInsideRange()] (4 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testUserDateFilterBothApplied()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateEqualsMin()] (5 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testMultipleOrdersMixedRange()] (3 ms)</li><li>control.OrdersTest.[engine:junit-jupiter]/[class:control.OrdersTest]/[nested-class:IsRightDateBoundaryTests]/[method:testOrderDateEqualsMax()] (100 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testPrecisionSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testNegativeSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testDefaultSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testLargeSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testMinPositiveSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:SaldoTotaleTests]/[method:testValidSaldoTotale()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testDefaultStato()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testNullStato()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testPendingStato()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testShippedStato()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:StatoTests]/[method:testCompletedStato()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:UtenteTests]/[method:testDefaultUtente()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:UtenteTests]/[method:testValidUtente()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:UtenteTests]/[method:testEmptyUtente()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:UtenteTests]/[method:testNullUtente()] (0 ms)</li><li>model.datasource.OrderDaoDataSourceTest.[engine:junit-jupiter]/[class:model.datasource.OrderDaoDataSourceTest]/[nested-class:DoRetrieveByKeyTests]/[method:testRetrieveNonExistentOrder()] (1 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:OrderDaoTests]/[method:testOrderContainsValidUserReference()] (4 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:CrossDaoConsistencyTests]/[method:testOrderUserConsistency()] (7 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testNegativeCodice()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testDefaultCodice()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testOneCodice()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testValidCodice()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testLargeCodice()] (0 ms)</li><li>model.bean.OrderBeanTest.[engine:junit-jupiter]/[class:model.bean.OrderBeanTest]/[nested-class:CodiceTests]/[method:testMaxCodice()] (0 ms)</li><li>integration.DatabaseIntegrationTest.[engine:junit-jupiter]/[class:integration.DatabaseIntegrationTest]/[nested-class:OrderDaoTests]/[method:testDoRetrieveByKeyReturnsOrder()] (5 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.3
+
+</body>
+</html>

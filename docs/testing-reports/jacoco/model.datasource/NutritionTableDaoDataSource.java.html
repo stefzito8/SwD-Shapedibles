@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NutritionTableDaoDataSource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.datasource</a> &gt; <span class="el_source">NutritionTableDaoDataSource.java</span></div><h1>NutritionTableDaoDataSource.java</h1><pre class="source lang-java linenums">package model.datasource;
+
+
+import model.bean.NutritionTableBean;
+import model.dao.INutritionTableDao;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+
+public class NutritionTableDaoDataSource implements INutritionTableDao
+{
+	private static final String TABLE_NAME=&quot;nutritionalValues&quot;;
+	
+	//@ spec_public non_null
+	private DataSource ds;
+	
+	//@ public invariant ds != null;
+
+	//@ requires ds != null;
+	//@ ensures this.ds == ds;
+	public NutritionTableDaoDataSource(DataSource ds)
+<span class="fc" id="L27">	{</span>
+<span class="fc" id="L28">		this.ds=ds;</span>
+<span class="fc" id="L29">		System.out.println(&quot;DriverManager Product Model creation....&quot;);</span>
+<span class="fc" id="L30">	}</span>
+	
+	@Override
+	public void doSave(NutritionTableBean nutritionTable) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L35">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L36">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L38">		String insertSQL=&quot;INSERT INTO &quot; + NutritionTableDaoDataSource.TABLE_NAME </span>
+				+ &quot; (Product_Code, energy, fats, saturated_fats, carbs, sugars, fibers, proteins, salt) VALUES (?,?,?,?,?,?,?,?,?)&quot;;
+		
+		try {
+<span class="fc" id="L42">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L44">			preparedStatement = connection.prepareStatement(insertSQL);</span>
+<span class="fc" id="L45">			preparedStatement.setInt(1, nutritionTable.getCodiceProdotto());</span>
+<span class="fc" id="L46">			preparedStatement.setInt(2, nutritionTable.getEnergia());</span>
+<span class="fc" id="L47">			preparedStatement.setDouble(3, nutritionTable.getGrassi());</span>
+<span class="fc" id="L48">			preparedStatement.setDouble(4, nutritionTable.getGrassiSaturi());</span>
+<span class="fc" id="L49">			preparedStatement.setDouble(5, nutritionTable.getCarboedrati());</span>
+<span class="fc" id="L50">			preparedStatement.setDouble(6, nutritionTable.getZucherri());</span>
+<span class="fc" id="L51">			preparedStatement.setDouble(7, nutritionTable.getFibre());</span>
+<span class="fc" id="L52">			preparedStatement.setDouble(8, nutritionTable.getProteine());</span>
+<span class="fc" id="L53">			preparedStatement.setDouble(9, nutritionTable.getSale());</span>
+			
+<span class="fc" id="L55">			preparedStatement.executeUpdate();</span>
+		} 
+		finally {
+			try {
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L60">					 preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L62">				connection.close();</span>
+			}
+		}
+<span class="fc" id="L65">	}</span>
+
+	@Override
+	public boolean doDelete(int productID) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L70">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L71">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L73">		int result = 0;</span>
+		
+<span class="fc" id="L75">		String deleteSQL = &quot;DELETE FROM &quot; + NutritionTableDaoDataSource.TABLE_NAME + &quot; WHERE PRODUCT_CODE = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L78">			connection= ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L80">			preparedStatement = connection.prepareStatement(deleteSQL);</span>
+<span class="fc" id="L81">			preparedStatement.setInt(1, productID);</span>
+			
+<span class="fc" id="L83">			result = preparedStatement.executeUpdate();</span>
+			//@ assert result &gt;= 0;
+		} finally {
+			try {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">				if (preparedStatement != null)</span>
+<span class="fc" id="L88">					preparedStatement.close();</span>
+			} finally {
+<span class="fc" id="L90">				connection.close();</span>
+			}
+		}
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		return (result!=0);</span>
+	}
+
+	@Override
+	public NutritionTableBean doRetrieveByKey(int productID) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L99">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L100">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L102">		NutritionTableBean bean= new NutritionTableBean();</span>
+		//@ assert bean != null;
+<span class="fc" id="L104">		String selectSQL = &quot;SELECT * FROM &quot; + NutritionTableDaoDataSource.TABLE_NAME + &quot; WHERE PRODUCT_CODE = ?&quot;;</span>
+		
+		try {
+<span class="fc" id="L107">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L109">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+<span class="fc" id="L110">			preparedStatement.setInt(1, productID);</span>
+			
+<span class="fc" id="L112">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assume rs != null;
+<span class="fc bfc" id="L114" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L115">				bean.setCodiceProdotto(rs.getInt(&quot;PRODUCT_CODE&quot;));</span>
+<span class="fc" id="L116">				bean.setEnergia(rs.getInt(&quot;ENERGY&quot;));</span>
+<span class="fc" id="L117">				bean.setGrassi(rs.getInt(&quot;FATS&quot;));</span>
+<span class="fc" id="L118">				bean.setGrassiSaturi(rs.getInt(&quot;SATURATED_FATS&quot;));</span>
+<span class="fc" id="L119">				bean.setCarboedrati(rs.getInt(&quot;CARBS&quot;));</span>
+<span class="fc" id="L120">				bean.setZucherri(rs.getInt(&quot;SUGARS&quot;));</span>
+<span class="fc" id="L121">				bean.setFibre(rs.getInt(&quot;FIBERS&quot;));</span>
+<span class="fc" id="L122">				bean.setProteine(rs.getInt(&quot;PROTEINS&quot;));</span>
+<span class="fc" id="L123">				bean.setSale(rs.getInt(&quot;SALT&quot;));</span>
+			}
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L129">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L131">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L135">		return bean;</span>
+	}
+
+	@Override
+	public Collection&lt;NutritionTableBean&gt; doRetrieveAll(String order) throws SQLException {
+		// TODO Auto-generated method stub
+<span class="fc" id="L141">		/*@ nullable @*/Connection connection = null;</span>
+<span class="fc" id="L142">		/*@ nullable @*/PreparedStatement preparedStatement = null;</span>
+		
+<span class="fc" id="L144">		Collection&lt;NutritionTableBean&gt; tables= new LinkedList&lt;NutritionTableBean&gt;();</span>
+		//@ assert tables != null &amp;&amp; tables.isEmpty();
+<span class="fc" id="L146">		String selectSQL = &quot;SELECT * FROM &quot; + NutritionTableDaoDataSource.TABLE_NAME;</span>
+		
+<span class="fc bfc" id="L148" title="All 4 branches covered.">		if(order != null &amp;&amp; !order.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L149">			selectSQL +=&quot; ORDER BY &quot; + order;</span>
+		}
+		
+		try {
+<span class="fc" id="L153">			connection = ds.getConnection();</span>
+			//@ assert connection != null;
+<span class="fc" id="L155">			preparedStatement = connection.prepareStatement(selectSQL);</span>
+			
+<span class="fc" id="L157">			ResultSet rs = preparedStatement.executeQuery();</span>
+			//@ assume rs != null;
+
+			/*@ 
+              @ loop_invariant tables != null;
+              @ loop_invariant tables.size() &gt;= 0;
+              @*/
+<span class="fc bfc" id="L164" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L165">				NutritionTableBean  bean = new NutritionTableBean();</span>
+				
+<span class="fc" id="L167">				bean.setCodiceProdotto(rs.getInt(&quot;PRODUCT_CODE&quot;));</span>
+<span class="fc" id="L168">				bean.setEnergia(rs.getInt(&quot;ENERGY&quot;));</span>
+<span class="fc" id="L169">				bean.setGrassi(rs.getInt(&quot;FATS&quot;));</span>
+<span class="fc" id="L170">				bean.setGrassiSaturi(rs.getInt(&quot;SATURATED_FATS&quot;));</span>
+<span class="fc" id="L171">				bean.setCarboedrati(rs.getInt(&quot;CARBS&quot;));</span>
+<span class="fc" id="L172">				bean.setZucherri(rs.getInt(&quot;SUGARS&quot;));</span>
+<span class="fc" id="L173">				bean.setFibre(rs.getInt(&quot;FIBERS&quot;));</span>
+<span class="fc" id="L174">				bean.setProteine(rs.getInt(&quot;PROTEINS&quot;));</span>
+<span class="fc" id="L175">				bean.setSale(rs.getInt(&quot;SALT&quot;));</span>
+				//@ assert bean != null;
+<span class="fc" id="L177">				tables.add(bean);</span>
+				//@ assert !tables.isEmpty();
+<span class="fc" id="L179">			}</span>
+			
+		} finally {
+			try{
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">				if(preparedStatement != null)</span>
+<span class="fc" id="L184">					preparedStatement.close();</span>
+		} finally{
+<span class="fc" id="L186">			connection.close();</span>
+		}
+		}
+		
+<span class="fc" id="L190">		return tables;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

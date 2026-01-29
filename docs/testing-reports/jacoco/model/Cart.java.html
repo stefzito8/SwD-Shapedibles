@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cart.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">Cart.java</span></div><h1>Cart.java</h1><pre class="source lang-java linenums">package model;
+
+import model.bean.ProductBean;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Cart {
+
+	//@ spec_public
+	private final Map&lt;ProductBean, Integer&gt; products;
+
+	//@ public invariant products != null;
+	//@ ensures products != null &amp;&amp; products.isEmpty();
+<span class="fc" id="L17">	public Cart() {</span>
+<span class="fc" id="L18">		products = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L19">	}</span>
+
+	//@ requires product != null;
+	/*@ 
+      @ ensures (\old(products.containsKey(product)) 
+      @     ==&gt; products.containsKey(product) &amp;&amp; products.get(product) == \old(products.get(product)) + 1);
+      @
+      @ ensures (!\old(products.containsKey(product))) 
+      @     ==&gt; products.containsKey(product) &amp;&amp; products.get(product) == 1;
+      @*/
+	public void addProduct(ProductBean product) {
+<span class="fc" id="L30">		System.out.println(products.getOrDefault(product, 0) + 1);</span>
+<span class="fc" id="L31">		products.put(product, products.getOrDefault(product, 0) + 1);</span>
+<span class="fc" id="L32">		System.out.println(products.getOrDefault(product, 0));</span>
+<span class="fc" id="L33">	}</span>
+
+	//@ requires product != null;
+	/*@ 
+      @ ensures (\old(products.containsKey(product)) &amp;&amp; \old(products.get(product)) &gt; 1) 
+      @     ==&gt; products.containsKey(product) &amp;&amp; products.get(product) == \old(products.get(product)) - 1;
+      @
+      @ ensures (\old(products.containsKey(product)) &amp;&amp; \old(products.get(product)) == 1) 
+      @     ==&gt; !products.containsKey(product);
+      @
+      @ ensures (!\old(products.containsKey(product))) 
+      @     ==&gt; !products.containsKey(product);
+      @*/
+	public void deleteProduct(ProductBean product) {
+<span class="fc bfc" id="L47" title="All 2 branches covered.">		if (products.containsKey(product)) {</span>
+<span class="fc" id="L48">			int quantity = products.get(product) - 1;</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">			if (quantity &gt; 0) {</span>
+<span class="fc" id="L50">				products.put(product, quantity);</span>
+			} else {
+<span class="fc" id="L52">				products.remove(product);</span>
+			}
+		}
+<span class="fc" id="L55">	}</span>
+
+	public Collection&lt;ProductBean&gt; getProducts() {
+<span class="fc" id="L58">		return new ArrayList&lt;&gt;(products.keySet());</span>
+	}
+	
+	public void ClearCart() {
+<span class="fc" id="L62">		products.clear();</span>
+<span class="fc" id="L63">	}</span>
+
+	public int getProductQuantity(ProductBean product) {
+<span class="fc" id="L66">		return products.getOrDefault(product, 0);</span>
+	}
+	
+	public Map&lt;ProductBean,Integer&gt; getProductQuantity (Collection&lt;ProductBean&gt; products){
+<span class="fc" id="L70">		Map&lt;ProductBean,Integer&gt; map = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">		for(ProductBean product : products) {</span>
+<span class="fc" id="L72">			map.put(product, getProductQuantity(product));</span>
+<span class="fc" id="L73">		}</span>
+<span class="fc" id="L74">		return map;</span>
+	}
+
+	public Map&lt;ProductBean,Integer&gt; getProductQuantities (){
+<span class="fc" id="L78">		return getProductQuantity(products.keySet());</span>
+	}
+
+	public int getCartSize() {
+<span class="fc" id="L82">		return products.values().stream().mapToInt(Integer::intValue).sum();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

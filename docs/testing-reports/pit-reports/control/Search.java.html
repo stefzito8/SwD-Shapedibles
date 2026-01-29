@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>Search.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package control;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import com.google.gson.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.Cart;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.bean.ProductBean;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.dao.IInfoDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.dao.IProductDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.datasource.InfoDaoDataSource;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.datasource.ProductDaoDataSource;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.RequestDispatcher;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.ServletException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.annotation.WebServlet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServlet;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServletRequest;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServletResponse;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.sql.DataSource;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.lang.reflect.Type;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.sql.SQLException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.util.Collection;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>@WebServlet(&#34;/search&#34;)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class Search extends HttpServlet {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_25'/>
+25
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_25'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_26'/>
+26
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_26'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::getParameter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String query = request.getParameter(&#34;ricerca&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_27'/>
+27
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_27'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::getParameter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String id = request.getParameter(&#34;id&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_28'/>
+28
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_28'>2</a>
+<span>
+
+1. doGet : removed call to control/Search::getServletContext &rarr; KILLED<br/>
+
+2. doGet : removed call to javax/servlet/ServletContext::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        DataSource ds = (DataSource) getServletContext().getAttribute(&#34;DataSource&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_29'/>
+29
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_29'>1</a>
+<span>
+
+1. doGet : removed call to control/Search::createProductDao &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        IProductDao productDao = createProductDao(ds);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_30'/>
+30
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_30'>1</a>
+<span>
+
+1. doGet : removed call to control/Search::createInfoDao &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        IInfoDao infoDao = createInfoDao(ds);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_32'/>
+32
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_32'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_33'/>
+33
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_33'>2</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED<br/>
+
+2. doGet : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            Cart cart = (Cart) request.getSession().getAttribute(&#34;cart&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_34'>1</a>
+<span>
+
+1. doGet : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if(cart == null)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_36'/>
+36
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_36'>1</a>
+<span>
+
+1. doGet : removed call to model/Cart::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                cart = new Cart();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_37'/>
+37
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_37'>2</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED<br/>
+
+2. doGet : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                request.getSession().setAttribute(&#34;cart&#34;, cart);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_40'/>
+40
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_40'>1</a>
+<span>
+
+1. doGet : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (id != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_41'/>
+41
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_41'>2</a>
+<span>
+
+1. doGet : removed call to model/dao/IProductDao::doRetrieveByKey &rarr; KILLED<br/>
+
+2. doGet : removed call to java/lang/Integer::parseInt &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                ProductBean product = productDao.doRetrieveByKey(Integer.parseInt(id));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_42'/>
+42
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_42'>1</a>
+<span>
+
+1. doGet : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (product != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_43'/>
+43
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_43'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::setContentType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    response.setContentType(&#34;application/json&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_44'/>
+44
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_44'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::setCharacterEncoding &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    response.setCharacterEncoding(&#34;UTF-8&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_45'/>
+45
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_45'>2</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::&#60;init&#62; &rarr; KILLED<br/>
+
+2. doGet : removed call to control/Search$SingleProductBeanSerializer::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    Gson gson = new GsonBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_46'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::registerTypeAdapter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            .registerTypeAdapter(ProductBean.class, new SingleProductBeanSerializer(cart, infoDao))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_47'/>
+47
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_47'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::create &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            .create();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_48'/>
+48
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_48'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/Gson::toJson &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    String json = gson.toJson(product);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_49'/>
+49
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_49'>2</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::getWriter &rarr; KILLED<br/>
+
+2. doGet : removed call to java/io/PrintWriter::write &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    response.getWriter().write(json);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_52'/>
+52
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_52'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_53'/>
+53
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_53'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_54'/>
+54
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_54'>1</a>
+<span>
+
+1. doGet : removed call to model/dao/IProductDao::searchByName &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            Collection&#60;ProductBean&#62; searchResults = productDao.searchByName(query);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_55'/>
+55
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_55'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Controllo se la richiesta &#232; di tipo AJAX</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_57'/>
+57
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_57'>2</a>
+<span>
+
+1. doGet : removed call to java/lang/String::equals &rarr; KILLED<br/>
+
+2. doGet : removed call to javax/servlet/http/HttpServletRequest::getHeader &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            boolean ajax = &#34;XMLHttpRequest&#34;.equals(request.getHeader(&#34;X-Requested-With&#34;));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_58'/>
+58
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_58'>1</a>
+<span>
+
+1. doGet : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (ajax) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_59'/>
+59
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_59'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::setContentType &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                response.setContentType(&#34;application/json&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_60'/>
+60
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_60'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::setCharacterEncoding &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                response.setCharacterEncoding(&#34;UTF-8&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_61'/>
+61
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_61'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                Gson gson = new GsonBuilder()</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_62'/>
+62
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_62'>3</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::registerTypeAdapter &rarr; KILLED<br/>
+
+2. doGet : removed call to control/Search$ProductBeanWithCartQuantity::&#60;init&#62; &rarr; KILLED<br/>
+
+3. doGet : removed call to java/lang/Object::getClass &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .registerTypeAdapter(searchResults.getClass(), new ProductBeanWithCartQuantity(cart, infoDao))</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_63'/>
+63
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_63'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/GsonBuilder::create &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        .create();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_64'/>
+64
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_64'>1</a>
+<span>
+
+1. doGet : removed call to com/google/gson/Gson::toJson &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                String json = gson.toJson(searchResults);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_65'/>
+65
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_65'>2</a>
+<span>
+
+1. doGet : removed call to java/io/PrintWriter::write &rarr; KILLED<br/>
+
+2. doGet : removed call to javax/servlet/http/HttpServletResponse::getWriter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                response.getWriter().write(json);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_66'/>
+66
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_66'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_67'/>
+67
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_67'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::setAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                request.setAttribute(&#34;searchResults&#34;, searchResults);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_68'/>
+68
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_68'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::getRequestDispatcher &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                RequestDispatcher dispatcher = request.getRequestDispatcher(&#34;/WEB-INF/jsp/pages/searchResults.jsp&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_69'/>
+69
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_69'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/RequestDispatcher::forward &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                dispatcher.forward(request, response);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_70'/>
+70
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_70'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_71'/>
+71
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_71'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>        } catch (SQLException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_72'/>
+72
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_72'>1</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletRequest::setAttribute &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            request.setAttribute(&#34;error&#34;,  &#34;Error: c&#39;&#232; stato un problema con la ricerca.&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_73'/>
+73
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_73'>2</a>
+<span>
+
+1. doGet : removed call to javax/servlet/http/HttpServletResponse::sendError &rarr; NO_COVERAGE<br/>
+
+2. doGet : removed call to java/sql/SQLException::getMessage &rarr; NO_COVERAGE<br/>
+
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class='survived'>            response.sendError(500, &#34;Error: &#34; + e.getMessage());</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_74'/>
+74
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_74'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            System.out.println(&#34;Error...&#34; + e.getMessage());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_75'/>
+75
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_75'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_76'/>
+76
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_76'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_77'/>
+77
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_77'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_78'/>
+78
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_78'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_79'/>
+79
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_79'>1</a>
+<span>
+
+1. doPost : removed call to control/Search::doGet &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        doGet(request, response);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_80'/>
+80
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_80'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_81'/>
+81
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_81'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_82'/>
+82
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_82'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_83'/>
+83
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_83'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Factory method for ProductDao - can be overridden in tests.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_84'/>
+84
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_84'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_85'/>
+85
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_85'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected IProductDao createProductDao(DataSource ds) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_86'/>
+86
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_86'>2</a>
+<span>
+
+1. createProductDao : removed call to model/datasource/ProductDaoDataSource::&#60;init&#62; &rarr; KILLED<br/>
+
+2. createProductDao : replaced return value with null for control/Search::createProductDao &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new ProductDaoDataSource(ds);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_87'/>
+87
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_87'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_88'/>
+88
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_88'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_89'/>
+89
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_89'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_90'/>
+90
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_90'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Factory method for InfoDao - can be overridden in tests.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_91'/>
+91
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_91'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_92'/>
+92
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_92'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    protected IInfoDao createInfoDao(DataSource ds) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_93'/>
+93
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_93'>2</a>
+<span>
+
+1. createInfoDao : removed call to model/datasource/InfoDaoDataSource::&#60;init&#62; &rarr; KILLED<br/>
+
+2. createInfoDao : replaced return value with null for control/Search::createInfoDao &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        return new InfoDaoDataSource(ds);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_94'/>
+94
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_94'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_95'/>
+95
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_95'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_96'/>
+96
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_96'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    /**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_97'/>
+97
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_97'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     * Serializer for a single ProductBean with cart quantity.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_98'/>
+98
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_98'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>     */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_99'/>
+99
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_99'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static class SingleProductBeanSerializer implements JsonSerializer&#60;ProductBean&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_100'/>
+100
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_100'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Cart cart;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_101'/>
+101
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_101'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final IInfoDao infoDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_102'/>
+102
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_102'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_103'/>
+103
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_103'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        public SingleProductBeanSerializer(Cart cart, IInfoDao infoDao) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_104'/>
+104
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_104'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.cart = cart;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_105'/>
+105
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_105'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.infoDao = infoDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_106'/>
+106
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_106'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_107'/>
+107
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_107'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_108'/>
+108
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_108'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_109'/>
+109
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_109'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JsonElement serialize(ProductBean product, Type typeOfSrc, JsonSerializationContext context) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_110'/>
+110
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_110'>1</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            JsonObject jsonObject = new JsonObject();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_111'/>
+111
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_111'>3</a>
+<span>
+
+1. serialize : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+2. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+3. serialize : removed call to model/bean/ProductBean::getCodice &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            jsonObject.addProperty(&#34;codice&#34;, product.getCodice());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_112'/>
+112
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_112'>2</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; SURVIVED<br/>
+
+2. serialize : removed call to model/bean/ProductBean::getNome &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>            jsonObject.addProperty(&#34;nome&#34;, product.getNome());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_113'/>
+113
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_113'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_114'/>
+114
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_114'>1</a>
+<span>
+
+1. serialize : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (infoDao != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_115'/>
+115
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_115'>2</a>
+<span>
+
+1. serialize : removed call to model/dao/IInfoDao::doRetrieveByKey &rarr; KILLED<br/>
+
+2. serialize : removed call to model/bean/ProductBean::getCodice &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    var info = infoDao.doRetrieveByKey(product.getCodice());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_116'/>
+116
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_116'>1</a>
+<span>
+
+1. serialize : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (info != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_117'/>
+117
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_117'>3</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+2. serialize : removed call to java/lang/Double::valueOf &rarr; KILLED<br/>
+
+3. serialize : removed call to model/bean/InfoBean::getCosto &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        jsonObject.addProperty(&#34;costo&#34;, info.getCosto());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_118'/>
+118
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_118'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_119'/>
+119
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_119'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_120'/>
+120
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_120'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>            } catch (SQLException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_121'/>
+121
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_121'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // ignore</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_122'/>
+122
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_122'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_123'/>
+123
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_123'>3</a>
+<span>
+
+1. serialize : removed call to model/Cart::getProductQuantity &rarr; KILLED<br/>
+
+2. serialize : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+3. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            jsonObject.addProperty(&#34;cartQuantity&#34;, cart.getProductQuantity(product));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_124'/>
+124
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_124'>1</a>
+<span>
+
+1. serialize : replaced return value with null for control/Search$SingleProductBeanSerializer::serialize &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return jsonObject;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_125'/>
+125
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_125'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_126'/>
+126
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_126'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_127'/>
+127
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_127'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_128'/>
+128
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_128'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public static class ProductBeanWithCartQuantity implements JsonSerializer&#60;Collection&#60;ProductBean&#62;&#62; {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_129'/>
+129
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_129'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final Cart cart;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_130'/>
+130
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_130'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        private final IInfoDao infoDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_131'/>
+131
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_131'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_132'/>
+132
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_132'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        public ProductBeanWithCartQuantity(Cart cart, IInfoDao infoDao) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_133'/>
+133
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_133'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.cart = cart;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_134'/>
+134
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_134'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            this.infoDao = infoDao;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_135'/>
+135
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_135'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_136'/>
+136
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_136'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_137'/>
+137
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_137'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_138'/>
+138
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_138'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        public JsonElement serialize(Collection&#60;ProductBean&#62; src, Type typeOfSrc, JsonSerializationContext context) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_139'/>
+139
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_139'>1</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonArray::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            JsonArray jsonArray = new JsonArray();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_140'/>
+140
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_140'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            for (ProductBean product : src) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_141'/>
+141
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_141'>1</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::&#60;init&#62; &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                JsonObject jsonObject = new JsonObject();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_142'/>
+142
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_142'>3</a>
+<span>
+
+1. serialize : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+2. serialize : removed call to model/bean/ProductBean::getCodice &rarr; KILLED<br/>
+
+3. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                jsonObject.addProperty(&#34;codice&#34;, product.getCodice());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_143'/>
+143
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_143'>2</a>
+<span>
+
+1. serialize : removed call to model/bean/ProductBean::getNome &rarr; SURVIVED<br/>
+
+2. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>                jsonObject.addProperty(&#34;nome&#34;, product.getNome());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_144'/>
+144
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_144'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                try {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_145'/>
+145
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_145'>1</a>
+<span>
+
+1. serialize : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    if (infoDao != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_146'/>
+146
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_146'>2</a>
+<span>
+
+1. serialize : removed call to model/dao/IInfoDao::doRetrieveByKey &rarr; KILLED<br/>
+
+2. serialize : removed call to model/bean/ProductBean::getCodice &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        var info = infoDao.doRetrieveByKey(product.getCodice());</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_147'/>
+147
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_147'>1</a>
+<span>
+
+1. serialize : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                        if (info != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_148'/>
+148
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_148'>3</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+2. serialize : removed call to java/lang/Double::valueOf &rarr; KILLED<br/>
+
+3. serialize : removed call to model/bean/InfoBean::getCosto &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                            jsonObject.addProperty(&#34;costo&#34;, info.getCosto());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_149'/>
+149
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_149'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_150'/>
+150
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_150'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    }</span></pre></td></tr>
+
+
+<tr>
+<td class='uncovered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_151'/>
+151
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_151'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='uncovered'><pre><span  class=''>                } catch (SQLException e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_152'/>
+152
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_152'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                    // ignore</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_153'/>
+153
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_153'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_154'/>
+154
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_154'>3</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED<br/>
+
+2. serialize : removed call to model/Cart::getProductQuantity &rarr; KILLED<br/>
+
+3. serialize : removed call to java/lang/Integer::valueOf &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                jsonObject.addProperty(&#34;cartQuantity&#34;, cart.getProductQuantity(product));</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_155'/>
+155
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_155'>1</a>
+<span>
+
+1. serialize : removed call to com/google/gson/JsonArray::add &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                jsonArray.add(jsonObject);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_156'/>
+156
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_156'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_157'/>
+157
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_157'>1</a>
+<span>
+
+1. serialize : replaced return value with null for control/Search$ProductBeanWithCartQuantity::serialize &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            return jsonArray;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_158'/>
+158
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_158'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_159'/>
+159
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_159'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@352b4cf_160'/>
+160
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_160'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testValidQueryExecutesSearch()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getParameter &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_27'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testInvalidIdFormatError()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getParameter &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_28'>28</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_28'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionTriggersError()]</span></span> removed call to control/Search::getServletContext &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to javax/servlet/ServletContext::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_29'>29</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_29'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionTriggersError()]</span></span> removed call to control/Search::createProductDao &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_30'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to control/Search::createInfoDao &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_33'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionTriggersError()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testExistingCartReused()]</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testNewCartCreatedWhenNull()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_36'>36</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_36'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testNewCartCreatedWhenNull()]</span></span> removed call to model/Cart::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_37'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testNewCartCreatedWhenNull()]</span></span> removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testNewCartCreatedWhenNull()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_40'>40</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_40'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testInvalidIdFormatError()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_41'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to model/dao/IProductDao::doRetrieveByKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testInvalidIdFormatError()]</span></span> removed call to java/lang/Integer::parseInt &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_43'>43</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_43'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to javax/servlet/http/HttpServletResponse::setContentType &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_44'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to javax/servlet/http/HttpServletResponse::setCharacterEncoding &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_45'>45</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_45'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to com/google/gson/GsonBuilder::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to control/Search$SingleProductBeanSerializer::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to com/google/gson/GsonBuilder::registerTypeAdapter &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_47'>47</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_47'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to com/google/gson/GsonBuilder::create &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_48'>48</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_48'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to com/google/gson/Gson::toJson &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_49'>49</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_49'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to javax/servlet/http/HttpServletResponse::getWriter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/io/PrintWriter::write &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_54'>54</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_54'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to model/dao/IProductDao::searchByName &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_57'>57</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_57'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getHeader &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_58'>58</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_58'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_59'>59</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_59'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to javax/servlet/http/HttpServletResponse::setContentType &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_60'>60</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_60'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxReturnsJson()]</span></span> removed call to javax/servlet/http/HttpServletResponse::setCharacterEncoding &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_61'>61</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_61'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to com/google/gson/GsonBuilder::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_62'>62</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_62'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to com/google/gson/GsonBuilder::registerTypeAdapter &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to control/Search$ProductBeanWithCartQuantity::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to java/lang/Object::getClass &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_63'>63</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_63'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to com/google/gson/GsonBuilder::create &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_64'>64</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_64'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to com/google/gson/Gson::toJson &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_65'>65</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_65'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxZeroResults()]</span></span> removed call to java/io/PrintWriter::write &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to javax/servlet/http/HttpServletResponse::getWriter &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_67'>67</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_67'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testValidQueryExecutesSearch()]</span></span> removed call to javax/servlet/http/HttpServletRequest::setAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_68'>68</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_68'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testEmptyStringQuery()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getRequestDispatcher &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_69'>69</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_69'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testEmptyStringQuery()]</span></span> removed call to javax/servlet/RequestDispatcher::forward &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_72'>72</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_72'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpServletRequest::setAttribute &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_73'>73</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_73'/> 
+
+<p class='NO_COVERAGE'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>none</span></span> removed call to javax/servlet/http/HttpServletResponse::sendError &rarr; NO_COVERAGE</p> <p class='NO_COVERAGE'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doGet<br/><b>Killed by : </b>none</span></span> removed call to java/sql/SQLException::getMessage &rarr; NO_COVERAGE</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_79'>79</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_79'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doPost<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()]</span></span> removed call to control/Search::doGet &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_86'>86</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_86'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createProductDao<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/datasource/ProductDaoDataSource::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createProductDao<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchReturnsResultsForNoMatch()]</span></span> replaced return value with null for control/Search::createProductDao &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_93'>93</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_93'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>createInfoDao<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/datasource/InfoDaoDataSource::&#60;init&#62; &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>createInfoDao<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> replaced return value with null for control/Search::createInfoDao &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_110'>110</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_110'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()]</span></span> removed call to com/google/gson/JsonObject::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_111'>111</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_111'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/ProductBean::getCodice &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_112'>112</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_112'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>none</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/ProductBean::getNome &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_114'>114</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_114'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_115'>115</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_115'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/dao/IInfoDao::doRetrieveByKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/ProductBean::getCodice &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_116'>116</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_116'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_117'>117</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_117'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Double::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/InfoBean::getCosto &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_123'>123</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_123'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/Cart::getProductQuantity &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_124'>124</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_124'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> replaced return value with null for control/Search$SingleProductBeanSerializer::serialize &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_139'>139</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_139'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxZeroResults()]</span></span> removed call to com/google/gson/JsonArray::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_141'>141</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_141'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::&#60;init&#62; &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_142'>142</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_142'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/ProductBean::getCodice &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_143'>143</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_143'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>none</span></span> removed call to model/bean/ProductBean::getNome &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_145'>145</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_145'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_146'>146</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_146'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/dao/IInfoDao::doRetrieveByKey &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/ProductBean::getCodice &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_147'>147</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_147'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_148'>148</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_148'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Double::valueOf &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/bean/InfoBean::getCosto &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_154'>154</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_154'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonObject::addProperty &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to model/Cart::getProductQuantity &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to java/lang/Integer::valueOf &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_155'>155</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_155'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]</span></span> removed call to com/google/gson/JsonArray::add &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@352b4cf_157'>157</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@352b4cf_157'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>serialize<br/><b>Killed by : </b>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxZeroResults()]</span></span> replaced return value with null for control/Search$ProductBeanWithCartQuantity::serialize &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+
+<li class='mutator'>EMPTY_RETURNS</li>
+
+<li class='mutator'>FALSE_RETURNS</li>
+
+<li class='mutator'>INCREMENTS</li>
+
+<li class='mutator'>INVERT_NEGS</li>
+
+<li class='mutator'>MATH</li>
+
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+
+<li class='mutator'>NULL_RETURNS</li>
+
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+
+<li class='mutator'>TRUE_RETURNS</li>
+
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxWithIdReturnsJsonProduct()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testIdMaxValueBoundary()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testIdParamReturnsSingleProduct()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testIdZeroBoundary()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchByIdReturnsProductJson()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchReturnsResultsForNoMatch()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchFindsMatchingProducts()] (5 ms)</li><li>integration.ControllerModelIntegrationTest.[engine:junit-jupiter]/[class:integration.ControllerModelIntegrationTest]/[nested-class:SearchControllerIntegrationTests]/[method:testSearchAjaxReturnsJson()] (6 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testNullDataSourceError()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testSqlExceptionTriggersError()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testEmptyStringQuery()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ExceptionHandlingTests]/[method:testInvalidIdFormatError()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testQueryWithSpecialCharacters()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testQueryWithNoResultsReturnsEmpty()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testSingleCharacterQuery()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testValidQueryExecutesSearch()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testNormalRequestForwards()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostDelegatesToDoGet()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testNewCartCreatedWhenNull()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:DoPostTests]/[method:testDoPostWithAjaxReturnsJson()] (0 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:BoundaryValueTests]/[method:testVeryLongQueryString()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testNullQueryParameter()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:QueryProcessingTests]/[method:testQueryWithResultsDisplaysResults()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:LoopBoundaryTests]/[method:testNoResultsNoLoopExecution()] (2 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:LoopBoundaryTests]/[method:testSingleResultOneIteration()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:ResponseTypeTests]/[method:testAjaxReturnsJson()] (1 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:LoopBoundaryTests]/[method:testMultipleResultsMultipleIterations()] (2 ms)</li><li>control.SearchTest.[engine:junit-jupiter]/[class:control.SearchTest]/[nested-class:SessionCartTests]/[method:testExistingCartReused()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testZeroSearchResults()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testDoPostDelegatesToDoGet()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxZeroResults()] (1 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testMultipleSearchResults()] (2 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testSingleSearchResult()] (2 ms)</li><li>control.LoopBoundaryTests.[engine:junit-jupiter]/[class:control.LoopBoundaryTests]/[nested-class:SearchLoopTests]/[method:testAjaxMultipleResults()] (26 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.3
+
+</body>
+</html>

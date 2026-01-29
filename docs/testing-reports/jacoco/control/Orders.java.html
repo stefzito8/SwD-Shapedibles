@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Orders.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">Orders.java</span></div><h1>Orders.java</h1><pre class="source lang-java linenums">package control;
+
+import model.bean.ContainBean;
+import model.bean.OrderBean;
+import model.dao.IContainDao;
+import model.dao.IOrderDao;
+import model.datasource.ContainDaoDataSource;
+import model.datasource.OrderDaoDataSource;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.Serial;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
+/**
+ * Servlet implementation class Orders
+ */
+@WebServlet(&quot;/Orders&quot;)
+public class Orders extends HttpServlet {
+	@Serial
+	private static final long serialVersionUID = 1L;
+       
+<span class="fc" id="L37">	DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-mm-dd&quot;);</span>
+<span class="fc" id="L38">	LocalDateTime now = LocalDateTime.now();</span>
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Orders() {
+<span class="fc" id="L43">        super();</span>
+<span class="fc" id="L44">    }</span>
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L50">		doPost(request, response);</span>
+<span class="fc" id="L51">	}</span>
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L57">        IOrderDao orderDao = null;</span>
+<span class="fc" id="L58">		IContainDao containDao = null;</span>
+<span class="fc" id="L59">		DataSource ds= (DataSource) getServletContext().getAttribute(&quot;DataSource&quot;);</span>
+<span class="fc" id="L60">		orderDao = new OrderDaoDataSource(ds);</span>
+<span class="fc" id="L61">		containDao = new ContainDaoDataSource(ds);</span>
+<span class="fc" id="L62">		String action = request.getParameter(&quot;action&quot;);</span>
+		
+	
+		try {
+			
+<span class="fc" id="L67">			String sort = request.getParameter(&quot;sort&quot;);</span>
+			/*Enumeration&lt;String&gt; temp =  request.getParameterNames();
+			if(temp!=null) {
+			if(attributeExists(temp)) {
+				if(!action.equalsIgnoreCase(&quot;orderDetails&quot;)){
+				request.removeAttribute(&quot;orders&quot;);
+				request.setAttribute(&quot;orders&quot;, orderDao.doRetrieveAll(sort)); 
+				}
+			}	
+			} else {
+				request.removeAttribute(&quot;orders&quot;);
+				request.setAttribute(&quot;orders&quot;, orderDao.doRetrieveAll(sort)); 	
+			}*/
+<span class="fc" id="L80">			request.removeAttribute(&quot;orders&quot;);</span>
+<span class="fc" id="L81">			request.setAttribute(&quot;orders&quot;, orderDao.doRetrieveAll(sort)); </span>
+			
+<span class="fc bfc" id="L83" title="All 2 branches covered.">		if(action != null){</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">			if(action.equalsIgnoreCase(&quot;UserFilter&quot;)) {</span>
+<span class="fc" id="L85">				String user = request.getParameter(&quot;user&quot;);</span>
+<span class="fc" id="L86">				request.removeAttribute(&quot;orders&quot;);</span>
+<span class="fc" id="L87">				request.setAttribute(&quot;orders&quot;, orderDao.doRetrieveByUser(user));</span>
+				
+<span class="fc bfc" id="L89" title="All 2 branches covered.">			}  else if(action.equalsIgnoreCase(&quot;DateFilter&quot;)) {</span>
+<span class="fc" id="L90">				Date dateMax = Date.valueOf(request.getParameter(&quot;dateMax&quot;));</span>
+<span class="fc" id="L91">				Date dateMin = Date.valueOf(request.getParameter(&quot;dateMin&quot;));</span>
+<span class="fc" id="L92">				Collection&lt;OrderBean&gt; orders = orderDao.doRetrieveAll(&quot;&quot;);</span>
+<span class="fc" id="L93">				Iterator&lt;?&gt; it = orders.iterator();</span>
+<span class="fc" id="L94">				Collection&lt;OrderBean&gt; orderNew= new LinkedList&lt;OrderBean&gt;();</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">				while(it.hasNext()) {</span>
+<span class="fc" id="L96">					OrderBean bean = (OrderBean) it.next();</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">					if(isRightDate(Date.valueOf(bean.getDataOrdine()), dateMin, dateMax)) orderNew.add(bean);</span>
+<span class="fc" id="L98">				}</span>
+<span class="fc" id="L99">				request.removeAttribute(&quot;orders&quot;);</span>
+<span class="fc" id="L100">				request.setAttribute(&quot;orders&quot;, orderNew);</span>
+				
+<span class="fc bfc" id="L102" title="All 2 branches covered.">		    }  else if(action.equalsIgnoreCase(&quot;User-DateFilter&quot;)) {</span>
+<span class="fc" id="L103">		    	String user = request.getParameter(&quot;user&quot;);</span>
+<span class="fc" id="L104">		    	Date dateMax = Date.valueOf(request.getParameter(&quot;dateMax&quot;));</span>
+<span class="fc" id="L105">				Date dateMin = Date.valueOf(request.getParameter(&quot;dateMin&quot;));</span>
+<span class="fc" id="L106">		    	Collection&lt;OrderBean&gt; orderUs = orderDao.doRetrieveByUser(user);</span>
+<span class="fc" id="L107">		    	Iterator&lt;?&gt; it = orderUs.iterator();</span>
+<span class="fc" id="L108">				Collection&lt;OrderBean&gt; orderNew= new LinkedList&lt;OrderBean&gt;();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">				while(it.hasNext()) {</span>
+<span class="fc" id="L110">					OrderBean bean = (OrderBean) it.next();</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">					if(isRightDate(Date.valueOf(bean.getDataOrdine()), dateMin, dateMax)) orderNew.add(bean);</span>
+<span class="fc" id="L112">				}</span>
+<span class="fc" id="L113">				request.removeAttribute(&quot;orders&quot;);</span>
+<span class="fc" id="L114">				request.setAttribute(&quot;orders&quot;, orderNew);</span>
+<span class="fc" id="L115">	        }</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">			else if(action.equalsIgnoreCase(&quot;orderDetails&quot;)) {</span>
+<span class="fc" id="L117">				int orderNum = Integer.parseInt(request.getParameter(&quot;orderNum&quot;));</span>
+<span class="fc" id="L118">				Collection&lt;ContainBean&gt; items = containDao.doRetrieveByOrder(orderNum);</span>
+<span class="fc" id="L119">				request.removeAttribute(&quot;Details&quot;);</span>
+<span class="fc" id="L120">				request.setAttribute(&quot;Details&quot;, items);</span>
+			}
+		}
+		
+		
+<span class="fc" id="L125">		} catch(SQLException e) {</span>
+<span class="fc" id="L126">			request.setAttribute(&quot;error&quot;,  &quot;Error: c'è stato un errore nel elaborazione degli ordini.&quot;);</span>
+<span class="fc" id="L127">	 		response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L128">		} </span>
+		
+<span class="fc" id="L130">			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/admin/orderHistory.jsp&quot;);</span>
+<span class="fc" id="L131">			dispatcher.forward(request, response);</span>
+<span class="fc" id="L132">	}</span>
+
+
+	private boolean isRightDate(Date date, Date dateMin, Date dateMax) 
+	{
+<span class="fc bfc" id="L137" title="All 4 branches covered.">		if( date.compareTo(dateMin)==0 || date.compareTo(dateMin)&gt;0 ) </span>
+		{
+<span class="fc bfc" id="L139" title="All 4 branches covered.">			if( date.compareTo(dateMax)==0 || date.compareTo(dateMax)&lt;0 ) return true;</span>
+<span class="fc" id="L140">		    else return false;</span>
+<span class="fc" id="L141">		} else return false;</span>
+	}
+	
+	private boolean attributeExists(Enumeration&lt;String&gt; en) 
+	{
+<span class="nc" id="L146">		boolean answer=false;</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">		while(en.hasMoreElements()) </span>
+		{
+<span class="nc" id="L149">			System.out.println(en.nextElement());</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">			if(en.nextElement().equals(&quot;action&quot;)) answer=true;</span>
+		}
+<span class="nc" id="L152">		return answer;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

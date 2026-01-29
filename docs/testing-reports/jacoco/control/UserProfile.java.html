@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserProfile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">UserProfile.java</span></div><h1>UserProfile.java</h1><pre class="source lang-java linenums">package control;
+
+import model.bean.ContainBean;
+import model.bean.OrderBean;
+import model.bean.UserBean;
+import model.dao.IContainDao;
+import model.dao.IOrderDao;
+import model.dao.IUserDao;
+import model.datasource.ContainDaoDataSource;
+import model.datasource.OrderDaoDataSource;
+import model.datasource.UserDaoDataSource;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.Serial;
+import java.sql.SQLException;
+import java.util.Collection;
+
+/**
+ * Servlet implementation class UserProfile
+ */
+@WebServlet(&quot;/UserProfile&quot;)
+public class UserProfile extends HttpServlet {
+	@Serial
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserProfile() {
+<span class="fc" id="L37">        super();</span>
+<span class="fc" id="L38">    }</span>
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L44">		doPost(request, response);</span>
+<span class="fc" id="L45">	}</span>
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L51">        IUserDao userDao = null;</span>
+<span class="fc" id="L52">		IOrderDao orderDao = null;</span>
+<span class="fc" id="L53">		IContainDao containDao = null;</span>
+		
+<span class="fc" id="L55">		DataSource ds= (DataSource) getServletContext().getAttribute(&quot;DataSource&quot;);</span>
+<span class="fc" id="L56">		userDao = createUserDao(ds);</span>
+<span class="fc" id="L57">		orderDao = createOrderDao(ds);</span>
+<span class="fc" id="L58">		containDao= createContainDao(ds);</span>
+		
+<span class="fc" id="L60">		String action = request.getParameter(&quot;action&quot;);</span>
+<span class="fc" id="L61">		UserBean user = (UserBean) request.getSession().getAttribute(&quot;LoggedUser&quot;);</span>
+		
+<span class="fc bfc" id="L63" title="All 2 branches covered.">		if(user==null) {request.setAttribute(&quot;error&quot;, &quot;Errore: Non c'è alcun utente loggato&quot;);}</span>
+		
+		try {
+			
+			
+<span class="fc" id="L68">			Collection&lt;OrderBean&gt; ordini =  orderDao.doRetrieveByUser(user.getUsername());</span>
+			
+<span class="fc bfc" id="L70" title="All 2 branches covered.">			if(action != null){</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">				if(action.equalsIgnoreCase(&quot;orderDetails&quot;)) {</span>
+<span class="fc" id="L72">					int orderNum = Integer.parseInt(request.getParameter(&quot;orderNum&quot;));</span>
+<span class="fc" id="L73">					String orderUser = request.getParameter(&quot;orderUser&quot;);</span>
+<span class="fc" id="L74">					Collection&lt;ContainBean&gt; items = containDao.doRetrieveByOrder(orderNum);</span>
+<span class="fc" id="L75">					request.removeAttribute(&quot;Details&quot;);</span>
+<span class="fc" id="L76">					request.setAttribute(&quot;Details&quot;, items);</span>
+				}
+			}
+<span class="fc" id="L79">			} catch(SQLException e) {</span>
+<span class="fc" id="L80">				request.setAttribute(&quot;error&quot;,  &quot;Error: c'è stato un errore nel elaborazione dei tuoi dati.&quot;);</span>
+<span class="fc" id="L81">		 		response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L82">			}</span>
+		
+		
+		try {
+<span class="fc" id="L86">			request.removeAttribute(&quot;OrdersLoggedUser&quot;);</span>
+<span class="fc" id="L87">			request.setAttribute(&quot;OrdersLoggedUser&quot;, orderDao.doRetrieveByUser(user.getUsername()));</span>
+<span class="fc" id="L88">		} catch (SQLException e) {</span>
+<span class="fc" id="L89">			request.setAttribute(&quot;error&quot;,  &quot;Error: c'è stato un errore nel recupero delle informazioni del profilo utente.&quot;);</span>
+<span class="fc" id="L90">	 		response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L91">		}</span>
+		
+<span class="fc" id="L93">		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/pages/userProfile.jsp&quot;);</span>
+<span class="fc" id="L94">		dispatcher.forward(request, response);</span>
+<span class="fc" id="L95">	}</span>
+
+	/**
+	 * Factory method for creating UserDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IUserDao implementation
+	 */
+	protected IUserDao createUserDao(DataSource ds) {
+<span class="nc" id="L103">		return new UserDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for creating OrderDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IOrderDao implementation
+	 */
+	protected IOrderDao createOrderDao(DataSource ds) {
+<span class="nc" id="L112">		return new OrderDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for creating ContainDao. Can be overridden for testing.
+	 * @param ds DataSource to use
+	 * @return IContainDao implementation
+	 */
+	protected IContainDao createContainDao(DataSource ds) {
+<span class="nc" id="L121">		return new ContainDaoDataSource(ds);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

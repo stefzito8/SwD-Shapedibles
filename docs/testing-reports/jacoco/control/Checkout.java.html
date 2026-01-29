@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Checkout.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">control</a> &gt; <span class="el_source">Checkout.java</span></div><h1>Checkout.java</h1><pre class="source lang-java linenums">package control;
+
+import model.Cart;
+import model.bean.*;
+import model.dao.*;
+import model.datasource.*;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.Serial;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Servlet implementation class Checkout
+ */
+@WebServlet(&quot;/Checkout&quot;)
+public class Checkout extends HttpServlet {
+	@Serial
+	private static final long serialVersionUID = 1L;
+	
+<span class="fc" id="L32">	DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;yyyy-mm-dd&quot;);</span>
+<span class="fc" id="L33">	LocalDateTime now = LocalDateTime.now();</span>
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Checkout() {
+<span class="fc" id="L39">        super();</span>
+<span class="fc" id="L40">    }</span>
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L46">		doPost(request, response);</span>
+<span class="fc" id="L47">	}</span>
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L53">		OrderBean bean = new OrderBean();</span>
+<span class="fc" id="L54">        Cart cart = (Cart) request.getSession().getAttribute(&quot;cart&quot;);</span>
+<span class="fc" id="L55">        UserBean user = (UserBean) request.getSession().getAttribute(&quot;LoggedUser&quot;);</span>
+<span class="fc" id="L56">	 	String action = request.getParameter(&quot;action&quot;);</span>
+	 	
+	 	// Redirect to login if user is not authenticated
+<span class="fc bfc" id="L59" title="All 2 branches covered.">	 	if (user == null) {</span>
+<span class="fc" id="L60">	 		response.sendRedirect(&quot;Login&quot;);</span>
+<span class="fc" id="L61">	 		return;</span>
+	 	}
+	 	
+<span class="fc" id="L64">		DataSource ds= (DataSource) getServletContext().getAttribute(&quot;DataSource&quot;);</span>
+<span class="fc" id="L65">        IProductDao productDao = createProductDao(ds);</span>
+<span class="fc" id="L66">        IOrderDao orderDao = createOrderDao(ds);</span>
+<span class="fc" id="L67">        IAddressDao addressDao = createAddressDao(ds);</span>
+<span class="fc" id="L68">        IInfoDao infoDao = createInfoDao(ds);</span>
+<span class="fc" id="L69">        IContainDao containDao = createContainDao(ds); </span>
+		
+<span class="fc" id="L71">        int max = 10000;</span>
+<span class="fc" id="L72">        int min = 1;</span>
+<span class="fc" id="L73">        int range = max - min + 1;</span>
+				
+		try {
+			
+<span class="fc" id="L77">			 Collection&lt;AddressBean&gt; addresses = addressDao.doRetrieveByUser(user.getUsername());</span>
+			
+<span class="fc" id="L79">			 request.removeAttribute(&quot;addresses&quot;);</span>
+<span class="fc" id="L80">			 request.setAttribute(&quot;addresses&quot;, addresses);</span>
+
+			
+				
+<span class="fc" id="L84">				System.out.println(&quot; username: &quot; + user.getUsername());</span>
+<span class="fc" id="L85">				bean.setUtente(user.getUsername());</span>
+<span class="fc" id="L86">				bean.setStato(&quot;in checkout&quot;);</span>
+<span class="fc" id="L87">				bean.setDataOrdine(now.toString().substring(0,10));</span>
+				
+	 	
+				
+					
+<span class="fc" id="L92">				String address = request.getParameter(&quot;address&quot;);</span>
+<span class="fc" id="L93">				System.out.println(address);</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">				if(address !=&quot;&quot; &amp;&amp; address!= null) bean.setIndirizzo(address);</span>
+				
+<span class="fc bfc" id="L96" title="All 2 branches covered.">				if(bean.getIndirizzo()==&quot; &quot;) </span>
+				{ 
+<span class="fc" id="L98">					int codice=(int) (Math.random() * range) - min;</span>
+<span class="fc" id="L99">					bean.setCodice(codice);</span>
+<span class="fc" id="L100">					request.getSession().removeAttribute(&quot;order&quot;);</span>
+<span class="fc" id="L101">					request.getSession().setAttribute(&quot;order&quot;, bean);</span>
+					//System.out.println(&quot;codice:&quot; + codice + &quot; &quot; + request.getAttribute(&quot;ordersCode&quot;) + &quot; &quot; +bean.getCodice());
+<span class="fc" id="L103">				}</span>
+				else 
+				{	
+<span class="fc" id="L106">					OrderBean temp = (OrderBean) request.getSession().getAttribute(&quot;order&quot;);</span>
+<span class="fc" id="L107">					bean.setCodice(temp.getCodice());</span>
+				}
+				
+<span class="fc" id="L110">				double saldotot=0.0;</span>
+			 	
+<span class="fc" id="L112">				List&lt;ProductBean&gt; prodcart = (List&lt;ProductBean&gt;) cart.getProducts();</span>
+<span class="fc" id="L113">				List&lt;ContainBean&gt; containList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">					for(ProductBean beancart: prodcart) {</span>
+<span class="fc" id="L115">						    ContainBean contain= new ContainBean();</span>
+<span class="fc" id="L116">							InfoBean infob = infoDao.doRetrieveByKey(beancart.getCodice());</span>
+<span class="fc" id="L117">							saldotot += infob.getCosto() * cart.getProductQuantity(beancart);</span>
+<span class="fc" id="L118">							contain.setCodiceProdotto(beancart.getCodice());</span>
+<span class="fc" id="L119">							contain.setCodiceOrdine(bean.getCodice());</span>
+<span class="fc" id="L120">							contain.setQuantità(cart.getProductQuantity(beancart));</span>
+<span class="fc" id="L121">							containList.add(contain);</span>
+<span class="fc" id="L122">					}</span>
+<span class="fc" id="L123">				bean.setSaldoTotale(saldotot);	</span>
+<span class="fc" id="L124">				request.removeAttribute(&quot;order&quot;);</span>
+<span class="fc" id="L125">				request.setAttribute(&quot;order&quot;, bean);</span>
+			
+<span class="fc" id="L127">				request.removeAttribute(&quot;containList&quot;);</span>
+<span class="fc" id="L128">				request.setAttribute(&quot;containList&quot;, containList);</span>
+				
+				
+				
+					
+<span class="fc bfc" id="L133" title="All 2 branches covered.">				if(action != null){</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">					if(action.equalsIgnoreCase(&quot;confirm&quot;)) {</span>
+<span class="fc" id="L135">						bean.setStato(&quot;completato&quot;);</span>
+<span class="fc" id="L136">						orderDao.doSave(bean);	</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">						for(ContainBean conbean: containList) {</span>
+<span class="fc" id="L138">							InfoBean info= infoDao.doRetrieveByKey(conbean.getCodiceProdotto());</span>
+<span class="fc" id="L139">							ProductBean product = productDao.doRetrieveByName(info.getNome());</span>
+<span class="fc" id="L140">							infoDao.doUpdateQuantity(info.getCodice(),info.getDisponibilità() - cart.getProductQuantity(product));</span>
+<span class="fc" id="L141">							containDao.doSave(conbean);</span>
+<span class="fc" id="L142">						}</span>
+<span class="fc" id="L143">						cart.ClearCart();</span>
+		        }
+			  }
+		   
+<span class="fc" id="L147">		   RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/pages/checkout.jsp&quot;);</span>
+<span class="fc" id="L148">		   dispatcher.forward(request, response);</span>
+		  
+		   
+<span class="fc" id="L151">	 	} catch(SQLException e) </span>
+	 	{
+<span class="fc" id="L153">	 		request.setAttribute(&quot;error&quot;,  &quot;Error: c'è stato un errore nel elaborazione del ordine, assicurarsi di inserire i campi corretamente.&quot;);</span>
+<span class="fc" id="L154">	 		response.sendError(500, &quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L155">	 		System.out.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L156">	 	}</span>
+		   
+	 	
+<span class="fc" id="L159">	}</span>
+
+	/**
+	 * Factory method for ProductDao - can be overridden in tests.
+	 */
+	protected IProductDao createProductDao(DataSource ds) {
+<span class="nc" id="L165">		return new ProductDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for OrderDao - can be overridden in tests.
+	 */
+	protected IOrderDao createOrderDao(DataSource ds) {
+<span class="nc" id="L172">		return new OrderDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for AddressDao - can be overridden in tests.
+	 */
+	protected IAddressDao createAddressDao(DataSource ds) {
+<span class="nc" id="L179">		return new AddressDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for InfoDao - can be overridden in tests.
+	 */
+	protected IInfoDao createInfoDao(DataSource ds) {
+<span class="nc" id="L186">		return new InfoDaoDataSource(ds);</span>
+	}
+
+	/**
+	 * Factory method for ContainDao - can be overridden in tests.
+	 */
+	protected IContainDao createContainDao(DataSource ds) {
+<span class="nc" id="L193">		return new ContainDaoDataSource(ds);</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

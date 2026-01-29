@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=windows-1252">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>AuthenticationFilter.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package filter;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import model.bean.UserBean;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.*;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServletRequest;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpServletResponse;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import javax.servlet.http.HttpSession;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import java.io.IOException;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class AuthenticationFilter implements Filter {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void init(FilterConfig filterConfig) throws ServletException {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        // Initialization code, if needed</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    @Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            throws IOException, ServletException {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HttpServletRequest httpRequest = (HttpServletRequest) request;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>        HttpServletResponse httpResponse = (HttpServletResponse) response;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_23'/>
+23
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_23'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        HttpSession session = httpRequest.getSession(false);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_25'/>
+25
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_25'>3</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED<br/>
+
+2. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+3. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        boolean isLoggedIn = (session != null &#38;&#38; session.getAttribute(&#34;LoggedUser&#34;) != null);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_26'/>
+26
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_26'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        String loginURI = httpRequest.getContextPath() + &#34;/Login&#34;;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_27'/>
+27
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_27'>2</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED<br/>
+
+2. doFilter : removed call to java/lang/String::equals &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>        boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_28'/>
+28
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_28'>2</a>
+<span>
+
+1. doFilter : removed call to java/lang/String::endsWith &rarr; SURVIVED<br/>
+
+2. doFilter : removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        boolean isLoginPage = httpRequest.getRequestURI().endsWith(&#34;loginView.jsp&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_30'/>
+30
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_30'>3</a>
+<span>
+
+1. doFilter : removed conditional - replaced equality check with false &rarr; SURVIVED<br/>
+
+2. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+3. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>        if (isLoggedIn || isLoginRequest || isLoginPage) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_31'/>
+31
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_31'>4</a>
+<span>
+
+1. doFilter : removed call to java/lang/String::contains &rarr; KILLED<br/>
+
+2. doFilter : removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED<br/>
+
+3. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+4. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (isLoggedIn &#38;&#38; httpRequest.getRequestURI().contains(&#34;/admin/&#34;)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_32'/>
+32
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_32'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                UserBean user = (UserBean) session.getAttribute(&#34;LoggedUser&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_33'/>
+33
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_33'>2</a>
+<span>
+
+1. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+2. doFilter : removed call to model/bean/UserBean::getUserAdmin &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                if (user.getUserAdmin() != 1) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_34'/>
+34
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_34'>2</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED<br/>
+
+2. doFilter : removed call to javax/servlet/http/HttpServletResponse::sendRedirect &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                    httpResponse.sendRedirect(httpRequest.getContextPath() + &#34;/Home&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>                    return;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_37'/>
+37
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_37'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_38'/>
+38
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_38'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/FilterChain::doFilter &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            chain.doFilter(request, response);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        } else {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // FIX: Validazione dell&#39;input prima di metterlo in sessione</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_41'/>
+41
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_41'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String requestURI = httpRequest.getRequestURI();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_42'/>
+42
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_42'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            String contextPath = httpRequest.getContextPath();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_44'/>
+44
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_44'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Controllo di nullit&#224;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            // Controllo che l&#39;URI inizi con il context path della nostra app (evita redirect esterni)</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_46'/>
+46
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_46'>3</a>
+<span>
+
+1. doFilter : removed call to java/lang/String::startsWith &rarr; KILLED<br/>
+
+2. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+3. doFilter : removed conditional - replaced equality check with false &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            if (requestURI != null &#38;&#38; requestURI.startsWith(contextPath)) {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // Rimuove eventuali caratteri di a capo (CRLF) </span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                // per evitare log injection o corruzione degli header se usato successivamente</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_50'/>
+50
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_50'>1</a>
+<span>
+
+1. doFilter : removed call to java/lang/String::replaceAll &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                String safeURI = requestURI.replaceAll(&#34;[\r\n]&#34;, &#34;&#34;);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>                </span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_52'/>
+52
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_52'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                session = httpRequest.getSession();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_53'/>
+53
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_53'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>                session.setAttribute(&#34;redirectURL&#34;, safeURI);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_54'/>
+54
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_54'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>            }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_55'/>
+55
+</td>
+<td class='killed'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_55'>1</a>
+<span>
+
+1. doFilter : removed call to javax/servlet/http/HttpServletResponse::sendRedirect &rarr; KILLED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='killed'>            httpResponse.sendRedirect(loginURI);</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_56'/>
+56
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_56'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>        }</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_57'/>
+57
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_57'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>    }</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_58'/>
+58
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_58'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_59'/>
+59
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_59'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>    // init() and destroy() methods as before</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@da51aa8_60'/>
+60
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_60'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_23'>23</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_23'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testProductDetailsPath_Proceeds()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_25'>25</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_25'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_26'>26</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_26'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_27'>27</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_27'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testProductDetailsPath_Proceeds()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testLoginPath_Proceeds()]</span></span> removed call to java/lang/String::equals &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_28'>28</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_28'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>none</span></span> removed call to java/lang/String::endsWith &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testProductDetailsPath_Proceeds()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_30'>30</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_30'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>none</span></span> removed conditional - replaced equality check with false &rarr; SURVIVED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testProductDetailsPath_Proceeds()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_31'>31</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_31'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed call to java/lang/String::contains &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>4.<span><b>4</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_32'>32</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_32'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to javax/servlet/http/HttpSession::getAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_33'>33</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_33'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to model/bean/UserBean::getUserAdmin &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_34'>34</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_34'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()]</span></span> removed call to javax/servlet/http/HttpServletResponse::sendRedirect &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_38'>38</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_38'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()]</span></span> removed call to javax/servlet/FilterChain::doFilter &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_41'>41</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_41'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getRequestURI &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_42'>42</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_42'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getContextPath &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_46'>46</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_46'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed call to java/lang/String::startsWith &rarr; KILLED</p> <p class='KILLED'><span class='pop'>2.<span><b>2</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> <p class='KILLED'><span class='pop'>3.<span><b>3</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed conditional - replaced equality check with false &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_50'>50</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_50'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testNoSession_ProtectedPath_RedirectsToLogin()]</span></span> removed call to java/lang/String::replaceAll &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_52'>52</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_52'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed call to javax/servlet/http/HttpServletRequest::getSession &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_53'>53</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_53'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testNoSession_ProtectedPath_RedirectsToLogin()]</span></span> removed call to javax/servlet/http/HttpSession::setAttribute &rarr; KILLED</p> 
+</td>
+</tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@da51aa8_55'>55</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@da51aa8_55'/> 
+
+<p class='KILLED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>doFilter<br/><b>Killed by : </b>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()]</span></span> removed call to javax/servlet/http/HttpServletResponse::sendRedirect &rarr; KILLED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+
+<li class='mutator'>CONDITIONALS_BOUNDARY</li>
+
+<li class='mutator'>CONSTRUCTOR_CALLS</li>
+
+<li class='mutator'>EMPTY_RETURNS</li>
+
+<li class='mutator'>FALSE_RETURNS</li>
+
+<li class='mutator'>INCREMENTS</li>
+
+<li class='mutator'>INVERT_NEGS</li>
+
+<li class='mutator'>MATH</li>
+
+<li class='mutator'>NON_VOID_METHOD_CALLS</li>
+
+<li class='mutator'>NULL_RETURNS</li>
+
+<li class='mutator'>PRIMITIVE_RETURNS</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_EQUAL_ELSE</li>
+
+<li class='mutator'>REMOVE_CONDITIONALS_ORDER_ELSE</li>
+
+<li class='mutator'>TRUE_RETURNS</li>
+
+<li class='mutator'>VOID_METHOD_CALLS</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testProductDetailsPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testUnprotectedPath_AlwaysProceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testStaticResources_Proceed()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_UnprotectedPath()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SpecialRequestTests]/[method:testRegisterPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BoundaryValueTests]/[method:testEmptyContextPath()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_AdminPath_True()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BoundaryValueTests]/[method:testUserAdminOne_Admin()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_SessionNull_False()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testAdminUser_UserPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_LoggedUserNull_False()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BoundaryValueTests]/[method:testContextPathWithAppName()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testNoSession_UnprotectedPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testSessionWithoutLoggedUser_ProtectedPath_Redirects()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testNoSession_ProtectedPath_RedirectsToLogin()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_UserPath_True()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_LoggedUserNull_True()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UrlPatternTests]/[method:testLoginPath_Proceeds()] (1 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BranchCoverageTests]/[method:testBranch_SessionNull_True()] (1 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:SessionStateTests]/[method:testSessionWithLoggedUser_UserPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testNonAdminUser_AdminPath_Blocked()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:UserRoleTests]/[method:testAdminUser_AdminPath_Proceeds()] (0 ms)</li><li>filter.AuthenticationFilterTest.[engine:junit-jupiter]/[class:filter.AuthenticationFilterTest]/[nested-class:BoundaryValueTests]/[method:testUserAdminZero_NonAdmin()] (0 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='https://pitest.org'>PIT</a> 1.15.3
+
+</body>
+</html>

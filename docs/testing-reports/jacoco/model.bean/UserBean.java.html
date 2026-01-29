@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swd-shapedibels</a> &gt; <a href="index.source.html" class="el_package">model.bean</a> &gt; <span class="el_source">UserBean.java</span></div><h1>UserBean.java</h1><pre class="source lang-java linenums">package model.bean;
+
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+public class UserBean implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private /*@ spec_public @*/ String username;
+	private /*@ spec_public @*/ String email;
+	private /*@ spec_public @*/ String pass;
+	private /*@ spec_public @*/ String nome_cognome;
+	private /*@ spec_public @*/ String sesso;
+	private /*@ spec_public @*/ String paese;
+	private /*@ spec_public @*/ String data_nascita;
+	private /*@ spec_public @*/ int user_admin;
+	
+	public UserBean()
+<span class="fc" id="L22">	{</span>
+<span class="fc" id="L23">		username= &quot; &quot;;</span>
+<span class="fc" id="L24">		email= &quot; &quot;;</span>
+<span class="fc" id="L25">		pass= &quot; &quot;;</span>
+<span class="fc" id="L26">		nome_cognome= &quot; &quot;;</span>
+<span class="fc" id="L27">		sesso= &quot; &quot;;</span>
+<span class="fc" id="L28">		paese= &quot; &quot;;</span>
+<span class="fc" id="L29">		data_nascita= &quot; &quot;;</span>
+<span class="fc" id="L30">		user_admin= -1;</span>
+<span class="fc" id="L31">	}</span>
+	
+	//@ assignable this.username;
+	public void setUsername(String username) 
+	{
+<span class="fc" id="L36">		this.username=username;</span>
+<span class="fc" id="L37">	}</span>
+
+	//@ assignable this.email;
+	public void setEmail(String email) 
+	{
+<span class="fc" id="L42">		this.email=email;</span>
+<span class="fc" id="L43">	}</span>
+
+	//@ assignable this.pass;
+	public void setPass(String pass) 
+	{
+<span class="fc" id="L48">		this.pass=pass;</span>
+<span class="fc" id="L49">	}</span>
+
+	//@ assignable this.nome_cognome;
+	public void setNomeCognome(String nome_cognome) 
+	{
+<span class="fc" id="L54">		this.nome_cognome=nome_cognome;</span>
+<span class="fc" id="L55">	}</span>
+
+	//@ assignable this.sesso;
+	public void setSesso(String sesso) 
+	{
+<span class="fc" id="L60">		this.sesso=sesso;</span>
+<span class="fc" id="L61">	}</span>
+
+	//@ assignable this.paese;
+	public void setPaese(String paese) 
+	{
+<span class="fc" id="L66">		this.paese=paese;</span>
+<span class="fc" id="L67">	}</span>
+
+	//@ assignable this.data_nascita;
+	public void setDataNascita(String data_nascita) 
+	{
+<span class="fc" id="L72">		this.data_nascita=data_nascita;</span>
+<span class="fc" id="L73">	}</span>
+
+	//@ assignable this.user_admin;
+	public void setUserAdmin(int user_admin) 
+	{
+<span class="fc" id="L78">		this.user_admin=user_admin;</span>
+<span class="fc" id="L79">	}</span>
+	
+	//@ pure
+	public String getUsername()
+	{
+<span class="fc" id="L84">		return username;</span>
+	}
+
+	//@ pure
+	public String getEmail()
+	{
+<span class="fc" id="L90">		return email;</span>
+	}
+
+	//@ pure
+	public String getPass()
+	{
+<span class="fc" id="L96">		return pass;</span>
+	}
+
+	//@ pure
+	public String getNomeCognome()
+	{
+<span class="fc" id="L102">		return nome_cognome;</span>
+	}
+
+	//@ pure
+	public String getSesso()
+	{
+<span class="fc" id="L108">		return sesso;</span>
+	}
+
+	//@ pure
+	public String getPaese()
+	{
+<span class="fc" id="L114">		return paese;</span>
+	}
+
+	//@ pure
+	public String getDataNascita()
+	{
+<span class="fc" id="L120">		return data_nascita;</span>
+	}
+
+	//@ pure
+	public int getUserAdmin()
+	{
+<span class="fc" id="L126">		return user_admin;</span>
+	}
+	
+	//@ pure
+	@Override
+	public String toString() {
+<span class="fc" id="L132">		return username + user_admin;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
